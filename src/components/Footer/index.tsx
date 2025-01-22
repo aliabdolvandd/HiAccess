@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import UsefulLink from "./UsefulLinks";
 const Footer: React.FC = () => {
   return (
     <Box
@@ -29,6 +30,9 @@ const Footer: React.FC = () => {
             ارائه می‌دهیم.
           </Typography>
         </Box>
+
+        {/* Useful links*/}
+        <UsefulLink />
 
         {/* Contact us*/}
         <Box>

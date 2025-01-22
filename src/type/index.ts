@@ -16,3 +16,8 @@ export interface IDiscount {
   discountedPrice: string;
   price?: string;
 }
+
+export interface IUsefulLink {
+  label: string;
+  href: string;
+}
