@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IBanner {
   id: number;
   image: string;
@@ -19,5 +21,10 @@ export interface IDiscount {
 
 export interface IUsefulLink {
   label: string;
+  href: string;
+}
+
+export interface ISocialMedia {
+  icon: ReactNode;
   href: string;
 }

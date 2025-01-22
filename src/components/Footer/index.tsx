@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import UsefulLink from "./UsefulLinks";
+import SocialMediaList from "./SocialMedia";
 const Footer: React.FC = () => {
   return (
     <Box
@@ -31,8 +32,9 @@ const Footer: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Useful links*/}
         <UsefulLink />
+
+        <SocialMediaList />
 
         {/* Contact us*/}
         <Box>
