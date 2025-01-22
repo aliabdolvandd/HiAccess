@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { IBanner } from "./type";
+import { IBanner } from "@/type";
 
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
