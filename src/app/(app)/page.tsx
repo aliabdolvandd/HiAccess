@@ -1,14 +1,17 @@
 "use client";
 
 import Banner from "@/components/Banner/Banner";
-// import ProductList from "@/components/BestDiscount";
-// import BestDiscount from "@/components/BestDiscount";
+import BestDiscountList from "@/components/BestDiscountCard";
+import { Box } from "@mui/material";
 
 export default function Home() {
   return (
     <>
-      <Banner />
-      {/* <ProductList /> */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+        <Banner />
+
+        <BestDiscountList />
+      </Box>
     </>
   );
 }

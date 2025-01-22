@@ -1,20 +1,10 @@
 "use client";
-import React from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Button,
-  Typography,
-  Chip,
-  Box,
-  Rating,
-} from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
+import { Box, Typography } from "@mui/material";
+import BestDiscountCard from "./card";
 import { IDiscount } from "@/type";
 
-const BstDiscount: IDiscount[] = [
+const BestDiscount: IDiscount[] = [
   {
     id: 1,
     image: "/image2.png",
@@ -34,102 +24,38 @@ const BstDiscount: IDiscount[] = [
     price: "1,900,000 تومان",
   },
 ];
-
-const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
+const BestDiscountList: React.FC = () => {
   return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "450px",
-        maxWidth: 330,
-        margin: "auto",
-        boxShadow: 3,
-        position: "relative",
-      }}
-    >
-      {product.discountedPrice && (
-        <Chip
-          label={product.discountedPrice}
-          size="small"
-          color="error"
-          sx={{ fontSize: "12px", position: "absolute", top: 10, right: 10 }}
-        />
-      )}
-      {/* product image*/}
-      <CardMedia
-        component="img"
-        height={240}
-        // backgroundSize="cover"
-        image={product.image}
-        alt={product.title}
-      />
+    <Box sx={{ padding: 3, justifyItems: "right" }}>
+      {/* The title of the list*/}
+      <Typography
+        variant="h5"
+        fontWeight="bold"
+        gutterBottom
+        sx={{ textAlign: "center", mb: 3 }}
+      >
+        لیست بیشترین تخفیف‌ها
+      </Typography>
 
-      {/* card detaie*/}
-      <CardContent>
-        <Typography variant="h6" component="h2">
-          {product.title}
-        </Typography>
-
-        {/* product rate*/}
-        <Rating
-          name="read-only"
-          value={product.rating}
-          precision={0.5}
-          readOnly
-          size="small"
-        />
-
-        {/*price section*/}
-        <Box
-          className="price-container"
-          display="flex"
-          alignItems="center"
-          gap={1}
-          mt={1}
-        >
-          {product.originalPrice && (
-            <Typography
-              variant="body2"
-              sx={{
-                textDecoration: "line-through",
-                color: "gray",
-                fontSize: "0.9rem",
-              }}
-            >
-              {product.originalPrice}
-            </Typography>
-          )}
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", color: "black", fontSize: "1.2rem" }}
-          >
-            {product.price}
-          </Typography>
-        </Box>
-        <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
-          افزودن به سبد
-        </Button>
-      </CardContent>
       <Box
         sx={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          backgroundColor: "white",
-          borderRadius: "50%",
-          width: 32,
-          height: 32,
           display: "flex",
+          flexWrap: "wrap",
           justifyContent: "center",
-          alignItems: "center",
-          boxShadow: 1,
+          gap: 2,
         }}
       >
-        <FavoriteBorderIcon fontSize="small" color="action" />
+        {BestDiscount.map((product) => (
+          <Box
+            key={product.id}
+            sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}
+          >
+            <BestDiscountCard product={product} />
+          </Box>
+        ))}
       </Box>
-    </Card>
+    </Box>
   );
 };
-export default BestDiscountCard;
+
+export default BestDiscountList;
