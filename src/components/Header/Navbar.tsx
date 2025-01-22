@@ -56,9 +56,9 @@ const Navbar: React.FC<NavbarProps> = ({
           borderBottom: "1px solid black",
           width: 600,
           position: "absolute",
-          bottom: -10,
+          bottom: -26,
           px: 15,
-          bgcolor: theme.palette.Complementary.main,
+          bgcolor: "Complementary.main",
         }}
       ></Box>
 

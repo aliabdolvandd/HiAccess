@@ -11,7 +11,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 
-// تعریف نوع navItems
 interface NavItem {
   label: string;
   submenu: string[];
@@ -51,12 +50,17 @@ const Header: React.FC = () => {
     <AppBar
       component="nav"
       sx={{
-        bgcolor: "rgba(255, 255, 255, 0.8)",
+        bgcolor: "rgba(255, 255, 255, 0.2)",
         backdropFilter: "blur(8px)",
         boxShadow: "none",
         pt: 1,
         height: 98,
-        position: "relative",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: theme.zIndex.drawer + 1,
+        "&:hover": { bgcolor: "rgba(255, 255, 255, 0.8)" },
       }}
     >
       <Toolbar
