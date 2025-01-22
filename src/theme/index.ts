@@ -15,7 +15,7 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     neutral?: PaletteOptions["primary"];
     primary?: PaletteOptions["primary"];
-    Complementary1?: PaletteOptions["primary"];
+    Complementary?: PaletteOptions["primary"];
     Complementary2?: PaletteOptions["primary"];
     Accent?: PaletteOptions["primary"];
   }
@@ -35,7 +35,7 @@ const theme = createTheme({
     primary: {
       main: "#3D405B",
     },
-    Complementary1: {
+    Complementary: {
       main: "#D4A373",
     },
     Complementary2: {
