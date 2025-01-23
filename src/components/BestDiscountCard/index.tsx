@@ -3,6 +3,7 @@
 import { Box, Typography } from "@mui/material";
 import BestDiscountCard from "./card";
 import { IDiscount } from "@/type";
+import Link from "next/link";
 
 const products: IDiscount[] = [
   {
@@ -46,12 +47,11 @@ const BestDiscountList: React.FC = () => {
         }}
       >
         {products.map((product) => (
-          <Box
-            key={product.id}
-            sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}
-          >
-            <BestDiscountCard product={product} />
-          </Box>
+          <Link key={product.id} href={`products/${product.id}`}>
+            <Box sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}>
+              <BestDiscountCard product={product} />
+            </Box>
+          </Link>
         ))}
       </Box>
     </Box>
