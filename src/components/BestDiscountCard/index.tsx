@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import BestDiscountCard from "./card";
 import { IDiscount } from "@/type";
 
-const BestDiscount: IDiscount[] = [
+const products: IDiscount[] = [
   {
     id: 1,
     image: "/image2.png",
@@ -45,7 +45,7 @@ const BestDiscountList: React.FC = () => {
           gap: 2,
         }}
       >
-        {BestDiscount.map((product) => (
+        {products.map((product) => (
           <Box
             key={product.id}
             sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}
