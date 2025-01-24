@@ -8,21 +8,16 @@ export const AppLayout = ({ children }: ComponentProps<"div">) => {
     <Box
       sx={{
         display: "flex",
+        // justifyContent: "space-between",
         flexDirection: "column",
         minHeight: "100vh",
       }}
     >
       {/* Header */}
+
       <Header />
 
-      <Box
-        sx={{
-          flex: 1,
-          padding: 2,
-        }}
-      >
-        {children}
-      </Box>
+      <Box>{children}</Box>
 
       {/* Footer */}
       <Footer />
