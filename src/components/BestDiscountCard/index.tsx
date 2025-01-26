@@ -47,7 +47,11 @@ const BestDiscountList: React.FC = () => {
         }}
       >
         {products.map((product) => (
-          <Link key={product.id} href={`products/${product.id}`}>
+          <Link
+            style={{ textDecoration: "none" }}
+            key={product.id}
+            href={`products/${product.id}`}
+          >
             <Box sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}>
               <BestDiscountCard product={product} />
             </Box>
