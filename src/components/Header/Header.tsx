@@ -1,26 +1,36 @@
 "use client";
 
+import React, { useState } from "react";
 import theme from "@/theme";
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import {
-  PersonOutline,
   SearchOutlined,
   ProductionQuantityLimitsOutlined,
+  PersonOutline,
 } from "@mui/icons-material";
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
-import Navbar from "./Navbar";
 import Link from "next/link";
+import Navbar from "./Navbar";
 
-interface NavItem {
-  label: string;
-  submenu: string[];
-}
-
-const navItems: NavItem[] = [
-  { label: "موبایل و تبلت", submenu: ["گوشی موبایل", "تبلت", "سیم کارت"] },
-  { label: "لپ تاپ", submenu: ["لپ تاپ ایسوس", "لپ تاپ لنوو", "لپ تاپ اپل"] },
-  { label: "لوازم جانبی", submenu: ["هدفون", "ماوس", "کیبورد"] },
+const navItems = [
+  {
+    label: "موبایل و تبلت",
+    submenu: ["گوشی موبایل", "تبلت", "سیم کارت", "برند سامسونگ", "برند اپل"],
+  },
+  {
+    label: "لپ تاپ",
+    submenu: [
+      "لپ تاپ ایسوس",
+      "لپ تاپ لنوو",
+      "لپ تاپ اپل",
+      "برند دل",
+      "برند اچ‌پی",
+    ],
+  },
+  {
+    label: "لوازم جانبی",
+    submenu: ["هدفون", "ماوس", "کیبورد", "پاوربانک", "کابل شارژ"],
+  },
   { label: "فعلا مشخص نیست", submenu: [] },
 ];
 
@@ -30,14 +40,11 @@ const iconList = [
   { ariaLabel: "account", Icon: PersonOutline },
 ];
 
-const Header: React.FC = () => {
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
+function Header() {
+  const [anchor, setAnchor] = useState(null);
+  const [currentSubmenu, setCurrentSubmenu] = useState([]);
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLElement>,
-    submenu: string[]
-  ) => {
+  const handleClick = (event, submenu) => {
     setAnchor(event.currentTarget);
     setCurrentSubmenu(submenu);
   };
@@ -82,9 +89,9 @@ const Header: React.FC = () => {
         />
 
         <Box sx={{ display: "flex" }}>
-          {iconList.map((icon, item) => (
+          {iconList.map((icon, index) => (
             <IconButton
-              key={item}
+              key={index}
               aria-label={icon.ariaLabel}
               sx={{
                 color: "black",
@@ -97,6 +104,6 @@ const Header: React.FC = () => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Header;

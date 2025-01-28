@@ -8,7 +8,7 @@ export const AppLayout = ({ children }: ComponentProps<"div">) => {
     <Box
       sx={{
         display: "flex",
-        // justifyContent: "space-between",
+        justifyContent: "space-between",
         flexDirection: "column",
         minHeight: "100vh",
       }}

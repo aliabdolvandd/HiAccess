@@ -1,7 +1,7 @@
-import React from "react";
 import { Box, Stack, Typography, Menu, MenuItem } from "@mui/material";
 import { ExpandMoreRounded } from "@mui/icons-material";
 import theme from "@/theme";
+import Link from "next/link";
 
 interface NavbarProps {
   navItems: { label: string; submenu: string[] }[];
@@ -42,6 +42,8 @@ const Navbar: React.FC<NavbarProps> = ({
                 alignItems: "center",
                 mx: 1,
                 cursor: "pointer",
+                transition: "color 0.3s",
+                "&:hover": { color: theme.palette.primary.main },
               }}
               onClick={(event) => handleClick(event, item.submenu)}
             >
@@ -51,28 +53,48 @@ const Navbar: React.FC<NavbarProps> = ({
           </Box>
         ))}
       </Stack>
-      <Box
-        sx={{
-          borderBottom: "1px solid black",
-          width: 600,
-          position: "absolute",
-          bottom: -26,
-          px: 15,
-          bgcolor: "Complementary.main",
-        }}
-      ></Box>
 
       <Menu
         anchorEl={anchor}
         open={Boolean(anchor)}
         onClose={handleClose}
-        sx={{ mt: 1 }}
+        sx={{
+          mt: 1,
+          "& .MuiPaper-root": {
+            width: "100%",
+            maxWidth: 600,
+            overflow: "hidden",
+            borderRadius: 2,
+            bgcolor: " Complementary2.main",
+          },
+        }}
       >
-        {currentSubmenu.map((subItem, index) => (
-          <MenuItem key={index} onClick={handleClose}>
-            {subItem}
-          </MenuItem>
-        ))}
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 2,
+            p: 2,
+            maxHeight: 300,
+            overflowY: "auto",
+          }}
+        >
+          {currentSubmenu.map((subItem, index) => (
+            <MenuItem
+              key={index}
+              onClick={handleClose}
+              sx={{
+                flex: "0 0 calc(50% - 8px)",
+                fontSize: 14,
+                "&:hover": {
+                  color: " primary.main",
+                },
+              }}
+            >
+              <Link href={`/category/${subItem}`}>{subItem}</Link>
+            </MenuItem>
+          ))}
+        </Box>
       </Menu>
     </Box>
   );
