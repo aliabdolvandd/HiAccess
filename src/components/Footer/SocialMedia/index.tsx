@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
 import { ISocialMedia } from "@/type";
 const socialLinks: ISocialMedia[] = [
@@ -9,11 +9,21 @@ const socialLinks: ISocialMedia[] = [
 ];
 const SocialMediaList = () => (
   <Box>
-    {socialLinks.map((link, index) => (
-      <IconButton key={index} href={link.href} target="_blank" color="primary">
-        {link.icon}
-      </IconButton>
-    ))}
+    <Typography variant="h6" gutterBottom>
+      شبکه های اجتماعی
+    </Typography>
+    <Box>
+      {socialLinks.map((link, index) => (
+        <IconButton
+          key={index}
+          href={link.href}
+          target="_blank"
+          color="primary"
+        >
+          {link.icon}
+        </IconButton>
+      ))}
+    </Box>
   </Box>
 );
 
