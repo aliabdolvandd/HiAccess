@@ -10,6 +10,7 @@ import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
 import Navbar from "./Navbar";
+import Link from "next/link";
 
 interface NavItem {
   label: string;
@@ -69,8 +70,9 @@ const Header: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Image src={"/logo.png"} width={130} height={40} alt="" />
-
+        <Link href={"/"} passHref>
+          <Image src={"/logo.png"} width={130} height={40} alt="" />
+        </Link>
         <Navbar
           navItems={navItems}
           anchor={anchor}
