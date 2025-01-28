@@ -91,7 +91,12 @@ const Navbar: React.FC<NavbarProps> = ({
                 },
               }}
             >
-              <Link href={`/category/${subItem}`}>{subItem}</Link>
+              <Link
+                href={`/category/${subItem}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {subItem}
+              </Link>
             </MenuItem>
           ))}
         </Box>

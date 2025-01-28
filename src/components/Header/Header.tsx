@@ -36,15 +36,18 @@ const navItems = [
 
 const iconList = [
   { ariaLabel: "search", Icon: SearchOutlined },
-  { ariaLabel: "cart", Icon: ProductionQuantityLimitsOutlined },
-  { ariaLabel: "account", Icon: PersonOutline },
+  { ariaLabel: "cart", Icon: ProductionQuantityLimitsOutlined, href: "/cart" },
+  { ariaLabel: "account", Icon: PersonOutline, href: "/profile" },
 ];
 
 function Header() {
-  const [anchor, setAnchor] = useState(null);
-  const [currentSubmenu, setCurrentSubmenu] = useState([]);
+  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
+  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
 
-  const handleClick = (event, submenu) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLElement>,
+    submenu: string[]
+  ) => {
     setAnchor(event.currentTarget);
     setCurrentSubmenu(submenu);
   };
@@ -78,7 +81,7 @@ function Header() {
         }}
       >
         <Link href={"/"} passHref>
-          <Image src={"/logo.png"} width={130} height={40} alt="" />
+          <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
         </Link>
         <Navbar
           navItems={navItems}
@@ -90,15 +93,29 @@ function Header() {
 
         <Box sx={{ display: "flex" }}>
           {iconList.map((icon, index) => (
-            <IconButton
-              key={index}
-              aria-label={icon.ariaLabel}
-              sx={{
-                color: "black",
-              }}
-            >
-              <icon.Icon />
-            </IconButton>
+            <React.Fragment key={index}>
+              {icon.href ? (
+                <Link href={icon.href} passHref>
+                  <IconButton
+                    aria-label={icon.ariaLabel}
+                    sx={{
+                      color: "black",
+                    }}
+                  >
+                    <icon.Icon />
+                  </IconButton>
+                </Link>
+              ) : (
+                <IconButton
+                  aria-label={icon.ariaLabel}
+                  sx={{
+                    color: "black",
+                  }}
+                >
+                  <icon.Icon />
+                </IconButton>
+              )}
+            </React.Fragment>
           ))}
         </Box>
       </Toolbar>
