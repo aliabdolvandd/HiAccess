@@ -27,31 +27,33 @@ export default function MiniDrawer() {
       </DrawerHeader>
       <Divider />
       <List>
-        {SIDEBAR_ITEMS.map(({ text, href, Icon }, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              selected={pathname === href}
-              component={Link}
-              href={href}
-              sx={{
-                minHeight: 48,
-                px: 2.5,
-                justifyContent: isOpen ? "initial" : "center",
-              }}
-            >
-              <ListItemIcon
+        {SIDEBAR_ITEMS.map(({ text, href, Icon }, index) => {
+          return (
+            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                selected={pathname === href}
+                component={Link}
+                href={href}
                 sx={{
-                  minWidth: 0,
-                  justifyContent: "center",
-                  mr: isOpen ? 3 : "auto",
+                  minHeight: 48,
+                  px: 2.5,
+                  justifyContent: isOpen ? "initial" : "center",
                 }}
               >
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: isOpen ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    justifyContent: "center",
+                    mr: isOpen ? 3 : "auto",
+                  }}
+                >
+                  <Icon />
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: isOpen ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
     </Drawer>
   );

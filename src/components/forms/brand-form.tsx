@@ -14,6 +14,7 @@ export const BrandForm = ({ brand }: BrandFormType) => {
     message: "",
     success: false,
   });
+
   return (
     <form action={action}>
       <Stack spacing={2} mt={2}>

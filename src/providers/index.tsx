@@ -11,9 +11,9 @@ function Providers({ children }: PropsWithChildren) {
   return (
     <>
       <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-        <RtlProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </RtlProvider>
+        <ThemeProvider theme={theme}>
+          <RtlProvider>{children}</RtlProvider>
+        </ThemeProvider>
       </AppRouterCacheProvider>
       <CssBaseline />
     </>

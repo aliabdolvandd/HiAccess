@@ -25,6 +25,7 @@ export const apiFetch = async <T>(
     ...options,
     headers,
   });
+
   if (!res.ok) {
     const errorBody = await res.json().catch(() => null);
     throw new ApiError(res.status, res.statusText, errorBody);

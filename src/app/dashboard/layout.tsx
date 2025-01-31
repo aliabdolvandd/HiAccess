@@ -21,8 +21,9 @@ async function DashboardLayout({
             <DashboardHeader />
             <MiniDrawer />
           </DrawerProvider>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3, direction: "rtl " }}>
             <DrawerHeader />
+
             {children}
           </Box>
         </Box>
