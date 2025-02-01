@@ -14,7 +14,6 @@ export default function Layout({
         justifyContent: "center",
       }}
     >
-      <TextField label={"ssss"} />
       {children}
     </Box>
   );
