@@ -31,7 +31,7 @@ export async function createOrUpdateCityAction(
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors,
+        errors: e.body?.errors as CityFormState["errors"],
       };
     } else {
       return {

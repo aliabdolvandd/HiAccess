@@ -21,6 +21,7 @@ function ProductForm({ defaultValue }: ProductFormProps) {
     message: "",
     success: false,
   });
+  console.log("res");
   return (
     <form action={action}>
       {defaultValue?.code && (

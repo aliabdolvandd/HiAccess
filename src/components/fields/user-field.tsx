@@ -1,33 +1,32 @@
 "use client";
-import { useCategoriesQuery } from "@/api/client-api/categories";
-import { ICategory } from "@/api/server-api/type";
+import { useUserQuery } from "@/api/client-api/user";
+import { IUser } from "@/api/server-api/type";
 import React, { useState } from "react";
 import AsyncListField from "./async-list-filed";
 
 type Props = {
   name: string;
-  defaultValue?: ICategory;
+  defaultValue?: IUser;
   error?: boolean;
   helperText?: string | string[];
 };
 
-export default function CategoryField({
+export default function UserField({
   name,
   defaultValue,
   error,
   helperText,
 }: Props) {
   const [query, setQuery] = useState("");
-  const { data, isLoading } = useCategoriesQuery(query);
+  const { data, isLoading } = useUserQuery(query);
   return (
     <AsyncListField
       error={error}
       helperText={helperText}
       options={data?.results ?? []}
-      getOptionLabel={(o) => o.titleFa}
-      groupBy={(o) => o.parent?.titleFa ?? "root"}
+      getOptionLabel={(o) => o.email}
       isLoading={isLoading}
-      label="دسته بندی"
+      label="کاربر"
       name={name}
       setQuery={setQuery}
       defaultValue={defaultValue}

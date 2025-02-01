@@ -7,7 +7,7 @@ import {
 import { ApiError } from "@/api/server-api/base";
 import { ensureAuthenticated } from "@/lib/session";
 import { formDataToObject } from "@/lib/utils";
-import { BadgeFormSchema, BadgeFormState } from "@/validations/validations";
+import { BadgeFormSchema, BadgeFormState } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -35,7 +35,7 @@ export async function createOrUpdateBadgeAction(
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors,
+        errors: e.body?.errors as BadgeFormState["errors"],
       };
     } else {
       return {

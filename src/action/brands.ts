@@ -35,7 +35,7 @@ export async function createOrUpdateBrandAction(
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors,
+        errors: e.body?.errors as BrandFormState["errors"],
       };
     } else {
       return {

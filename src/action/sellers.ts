@@ -1,24 +1,24 @@
 "use server";
 import {
-  createColor,
-  updateColor,
-  deleteColor,
-} from "../api/server-api/colors";
+  createSeller,
+  deleteSeller,
+  updateSeller,
+} from "@/api/server-api/sellers";
 import { ApiError } from "@/api/server-api/base";
 import { ensureAuthenticated } from "@/lib/session";
-import { ColorFormState, ColorSchemaZod } from "@/lib/validations";
+import { SellerFormState, SellerSchemaZod } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { formDataToObject } from "@/lib/utils";
 
-export async function createOrUpdateColorAction(
-  state: ColorFormState,
+export async function createOrUpdateSellerAction(
+  state: SellerFormState,
   formData: FormData
 ) {
   /// validate input
   await ensureAuthenticated();
   const id = formData.get("id");
-  const validatedFields = ColorSchemaZod.safeParse(formDataToObject(formData));
+  const validatedFields = SellerSchemaZod.safeParse(formDataToObject(formData));
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -26,16 +26,16 @@ export async function createOrUpdateColorAction(
   }
   try {
     if (id) {
-      await updateColor(id.toString(), validatedFields.data);
+      await updateSeller(id.toString(), validatedFields.data);
     } else {
-      await createColor(validatedFields.data);
+      await createSeller(validatedFields.data);
     }
   } catch (e) {
     console.log(e);
     if (e instanceof ApiError) {
       return {
         message: e.message,
-        errors: e.body?.errors as ColorFormState["errors"],
+        errors: e.body?.errors as SellerFormState["errors"],
       };
     } else {
       return {
@@ -44,13 +44,13 @@ export async function createOrUpdateColorAction(
       };
     }
   }
-  redirect("/dashboard/colors");
+  redirect("/dashboard/sellers");
 }
 
-export async function deleteColorAction(id: string) {
+export async function deleteSellerAction(id: string) {
   await ensureAuthenticated();
   try {
-    const res = await deleteColor(id);
+    await deleteSeller(id);
   } catch (e) {
     if (e instanceof ApiError) {
       return {
@@ -59,5 +59,5 @@ export async function deleteColorAction(id: string) {
       };
     }
   }
-  revalidatePath("/dashboard/colors");
+  revalidatePath("/dashboard/sellers");
 }

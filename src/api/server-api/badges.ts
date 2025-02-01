@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 
-import { ADMIN_BASE_URL, BASE_URL } from "@/config.server";
+import { ADMIN_BASE_URL } from "@/config.server";
 import { IBadge, PaginatedResultApi } from "./type";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
