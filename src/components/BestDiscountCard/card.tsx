@@ -10,7 +10,7 @@ import {
   Box,
   Rating,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import WishIcon from "@/svg/wishIcon";
 import { IDiscount } from "@/type";
 
 const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
@@ -143,7 +143,7 @@ const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
           boxShadow: 1,
         }}
       >
-        <FavoriteBorderIcon fontSize="small" color="action" />
+        <WishIcon />
       </Box>
     </Card>
   );

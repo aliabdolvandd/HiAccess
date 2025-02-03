@@ -7,24 +7,21 @@ const socialLinks: ISocialMedia[] = [
   { icon: <Instagram />, href: "https://instagram.com" },
   { icon: <LinkedIn />, href: "https://linkedin.com" },
 ];
-const SocialMediaList = () => (
-  <Box>
-    <Typography variant="h6" gutterBottom>
-      شبکه های اجتماعی
-    </Typography>
+const SocialMediaList = () => {
+  return (
     <Box>
       {socialLinks.map((link, index) => (
         <IconButton
           key={index}
           href={link.href}
           target="_blank"
-          color="primary"
+          sx={{ color: "#fff", px: 1 }}
         >
           {link.icon}
         </IconButton>
       ))}
     </Box>
-  </Box>
-);
+  );
+};
 
 export default SocialMediaList;

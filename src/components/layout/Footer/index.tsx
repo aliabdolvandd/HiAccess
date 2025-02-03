@@ -2,13 +2,15 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import UsefulLink from "./UsefulLinks";
 import SocialMediaList from "./SocialMedia";
+import EmailIcon from "@/svg/emailIcon";
+import TellIcon from "@/svg/tellIcon";
 const Footer: React.FC = () => {
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: "#f5f5f5",
-        color: "#333",
+        backgroundColor: "primary.main",
+        color: "#fff",
         padding: "2rem 1rem",
         mt: 4,
       }}
@@ -17,12 +19,14 @@ const Footer: React.FC = () => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
+          alignItems: "center",
           justifyContent: "space-between",
           gap: 4,
+          padding: "20px 50px",
         }}
       >
         {/* About us*/}
-        <Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h6" gutterBottom>
             درباره ما
           </Typography>
@@ -30,19 +34,24 @@ const Footer: React.FC = () => {
             ما یک فروشگاه آنلاین هستیم که بهترین محصولات را با بهترین قیمت‌ها
             ارائه می‌دهیم.
           </Typography>
+          <SocialMediaList />
         </Box>
 
         <UsefulLink />
-
-        <SocialMediaList />
 
         {/* Contact us*/}
         <Box>
           <Typography variant="h6" gutterBottom>
             تماس با ما
           </Typography>
-          <Typography variant="body2">ایمیل: info@example.com</Typography>
-          <Typography variant="body2">تلفن : 021-123456789</Typography>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <EmailIcon />
+            <Typography variant="body2"> info@example.com</Typography>
+          </Box>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <TellIcon />
+            <Typography variant="body2">۰۲۱ - ۱۲۳۴۵۶۷۸۹</Typography>
+          </Box>
         </Box>
       </Box>
 
@@ -54,7 +63,7 @@ const Footer: React.FC = () => {
           textAlign: "center",
         }}
       >
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2">
           © {new Date().getFullYear()} تمام حقوق محفوظ است.
         </Typography>
       </Box>
