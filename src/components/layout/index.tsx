@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
 import { Box } from "@mui/material";
-import Header from "../Header/Header";
-import Footer from "../Footer";
+import Header from "./Header/Header";
+import Footer from "./Footer";
 
 export const AppLayout = ({ children }: ComponentProps<"div">) => {
   return (

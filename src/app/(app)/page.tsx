@@ -9,9 +9,8 @@ export default function Home() {
     <>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         <Banner />
-        <Container maxWidth={"xl"}>
-          <BestDiscountList />
-        </Container>
+
+        <BestDiscountList />
       </Box>
     </>
   );

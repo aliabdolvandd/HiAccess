@@ -5,7 +5,6 @@ import { getBadges } from "@/api/server-api/badges";
 
 export default async function BadgesPage({ searchParams }: ServerPageProps) {
   const params = await searchParams;
-  console.log(params);
   const badges = getBadges(params);
   return (
     <TableContainer title="برچسب ها" createLink="/dashboard/badges/create">

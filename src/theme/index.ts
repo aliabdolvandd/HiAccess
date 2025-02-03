@@ -42,7 +42,7 @@ const theme = createTheme({
       main: "#F4F3EE",
     },
     Accent: {
-      main: "#8D99AE",
+      main: "#E36E4F",
     },
   },
   colorSchemes: { light: true, dark: false },
