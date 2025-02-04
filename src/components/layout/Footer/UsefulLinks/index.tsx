@@ -23,7 +23,6 @@ const UsefulLink: React.FC = () => (
           sx={{
             color: "inherit",
             textDecoration: "none",
-            "&:hover": { color: "primary.main" },
           }}
         >
           {link.label}

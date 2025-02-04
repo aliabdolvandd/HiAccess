@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
       >
         {/* About us*/}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom sx={{ mb: 17 }}>
             درباره ما
           </Typography>
           <Typography variant="body2">
