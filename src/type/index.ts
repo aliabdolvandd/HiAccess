@@ -1,12 +1,5 @@
 import { ReactNode } from "react";
 
-export interface IBanner {
-  id: number;
-  image: string;
-  title: string;
-  description?: string;
-  buttonText: string;
-}
 // for testing section best discount in home page
 export interface IDiscount {
   id: number;
