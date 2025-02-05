@@ -2,6 +2,7 @@
 
 import Banner from "@/components/Banner/Banner";
 import BestDiscountList from "@/components/BestDiscountCard";
+import Category from "@/components/Category";
 import { Box, Container } from "@mui/material";
 
 export default function Home() {
@@ -9,9 +10,8 @@ export default function Home() {
     <>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
         <Banner />
-        <Container maxWidth={"xl"}>
-          <BestDiscountList />
-        </Container>
+        <Category />
+        <BestDiscountList />
       </Box>
     </>
   );

@@ -1,12 +1,10 @@
 "use client";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { IBanner } from "@/type";
-
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-const banners: IBanner[] = [
+const banners = [
   {
     id: 1,
     image: "/banner-1.png",
@@ -93,11 +91,11 @@ const Banner: React.FC = () => {
           gutterBottom
           sx={{
             fontWeight: 700,
-            fontSize: "28px",
+            fontSize: "48px",
             lineHeight: "56px",
             color: "white",
-            // position: "absolute",
-            // left: "60%",
+            position: "absolute",
+            right: "65%",
           }}
         >
           {banners[activeIndex].title}
@@ -111,9 +109,9 @@ const Banner: React.FC = () => {
               lineHeight: "36px",
               fontWeight: 400,
               color: "primary.main",
-              //   position: "absolute",
-              //   left: "60%",
-              //   bottom: "10%",
+              position: "absolute",
+              right: "75%",
+              bottom: "10%",
             }}
           >
             {banners[activeIndex].description}
@@ -130,9 +128,9 @@ const Banner: React.FC = () => {
             fontWeight: "500",
             lineHeight: "36px",
             borderRadius: "8px",
-            // position: "absolute",
-            // left: "60%",
-            // bottom: "20%",
+            position: "absolute",
+            right: "75%",
+            bottom: "20%",
           }}
         >
           {banners[activeIndex].buttonText}

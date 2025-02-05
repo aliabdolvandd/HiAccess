@@ -3,14 +3,12 @@
 import React, { useState } from "react";
 import theme from "@/theme";
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
-import {
-  SearchOutlined,
-  ProductionQuantityLimitsOutlined,
-  PersonOutline,
-} from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./Navbar";
+import profileIcon from "@/svg/profileIcon";
+import cartIcon from "@/svg/cartIcon";
+import searchIcon from "@/svg/searchIcon";
 
 const navItems = [
   {
@@ -35,9 +33,9 @@ const navItems = [
 ];
 
 const iconList = [
-  { ariaLabel: "search", Icon: SearchOutlined },
-  { ariaLabel: "cart", Icon: ProductionQuantityLimitsOutlined, href: "/cart" },
-  { ariaLabel: "account", Icon: PersonOutline, href: "/profile" },
+  { ariaLabel: "search", Icon: searchIcon },
+  { ariaLabel: "cart", Icon: cartIcon, href: "/cart" },
+  { ariaLabel: "profile", Icon: profileIcon, href: "/profile" },
 ];
 
 function Header() {

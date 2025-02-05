@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import BestDiscountCard from "./card";
 import { IDiscount } from "@/type";
 import Link from "next/link";
@@ -27,23 +27,40 @@ const products: IDiscount[] = [
 ];
 const BestDiscountList: React.FC = () => {
   return (
-    <Box sx={{ padding: 3, justifyItems: "right" }}>
-      {/* The title of the list*/}
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        gutterBottom
-        sx={{ textAlign: "center", mb: 3 }}
+    <Box sx={{ pt: 3, px: "15px" }}>
+      <Box
+        sx={{
+          textAlign: "center",
+          width: screen,
+          bgcolor: "primary.main",
+          height: "68px",
+          borderRadius: "10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          px: "10px",
+          mb: 4,
+        }}
       >
-        لیست بیشترین تخفیف‌ها
-      </Typography>
-
+        {/* The title of the list*/}
+        <Typography
+          variant="h5"
+          // gutterBottom
+          sx={{ fontWeight: 700, fontSize: 36, color: "white" }}
+        >
+          پر تخفیف ترین ها
+        </Typography>
+        <Button sx={{ bgcolor: "white", padding: "8px 16px" }}>
+          <Typography fontSize={"16px"} fontWeight={700}>
+            مشاهده بیشتر
+          </Typography>
+        </Button>
+      </Box>
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
-          gap: 2,
+          gap: 8,
         }}
       >
         {products.map((product) => (
