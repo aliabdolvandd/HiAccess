@@ -31,6 +31,14 @@ export async function loginAction(state: LoginFormState, formData: FormData) {
   await createSession({
     accessToken: data.tokens.accessToken,
     refreshToken: data.tokens.refreshToken,
+    role: data.user.role,
   });
-  redirect("/dashboard");
+  const role = data.user.role;
+  if (role === 3) {
+    redirect("/dashboard");
+  } else if (role === 2) {
+    redirect("/sellerPanel");
+  } else {
+    redirect("/");
+  }
 }
