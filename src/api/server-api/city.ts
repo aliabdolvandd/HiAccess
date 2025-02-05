@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 
-import { ADMIN_BASE_URL, BASE_URL } from "@/config.server";
+import { ADMIN_BASE_URL } from "@/config.server";
 import { ICity, PaginatedResultApi } from "./type";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
@@ -30,7 +30,7 @@ export const updateCity = async (
 
 // Get a paginated list of cities
 export const getCities = async (
-  params?: any
+  params?: unknown
 ): Promise<PaginatedResultApi<ICity>> => {
   const search = new URLSearchParams(params as Record<string, string>);
   return apiFetch<PaginatedResultApi<ICity>>(

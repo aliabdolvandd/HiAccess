@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 
-import { ADMIN_BASE_URL, BASE_URL } from "@/config.server";
+import { ADMIN_BASE_URL } from "@/config.server";
 import { IProperty, PaginatedResultApi } from "./type";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
@@ -32,7 +32,7 @@ export const updateProperties = async (
 
 // Get a paginated list of properties
 export const getProperties = async (
-  params?: any
+  params?: unknown
 ): Promise<PaginatedResultApi<IProperty>> => {
   const search = new URLSearchParams(params as Record<string, string>);
   return apiFetch<PaginatedResultApi<IProperty>>(

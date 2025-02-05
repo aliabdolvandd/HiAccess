@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 
-import { ADMIN_BASE_URL, BASE_URL } from "@/config.server";
+import { ADMIN_BASE_URL } from "@/config.server";
 import { ICategory, PaginatedResultApi } from "./type";
 import { revalidateTag } from "next/cache";
 import { apiFetch } from "./base";
@@ -36,7 +36,7 @@ export const updateCategory = async (
 
 // Get a paginated list of categories
 export const getCategories = async (
-  params?: any
+  params?: unknown
 ): Promise<PaginatedResultApi<ICategory>> => {
   const search = new URLSearchParams(params as Record<string, string>);
   return apiFetch<PaginatedResultApi<ICategory>>(

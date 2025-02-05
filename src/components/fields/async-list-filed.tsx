@@ -11,6 +11,8 @@ type Props<T extends { id: string }> = {
   getOptionLabel: (option: T) => string;
   label: string;
   setQuery: (q: string) => void;
+  error?: boolean;
+  helperText?: string | string[];
 };
 
 export default function AsyncListField<T extends { id: string }>({
@@ -22,6 +24,8 @@ export default function AsyncListField<T extends { id: string }>({
   getOptionLabel,
   label,
   setQuery,
+  error,
+  helperText,
 }: Props<T>) {
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState<T | null>(null);
@@ -30,6 +34,7 @@ export default function AsyncListField<T extends { id: string }>({
       setValue(defaultValue);
     }
   }, [defaultValue]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateQuery = useCallback(
     debounce((inputValue: string, value) => {
       setQuery(value ? "" : inputValue);
@@ -43,7 +48,7 @@ export default function AsyncListField<T extends { id: string }>({
         <input
           type="hidden"
           name={name} // This will be sent to the backend
-          defaultValue={value?.id || ""}
+          defaultValue={value?.id}
         />
       )}
       <Autocomplete
@@ -51,7 +56,7 @@ export default function AsyncListField<T extends { id: string }>({
         disablePortal
         inputValue={inputValue}
         value={value}
-        onChange={(event: any, newValue: T | null) => {
+        onChange={(event: unknown, newValue: T | null) => {
           setValue(newValue);
         }}
         onInputChange={(event, newInputValue) => {
@@ -64,6 +69,8 @@ export default function AsyncListField<T extends { id: string }>({
         renderInput={(params) => (
           <TextField
             {...params}
+            error={error}
+            helperText={helperText}
             label={label}
             slotProps={{
               input: {

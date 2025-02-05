@@ -50,7 +50,7 @@ export async function createOrUpdateBrandAction(
 export async function deleteBrandAction(id: string) {
   await ensureAuthenticated();
   try {
-    const res = await deleteBrand(id);
+    await deleteBrand(id);
   } catch (e) {
     if (e instanceof ApiError) {
       return {

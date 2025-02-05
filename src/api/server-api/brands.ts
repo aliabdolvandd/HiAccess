@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 
-import { ADMIN_BASE_URL, BASE_URL } from "@/config.server";
+import { ADMIN_BASE_URL } from "@/config.server";
 import { IBrand, PaginatedResultApi } from "./type";
 import { apiFetch } from "./base";
 import { revalidateTag } from "next/cache";
@@ -28,7 +28,7 @@ export const updateBrand = async (
 
 // Get a paginated list of brands
 export const getBrands = async (
-  params?: any
+  params?: unknown
 ): Promise<PaginatedResultApi<IBrand>> => {
   const search = new URLSearchParams(params as Record<string, string>);
   return apiFetch<PaginatedResultApi<IBrand>>(
