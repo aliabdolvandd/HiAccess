@@ -23,15 +23,19 @@ import {
 
 const menuItems = [
   {
-    text: "دسته‌بندی کالاها",
-    icon: <CategoryIcon />,
-    path: "/admin/categories",
+    title: "مدیریت محصولات",
+    icon: <SmartphoneIcon />,
+    href: "/seller/manage-products",
   },
-  { text: "محصولات", icon: <SmartphoneIcon />, path: "/admin/products" },
-  { text: "سفارشات", icon: <ShoppingBasketIcon />, path: "/admin/orders" },
+  { title: "سفارشات", icon: <ShoppingBasketIcon />, href: "/seller/orders" },
+  {
+    title: "دسته‌بندی کالاها",
+    icon: <CategoryIcon />,
+    href: "/seller/category",
+  },
 ];
 
-const AdminNavbar = () => {
+const SellerNavbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -112,18 +116,20 @@ const AdminNavbar = () => {
         <List>
           {menuItems.map((item) => (
             <ListItem
-              key={item.text}
+              key={item.title}
               component="a"
-              href={item.path}
+              href={item.href}
               sx={{
+                color: "#000",
                 "&:hover": {
                   backgroundColor: "#000",
                   color: "#fff",
+                  cursor: "pointer",
                 },
               }}
             >
-              <ListItemIcon sx={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemIcon sx={{ color: "black" }}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.title} />
             </ListItem>
           ))}
         </List>
@@ -132,4 +138,4 @@ const AdminNavbar = () => {
   );
 };
 
-export default AdminNavbar;
+export default SellerNavbar;
