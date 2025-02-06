@@ -1,5 +1,5 @@
 import AuthProvider from "@/components/AuthProvider";
-import AdminNavbar from "@/components/layout/seller/Navbar";
+import SellerNavbar from "@/components/layout/seller/Navbar";
 import QueryProvider from "@/components/QueryProvider";
 import { auth } from "@/lib/session";
 import { Box } from "@mui/material";
@@ -14,7 +14,7 @@ async function DashboardLayout({
     <AuthProvider accessToken={accessToken || ""}>
       <QueryProvider>
         <Box sx={{ display: "flex" }}>
-          <AdminNavbar />
+          <SellerNavbar />
 
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             {children}
