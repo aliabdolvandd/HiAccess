@@ -50,7 +50,7 @@ export async function createOrUpdateProductAction(
   redirect("/dashboard/products");
 }
 
-export async function deleteProductAction(id: string) {
+export async function deleteProductAction(id: string | number) {
   await ensureAuthenticated();
   try {
     await deleteProduct(id);

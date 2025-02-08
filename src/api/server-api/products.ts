@@ -49,13 +49,12 @@ export const getProducts = async (
 
 // Delete a Product
 export const deleteProduct = async (
-  id: string
+  code: string | number
 ): Promise<{ message: string }> => {
-  return apiFetch<{ message: string }>(`${ADMIN_BASE_URL}/products/${id}`, {
+  return apiFetch<{ message: string }>(`${ADMIN_BASE_URL}/products/${code}`, {
     method: "DELETE",
   });
 };
-
 // Get a Product by its ID
 export const getProductById = async (id: string): Promise<IProduct> => {
   return apiFetch<IProduct>(`${ADMIN_BASE_URL}/products/${id}`, {
