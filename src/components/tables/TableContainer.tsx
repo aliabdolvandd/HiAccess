@@ -5,7 +5,7 @@ import TableLoading from "./TableLoading";
 
 export type TableContainerProps = {
   title: string;
-  createLink: string;
+  createLink?: string;
   children: ReactNode;
 };
 export async function TableContainer({
@@ -13,7 +13,6 @@ export async function TableContainer({
   createLink,
   children,
 }: TableContainerProps) {
-  // console.log("Create Link:", createLink);
   return (
     <Box component={Paper}>
       <Toolbar>
@@ -25,20 +24,20 @@ export async function TableContainer({
         >
           {title}
         </Typography>
-        <Button
-          component={Link}
-          href={createLink}
-          sx={{
-            flexShrink: 0,
-          }}
-          variant="contained"
-        >
-          {title} جدید
-        </Button>
+        {createLink && (
+          <Button
+            component={Link}
+            href={createLink}
+            sx={{
+              flexShrink: 0,
+            }}
+            variant="contained"
+          >
+            {title} جدید
+          </Button>
+        )}
       </Toolbar>
-      <Suspense fallback={<TableLoading columnCount={6} />}>
-        {children}
-      </Suspense>
+      <Suspense fallback={<TableLoading colCount={6} />}>{children}</Suspense>
     </Box>
   );
 }
