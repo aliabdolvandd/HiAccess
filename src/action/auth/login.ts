@@ -1,10 +1,10 @@
 "use server";
 import "server-only";
-import { LoginFormSchema, LoginFormState } from "../../lib/validations";
+import { LoginFormSchema, LoginFormState } from "@/lib/validations";
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { AUTH_BASE_URL } from "@/config.server";
-import { formDataToObject } from "../../lib/utils";
+import { formDataToObject } from "@/lib/utils";
 
 export async function loginAction(state: LoginFormState, formData: FormData) {
   /// validate input
@@ -31,14 +31,6 @@ export async function loginAction(state: LoginFormState, formData: FormData) {
   await createSession({
     accessToken: data.tokens.accessToken,
     refreshToken: data.tokens.refreshToken,
-    role: data.user.role,
   });
-  const role = data.user.role;
-  if (role === 3) {
-    redirect("/dashboard");
-  } else if (role === 2) {
-    redirect("/sellerPanel");
-  } else {
-    redirect("/");
-  }
+  redirect("/dashboard");
 }

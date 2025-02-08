@@ -1,14 +1,16 @@
 "use client";
 import { register } from "@/action/auth/register";
+import { AuthProps } from "@/type";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useActionState } from "react";
 
-function RegisterForm() {
+function RegisterForm({ role }: AuthProps) {
   const [state, action, pending] = useActionState(register, {
     message: "",
   });
   return (
     <form action={action}>
+      <input hidden name="role" readOnly value={role} />
       <Stack gap={3}>
         <Stack
           mt={2}

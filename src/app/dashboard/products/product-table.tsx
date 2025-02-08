@@ -27,7 +27,7 @@ export function ProductTable({
           </Tooltip>
           <Tooltip title="حذف">
             <DeleteAlertDialog
-              onConfirm={async () => deleteProductAction(p.id)}
+              onConfirm={async () => deleteProductAction(p.code)}
             >
               <IconButton color="error">
                 <Delete />

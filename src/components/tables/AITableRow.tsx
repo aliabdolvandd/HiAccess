@@ -1,5 +1,5 @@
 "use client";
-import { Column } from "@/api/server-api/types";
+import { Column } from "@/api/server-api/type";
 import { IconButton, TableRow as MuiTableRow, TableCell } from "@mui/material";
 import AISubTable from "./AISubTable";
 import { Fragment, ReactNode, useState } from "react";

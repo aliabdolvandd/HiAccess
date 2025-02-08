@@ -1,9 +1,10 @@
 "use server";
 import "server-only";
+
 import { RegisterFormState, RegisterFormSchema } from "@/lib/validations";
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { AUTH_BASE_URL } from "@/config.server";
+import { BASE_URL } from "@/config.server";
 import { formDataToObject } from "@/lib/utils";
 
 export async function register(state: RegisterFormState, formData: FormData) {
@@ -17,7 +18,7 @@ export async function register(state: RegisterFormState, formData: FormData) {
     };
   }
   try {
-    const res = await fetch(`${AUTH_BASE_URL}/auth/register`, {
+    const res = await fetch(`${BASE_URL}/auth/admin/register`, {
       method: "post",
       body: JSON.stringify(validatedFields.data),
       headers: {
@@ -35,11 +36,12 @@ export async function register(state: RegisterFormState, formData: FormData) {
         accessToken: data.tokens.accessToken,
         refreshToken: data.tokens.refreshToken,
       });
-      redirect("/dashboard");
     }
   } catch (err) {
+    console.log(err);
     return {
       message: "register failed",
     };
   }
+  redirect("/dashboard");
 }

@@ -26,7 +26,7 @@ function Register() {
             قبلا ثبت نام کرده‌اید؟
           </MuiLink>
         </Stack>
-        <RegisterForm />
+        <RegisterForm role={3} />
       </CardContent>
     </Card>
   );
