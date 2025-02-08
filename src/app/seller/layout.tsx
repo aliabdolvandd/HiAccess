@@ -1,3 +1,4 @@
+"use";
 import AuthProvider from "@/components/AuthProvider";
 import SellerNavbar from "@/components/layout/seller/Navbar";
 import QueryProvider from "@/components/QueryProvider";
@@ -13,10 +14,10 @@ async function DashboardLayout({
   return (
     <AuthProvider accessToken={accessToken || ""}>
       <QueryProvider>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <SellerNavbar />
 
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" sx={{ flexGrow: 1 }}>
             {children}
           </Box>
         </Box>

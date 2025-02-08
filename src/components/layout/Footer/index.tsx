@@ -27,9 +27,7 @@ const Footer: React.FC = () => {
       >
         {/* About us*/}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="h6" gutterBottom sx={{ mb: 17 }}>
-            درباره ما
-          </Typography>
+          <Typography variant="h6">درباره ما</Typography>
           <Typography variant="body2">
             ما یک فروشگاه آنلاین هستیم که بهترین محصولات را با بهترین قیمت‌ها
             ارائه می‌دهیم.

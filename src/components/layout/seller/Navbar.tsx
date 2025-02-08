@@ -19,6 +19,7 @@ import {
   Category as CategoryIcon,
   ShoppingBasket as ShoppingBasketIcon,
   Smartphone as SmartphoneIcon,
+  Money,
 } from "@mui/icons-material";
 
 const menuItems = [
@@ -28,6 +29,7 @@ const menuItems = [
     href: "/seller/manage-products",
   },
   { title: "سفارشات", icon: <ShoppingBasketIcon />, href: "/seller/orders" },
+  { title: "تعیین قیمت", icon: <Money />, href: "/seller/set-price" },
   {
     title: "دسته‌بندی کالاها",
     icon: <CategoryIcon />,
@@ -45,7 +47,10 @@ const SellerNavbar = () => {
   return (
     <>
       {/* Navbar*/}
-      <AppBar position="static" sx={{ backgroundColor: "#000", color: "#fff" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "primary.main", color: "#fff" }}
+      >
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={toggleDrawer}>
             <MenuIcon />
@@ -81,7 +86,7 @@ const SellerNavbar = () => {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "12px",
-            backgroundColor: "#000",
+            backgroundColor: "primary.main",
             color: "#fff",
           }}
         >
@@ -121,10 +126,9 @@ const SellerNavbar = () => {
               href={item.href}
               sx={{
                 color: "#000",
+                cursor: "pointer",
                 "&:hover": {
-                  backgroundColor: "#000",
-                  color: "#fff",
-                  cursor: "pointer",
+                  bgcolor: "neutral.main",
                 },
               }}
             >

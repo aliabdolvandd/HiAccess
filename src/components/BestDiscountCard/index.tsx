@@ -31,7 +31,7 @@ const BestDiscountList: React.FC = () => {
       <Box
         sx={{
           textAlign: "center",
-          width: screen,
+          width: "100%",
           bgcolor: "primary.main",
           height: "68px",
           borderRadius: "10px",
