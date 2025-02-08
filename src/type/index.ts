@@ -28,3 +28,6 @@ export interface ISocialMedia {
   icon: ReactNode;
   href: string;
 }
+export interface AuthProps {
+  role: number;
+}

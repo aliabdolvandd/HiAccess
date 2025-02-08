@@ -1,9 +1,10 @@
 "use client";
 import { loginAction } from "@/action/auth/login";
+import { AuthProps } from "@/type";
 import { Alert, Box, Button, Stack, TextField } from "@mui/material";
 import React, { useActionState } from "react";
 
-export default function LoginForm() {
+export default function LoginForm({ role }: AuthProps) {
   const [state, action, pending] = useActionState(loginAction, {
     message: "",
     errors: {},
@@ -11,9 +12,10 @@ export default function LoginForm() {
   return (
     <>
       <form action={action}>
-        <input type="text" name="role" hidden defaultValue={3} />
+        <input type="text" name="role" hidden readOnly value={role} />
         <Stack gap={3}>
           {state.message && <Alert severity="warning">{state.message}</Alert>}
+
           <TextField
             error={!!state?.errors?.email}
             helperText={state?.errors?.email}

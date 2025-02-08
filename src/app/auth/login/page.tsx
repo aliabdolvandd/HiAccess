@@ -16,7 +16,7 @@ export default async function Login() {
           ساخت اکانت
         </MuiLink>
       </Stack>
-      <LoginForm />
+      <LoginForm role={3} />
     </Box>
   );
 }
