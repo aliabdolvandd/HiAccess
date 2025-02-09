@@ -1,40 +1,32 @@
 import WishIcon from "@/svg/wishIcon";
 import { IProductCard } from "@/type";
-import {
-  Box,
-  Button,
-  Card,
-  CardMedia,
-  Chip,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 interface ProductProps {
   product: IProductCard;
 }
 
-const MotionCard = motion(Card); // تبدیل کارت به کامپوننت متحرک
+const MotionCard = motion(Card);
 
 const ProductCard = ({ product }: ProductProps) => {
   return (
     <MotionCard
-      initial={{ opacity: 0, y: 30 }} // شروع: مخفی و کمی پایین
-      animate={{ opacity: 1, y: 0 }} // نمایش: حرکت به بالا و شفاف
-      transition={{ duration: 0.5, ease: "easeOut" }} // زمان و نوع حرکت
-      whileHover={{ scale: 1.05, boxShadow: "5px 5px 15px rgba(0,0,0,0.2)" }} // هنگام هاور
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ scale: 1.05, boxShadow: "5px 5px 15px rgba(0,0,0,0.2)" }}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "446px",
-        width: "334px",
+        height: "350px",
+        width: "300px",
         margin: "auto",
         boxShadow: 3,
         position: "relative",
         borderRadius: "16px",
         padding: "8px 16px",
-        cursor: "pointer", // نشانگر موس تغییر کند
+        cursor: "pointer",
       }}
     >
       {product.discountPrice && (
@@ -60,25 +52,6 @@ const ProductCard = ({ product }: ProductProps) => {
         alt={product.title}
         sx={{ objectFit: "contain", padding: "10px" }}
       />
-
-      <Button
-        variant="contained"
-        sx={{
-          padding: "12px 56px",
-          mt: 2,
-          bgcolor: "primary.main",
-          color: "white",
-          borderRadius: "8px",
-          fontWeight: "bold",
-          fontSize: "1rem",
-          textTransform: "none",
-          ":hover": {
-            backgroundColor: "#2563eb",
-          },
-        }}
-      >
-        افزودن به سبد
-      </Button>
 
       <Rating
         name="read-only"

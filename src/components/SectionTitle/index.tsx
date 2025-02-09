@@ -11,7 +11,7 @@ const SectionTitle = ({ title }: SectionTitleProps) => {
       sx={{
         textAlign: "center",
         bgcolor: "primary.main",
-        height: "68px",
+        height: "60px",
         borderRadius: "10px",
         display: "flex",
         alignItems: "center",
@@ -22,11 +22,11 @@ const SectionTitle = ({ title }: SectionTitleProps) => {
     >
       <Typography
         variant="h5"
-        sx={{ fontWeight: 700, fontSize: 36, color: "white" }}
+        sx={{ fontWeight: 700, fontSize: "30px", color: "white" }}
       >
         {title}
       </Typography>
-      <Button sx={{ bgcolor: "white", padding: "8px 16px" }}>
+      <Button sx={{ bgcolor: "white", padding: "12px 16px" }}>
         <Typography fontSize={"16px"} fontWeight={700}>
           مشاهده بیشتر
         </Typography>
