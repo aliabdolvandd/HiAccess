@@ -7,7 +7,6 @@ export default function SellerBanner() {
     <Box
       sx={{
         position: "relative",
-        width: "100vw",
         height: "440px",
         overflow: "hidden",
       }}

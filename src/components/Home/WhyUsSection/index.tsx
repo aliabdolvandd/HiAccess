@@ -15,11 +15,11 @@ export default function WhyUsSection() {
   return (
     <Box
       sx={{
-        width: "100vw",
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         bgcolor: "#fff",
-        py: 6, // فاصله عمودی
+        py: 6,
       }}
     >
       <Box
@@ -27,9 +27,9 @@ export default function WhyUsSection() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: 4, // فاصله بین کارت‌ها
+          gap: 4,
           width: "90%",
-          flexWrap: "wrap", // برای نمایش ریسپانسیو
+          flexWrap: "wrap",
         }}
       >
         {options.map((option, index) => (
@@ -45,8 +45,8 @@ export default function WhyUsSection() {
               borderRadius: 2,
               padding: 3,
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              width: "220px", // عرض ثابت برای یکنواختی
-              height: "150px", // ارتفاع ثابت
+              width: "220px",
+              height: "150px",
               textAlign: "center",
             }}
           >
@@ -57,8 +57,8 @@ export default function WhyUsSection() {
               sx={{
                 fontSize: "14px",
                 fontWeight: 500,
-                wordWrap: "break-word", // شکستن خطوط طولانی
-                overflow: "hidden", // جلوگیری از بیرون‌زدگی
+                wordWrap: "break-word",
+                overflow: "hidden",
               }}
             >
               {option.title}
