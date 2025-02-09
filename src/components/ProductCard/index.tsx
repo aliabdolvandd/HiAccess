@@ -9,13 +9,20 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
+import { motion } from "framer-motion";
 interface ProductProps {
   product: IProductCard;
 }
 
+const MotionCard = motion(Card); // تبدیل کارت به کامپوننت متحرک
+
 const ProductCard = ({ product }: ProductProps) => {
   return (
-    <Card
+    <MotionCard
+      initial={{ opacity: 0, y: 30 }} // شروع: مخفی و کمی پایین
+      animate={{ opacity: 1, y: 0 }} // نمایش: حرکت به بالا و شفاف
+      transition={{ duration: 0.5, ease: "easeOut" }} // زمان و نوع حرکت
+      whileHover={{ scale: 1.05, boxShadow: "5px 5px 15px rgba(0,0,0,0.2)" }} // هنگام هاور
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -27,6 +34,7 @@ const ProductCard = ({ product }: ProductProps) => {
         position: "relative",
         borderRadius: "16px",
         padding: "8px 16px",
+        cursor: "pointer", // نشانگر موس تغییر کند
       }}
     >
       {product.discountPrice && (
@@ -138,7 +146,7 @@ const ProductCard = ({ product }: ProductProps) => {
       >
         <WishIcon />
       </Box>
-    </Card>
+    </MotionCard>
   );
 };
 

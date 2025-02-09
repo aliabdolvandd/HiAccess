@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Box, Card, CardMedia, Grid, Grid2, Typography } from "@mui/material";
+import { Box, Card, Grid2, Typography } from "@mui/material";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const products = [
   {
@@ -29,6 +30,9 @@ const products = [
   },
 ];
 
+const MotionCard = motion(Card);
+const MotionImage = motion.img;
+
 const Category = () => {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -38,13 +42,7 @@ const Category = () => {
         دسته‌بندی
       </Typography>
 
-      <Box
-        sx={{
-          //   backgroundColor: "#f5f5f5",
-          p: 4,
-          width: "100%",
-        }}
-      >
+      <Box sx={{ p: 4, width: "100%" }}>
         <Grid2 container sx={{ gap: 23, px: 10 }}>
           {products.map((product, index) => (
             <Grid2
@@ -57,53 +55,64 @@ const Category = () => {
               onMouseLeave={() => setHovered(null)}
             >
               <Link href={`/category/${product.title}`}>
-                <Card
+                {/* shadow */}
+                <MotionCard
+                  initial={{ y: 0, boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }}
+                  animate={
+                    hovered === product.id
+                      ? { y: -10, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)" }
+                      : { y: 0, boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }
+                  }
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   sx={{
                     borderRadius: "8px",
-                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
                     overflow: "hidden",
                     position: "relative",
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    image={
+                  {/*change image*/}
+                  <MotionImage
+                    src={
                       hovered === product.id
                         ? product.hoverImage
                         : product.image
                     }
                     alt={`Product ${product.id}`}
-                    sx={{
+                    initial={{ opacity: 1 }}
+                    animate={{
+                      y: hovered === product.id ? -10 : 0,
+                    }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    style={{
                       objectFit: "cover",
-                      transition: "all 1s ease-in-out",
                       width: "215px",
                       height: "500px",
                     }}
                   />
 
-                  {/* description*/}
-                  {hovered === product.id && (
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "25%",
-                        backgroundColor: "rgba(0, 0, 0, 0.6)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        color: "white",
-                        fontSize: "18px",
-                        fontWeight: "bold",
-                        transition: "all 0.9s ease-in-out",
-                      }}
-                    >
-                      {product.title}
-                    </Box>
-                  )}
-                </Card>
+                  {/* hover description*/}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: hovered === product.id ? 1 : 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "25%",
+                      backgroundColor: "rgba(0, 0, 0, 0.6)",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "white",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {product.title}
+                  </motion.div>
+                </MotionCard>
               </Link>
             </Grid2>
           ))}
