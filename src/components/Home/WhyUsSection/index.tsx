@@ -1,3 +1,4 @@
+"use client";
 import SendIcon from "@/svg/sendIcon";
 import { Box, Typography } from "@mui/material";
 import WarrantyIcon from "@/svg/warrantyIcon";

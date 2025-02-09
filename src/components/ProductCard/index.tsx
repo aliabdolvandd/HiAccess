@@ -1,3 +1,4 @@
+"use client";
 import WishIcon from "@/svg/wishIcon";
 import { IProductCard } from "@/type";
 import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
