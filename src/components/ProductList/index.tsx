@@ -13,17 +13,33 @@ const ProductList = ({ products, title }: ProductListProps) => {
   return (
     <Box sx={{ pt: 3, px: "15px" }}>
       <SectionTitle title={title} />
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "nowrap",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+          overflow: "hidden",
+        }}
+      >
         {products.map((product) => (
-          <Link
-            style={{ textDecoration: "none" }}
+          <Box
             key={product.code}
-            href={`/products/${product.code}`}
+            sx={{
+              flex: "1 1 calc(25% - 16px)",
+              maxWidth: "300px",
+
+              padding: "10px 0",
+            }}
           >
-            <Box sx={{ flex: "1 1 calc(25% - 16px)", maxWidth: "300px" }}>
+            <Link
+              style={{ textDecoration: "none" }}
+              href={`/products/${product.code}`}
+            >
               <ProductCard product={product} />
-            </Box>
-          </Link>
+            </Link>
+          </Box>
         ))}
       </Box>
     </Box>

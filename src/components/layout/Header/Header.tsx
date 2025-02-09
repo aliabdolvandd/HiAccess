@@ -10,28 +10,6 @@ import profileIcon from "@/svg/profileIcon";
 import cartIcon from "@/svg/cartIcon";
 import searchIcon from "@/svg/searchIcon";
 
-const navItems = [
-  {
-    label: "موبایل و تبلت",
-    submenu: ["گوشی موبایل", "تبلت", "سیم کارت", "برند سامسونگ", "برند اپل"],
-  },
-  {
-    label: "لپ تاپ",
-    submenu: [
-      "لپ تاپ ایسوس",
-      "لپ تاپ لنوو",
-      "لپ تاپ اپل",
-      "برند دل",
-      "برند اچ‌پی",
-    ],
-  },
-  {
-    label: "لوازم جانبی",
-    submenu: ["هدفون", "ماوس", "کیبورد", "پاوربانک", "کابل شارژ"],
-  },
-  { label: "فعلا مشخص نیست", submenu: [] },
-];
-
 const iconList = [
   { ariaLabel: "search", Icon: searchIcon },
   { ariaLabel: "cart", Icon: cartIcon, href: "/cart" },
@@ -39,8 +17,6 @@ const iconList = [
 ];
 
 function Header() {
-  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
-  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -53,18 +29,6 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const handleClick = (
-    event: React.MouseEvent<HTMLElement>,
-    submenu: string[]
-  ) => {
-    setAnchor(event.currentTarget);
-    setCurrentSubmenu(submenu);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-    setCurrentSubmenu([]);
-  };
 
   return (
     <AppBar
@@ -94,13 +58,7 @@ function Header() {
         <Link href={"/"} passHref>
           <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
         </Link>
-        <Navbar
-          navItems={navItems}
-          anchor={anchor}
-          currentSubmenu={currentSubmenu}
-          handleClick={handleClick}
-          handleClose={handleClose}
-        />
+        <Navbar />
 
         <Box sx={{ display: "flex" }}>
           {iconList.map((icon, index) => (

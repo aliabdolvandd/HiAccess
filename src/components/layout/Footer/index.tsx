@@ -4,7 +4,7 @@ import UsefulLink from "./UsefulLinks";
 import SocialMediaList from "./SocialMedia";
 import EmailIcon from "@/svg/emailIcon";
 import TellIcon from "@/svg/tellIcon";
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <Box
       component="footer"
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
       >
         {/* About us*/}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="h6" gutterBottom sx={{ mb: 17 }}>
+          <Typography variant="h6" gutterBottom pb={6}>
             درباره ما
           </Typography>
           <Typography variant="body2">
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
 
         {/* Contact us*/}
         <Box>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom pb={8}>
             تماس با ما
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>

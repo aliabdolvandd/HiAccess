@@ -1,7 +1,8 @@
+"use client";
+
 import ProductList from "@/components/ProductList";
 import { IProductCard } from "@/type";
 import { Box } from "@mui/material";
-
 const products: IProductCard[] = [
   {
     code: 1,
@@ -64,11 +65,10 @@ const products: IProductCard[] = [
     badge: "پیشنهاد ویژه",
   },
 ];
-
-export default function BestDiscount() {
+export default function LatestSection() {
   return (
     <Box>
-      <ProductList products={products} title="پر تخفیف ترین ها " />
+      <ProductList products={products} title="جدید ترین های اخیر" />
     </Box>
   );
 }

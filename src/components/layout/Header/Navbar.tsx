@@ -1,33 +1,56 @@
-import { Box, Stack, Typography, Menu, MenuItem } from "@mui/material";
-import { ExpandMoreRounded } from "@mui/icons-material";
-import theme from "@/theme";
-import Link from "next/link";
+"use client";
 
-interface NavbarProps {
-  navItems: { label: string; submenu: string[] }[];
-  anchor: HTMLElement | null;
-  currentSubmenu: string[];
-  handleClick: (
+import { useState } from "react";
+import { Box, Stack, Typography, Menu, MenuItem } from "@mui/material";
+import { ExpandMoreRounded, ExpandLessRounded } from "@mui/icons-material";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import theme from "@/theme";
+
+const navItems = [
+  {
+    label: "موبایل و تبلت",
+    submenu: ["گوشی موبایل", "تبلت", "سیم کارت", "برند سامسونگ", "برند اپل"],
+  },
+  {
+    label: "لپ تاپ",
+    submenu: [
+      "لپ تاپ ایسوس",
+      "لپ تاپ لنوو",
+      "لپ تاپ اپل",
+      "برند دل",
+      "برند اچ‌پی",
+    ],
+  },
+  {
+    label: "لوازم جانبی",
+    submenu: ["هدفون", "ماوس", "کیبورد", "پاوربانک", "کابل شارژ"],
+  },
+  {
+    label: "هدفون",
+    submenu: ["هدفون بی‌سیم", "هدفون گیمینگ", "هدفون ورزشی"],
+  },
+];
+const Navbar = () => {
+  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
+
+  const handleClick = (
     event: React.MouseEvent<HTMLElement>,
     submenu: string[]
-  ) => void;
-  handleClose: () => void;
-}
+  ) => {
+    setAnchor(event.currentTarget);
+    setCurrentSubmenu(submenu);
+  };
 
-const Navbar: React.FC<NavbarProps> = ({
-  navItems,
-  anchor,
-  currentSubmenu,
-  handleClick,
-  handleClose,
-}) => {
+  const handleClose = () => {
+    setAnchor(null);
+    setCurrentSubmenu([]);
+  };
+
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Stack direction="row" justifyContent="center">
         {navItems.map((item, index) => (
@@ -48,12 +71,17 @@ const Navbar: React.FC<NavbarProps> = ({
               onClick={(event) => handleClick(event, item.submenu)}
             >
               {item.label}
-              <ExpandMoreRounded />
+              {anchor && currentSubmenu === item.submenu ? (
+                <ExpandLessRounded sx={{ transition: "transform 0.3s" }} />
+              ) : (
+                <ExpandMoreRounded sx={{ transition: "transform 0.3s" }} />
+              )}
             </Typography>
           </Box>
         ))}
       </Stack>
 
+      {/* sub menu*/}
       <Menu
         anchorEl={anchor}
         open={Boolean(anchor)}
@@ -65,41 +93,48 @@ const Navbar: React.FC<NavbarProps> = ({
             maxWidth: 600,
             overflow: "hidden",
             borderRadius: 2,
-            bgcolor: " Complementary2.main",
+            bgcolor: "Complementary2.main",
           },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-            p: 2,
-            maxHeight: 300,
-            overflowY: "auto",
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
         >
-          {currentSubmenu.map((subItem, index) => (
-            <MenuItem
-              key={index}
-              onClick={handleClose}
-              sx={{
-                flex: "0 0 calc(50% - 8px)",
-                fontSize: 14,
-                "&:hover": {
-                  color: " primary.main",
-                },
-              }}
-            >
-              <Link
-                href={`/category/${subItem}`}
-                style={{ textDecoration: "none", color: "black" }}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
+              p: 2,
+              maxHeight: 300,
+              overflowY: "auto",
+            }}
+          >
+            {currentSubmenu.map((subItem, index) => (
+              <MenuItem
+                key={index}
+                onClick={handleClose}
+                sx={{
+                  flex: "0 0 calc(50% - 8px)",
+                  fontSize: 14,
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
               >
-                {subItem}
-              </Link>
-            </MenuItem>
-          ))}
-        </Box>
+                <Link
+                  href={`/category/${subItem}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  {subItem}
+                </Link>
+              </MenuItem>
+            ))}
+          </Box>
+        </motion.div>
       </Menu>
     </Box>
   );

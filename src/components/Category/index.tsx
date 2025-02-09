@@ -37,7 +37,14 @@ const Category = () => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", px: "15px" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "10px 15px",
+        mt: "15px",
+      }}
+    >
       <Typography sx={{ fontSize: "36px", fontWeight: "700" }}>
         دسته‌بندی
       </Typography>
@@ -134,7 +141,7 @@ const Category = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    {product.title}
+                    <Typography>{product.title}</Typography>
                   </motion.div>
                 </MotionCard>
               </Link>
