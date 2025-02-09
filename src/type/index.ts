@@ -21,3 +21,13 @@ export interface ISocialMedia {
   icon: ReactNode;
   href: string;
 }
+export interface IProductCard {
+  code: number;
+  image: string;
+  price: number;
+  discount: number;
+  discountPrice: number;
+  badge: string;
+  rate: number;
+  title: string;
+}
