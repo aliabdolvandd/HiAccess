@@ -26,7 +26,7 @@ const banners = [
   },
 ];
 
-const Banner: React.FC = () => {
+const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
