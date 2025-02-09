@@ -1,0 +1,71 @@
+import SendIcon from "@/svg/sendIcon";
+import { Box, Typography } from "@mui/material";
+import WarrantyIcon from "@/svg/warrantyIcon";
+import PaymentIcon from "@/svg/paymentIcon";
+import SupportIcon from "@/svg/supportIcon";
+
+const options = [
+  { icon: <SendIcon />, title: "ارسال رایگان" },
+  { icon: <WarrantyIcon />, title: "1 هفته گارانتی بازگشت کالا" },
+  { icon: <PaymentIcon />, title: "پرداخت امن" },
+  { icon: <SupportIcon />, title: "پشتیبانی 24 ساعته" },
+];
+
+export default function WhyUsSection() {
+  return (
+    <Box
+      sx={{
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+        bgcolor: "#fff",
+        py: 6, // فاصله عمودی
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 4, // فاصله بین کارت‌ها
+          width: "90%",
+          flexWrap: "wrap", // برای نمایش ریسپانسیو
+        }}
+      >
+        {options.map((option, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: 2,
+              bgcolor: "#f9f9f9",
+              borderRadius: 2,
+              padding: 3,
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+              width: "220px", // عرض ثابت برای یکنواختی
+              height: "150px", // ارتفاع ثابت
+              textAlign: "center",
+            }}
+          >
+            <Box sx={{ fontSize: "32px", color: "primary.main" }}>
+              {option.icon}
+            </Box>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 500,
+                wordWrap: "break-word", // شکستن خطوط طولانی
+                overflow: "hidden", // جلوگیری از بیرون‌زدگی
+              }}
+            >
+              {option.title}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+}

@@ -6,6 +6,7 @@ import BestDiscount from "@/components/Home/BestDiscount";
 import { Box } from "@mui/material";
 import LatestSection from "@/components/Home/LatestSection";
 import SellerBanner from "@/components/Home/Banner/SellerBanner";
+import WhyUsSection from "@/components/Home/WhyUsSection";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Category />
         <BestDiscount />
         <SellerBanner />
+        <WhyUsSection />
       </Box>
     </>
   );
