@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import theme from "@/theme";
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import Image from "next/image";
@@ -41,7 +41,18 @@ const iconList = [
 function Header() {
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
   const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const handleClick = (
     event: React.MouseEvent<HTMLElement>,
     submenu: string[]
@@ -59,7 +70,9 @@ function Header() {
     <AppBar
       component="nav"
       sx={{
-        bgcolor: "rgba(255, 255, 255, 0.2)",
+        bgcolor: isScrolled
+          ? "Complementary2.main"
+          : "rgba(255, 255, 255, 0.2)",
         backdropFilter: "blur(8px)",
         boxShadow: "none",
         pt: 1,
@@ -69,7 +82,7 @@ function Header() {
         left: 0,
         right: 0,
         zIndex: theme.zIndex.drawer + 1,
-        "&:hover": { bgcolor: "rgba(255, 255, 255, 0.8)" },
+        "&:hover": { bgcolor: "Complementary2.main" },
       }}
     >
       <Toolbar

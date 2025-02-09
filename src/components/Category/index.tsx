@@ -43,7 +43,7 @@ const Category = () => {
       </Typography>
 
       <Box sx={{ width: "100%" }}>
-        <Grid2 container sx={{ gap: 23, px: 10 }}>
+        <Grid2 container sx={{ gap: 18, px: 10 }}>
           {products.map((product, index) => (
             <Grid2
               key={product.id}
