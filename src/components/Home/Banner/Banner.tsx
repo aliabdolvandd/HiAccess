@@ -1,32 +1,35 @@
 "use client";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import BtnBack from "@/svg/btnBack";
+import BtnNext from "@/svg/btnNext";
 
 const banners = [
   {
     id: 1,
     image: "/banner-1.png",
-    title: "بروزترین ها را از ما بخواهید",
+    title1: "بروزترین ها را ",
+    title2: "از ما بخواهید",
     buttonText: "همین حالا خرید کنید",
   },
   {
     id: 2,
     image: "/banner2.png",
-    title: "لذت شنیدن موسیقی با بهترین کیفیت",
-    description: "بهترین تجربه ها رو با ما رقم یزنید",
+    title1: "صدای  موسیقی ",
+    title2: "همراه با بهترین‌ها",
+    description: "بهترین تجربه ها رو با ما رقم بزنید",
     buttonText: "همین حالا خرید کنید",
   },
   {
     id: 3,
     image: "/banner-3.png",
-    title: "انواع برند های لپ تاپ",
+    title1: "جدیدترین مدل‌ها",
+    title2: "برای تمام نیازها",
     buttonText: "همین حالا خرید کنید",
   },
 ];
 
-const Banner: React.FC = () => {
+const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -88,17 +91,37 @@ const Banner: React.FC = () => {
       >
         <Typography
           variant="h3"
-          gutterBottom
           sx={{
             fontWeight: 700,
             fontSize: "48px",
             lineHeight: "56px",
             color: "white",
             position: "absolute",
-            right: "65%",
+            left: "10%",
+            top: "30%",
+            maxWidth: "40%",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
           }}
         >
-          {banners[activeIndex].title}
+          {banners[activeIndex].title1}
+        </Typography>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 700,
+            fontSize: "48px",
+            lineHeight: "56px",
+            color: "white",
+            position: "absolute",
+            left: "20%",
+            top: "50%",
+            maxWidth: "40%",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {banners[activeIndex].title2}
         </Typography>
         {banners[activeIndex].description && (
           <Typography
@@ -111,7 +134,7 @@ const Banner: React.FC = () => {
               color: "primary.main",
               position: "absolute",
               right: "75%",
-              bottom: "10%",
+              bottom: "25%",
             }}
           >
             {banners[activeIndex].description}
@@ -130,7 +153,7 @@ const Banner: React.FC = () => {
             borderRadius: "8px",
             position: "absolute",
             right: "75%",
-            bottom: "20%",
+            bottom: "10%",
           }}
         >
           {banners[activeIndex].buttonText}
@@ -146,14 +169,10 @@ const Banner: React.FC = () => {
           top: "50%",
           transform: "translateY(-50%)",
           color: "white",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            zIndex: 1,
-          },
+          zIndex: 1000,
         }}
       >
-        <NavigateBeforeIcon />
+        <BtnNext />
       </IconButton>
       <IconButton
         onClick={handleNext}
@@ -163,13 +182,10 @@ const Banner: React.FC = () => {
           top: "50%",
           transform: "translateY(-50%)",
           color: "white",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-          },
+          zIndex: 1000,
         }}
       >
-        <NavigateNextIcon />
+        <BtnBack />
       </IconButton>
 
       <Box

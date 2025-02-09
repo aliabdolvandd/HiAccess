@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import theme from "@/theme";
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import Image from "next/image";
@@ -10,28 +10,6 @@ import profileIcon from "@/svg/profileIcon";
 import cartIcon from "@/svg/cartIcon";
 import searchIcon from "@/svg/searchIcon";
 
-const navItems = [
-  {
-    label: "موبایل و تبلت",
-    submenu: ["گوشی موبایل", "تبلت", "سیم کارت", "برند سامسونگ", "برند اپل"],
-  },
-  {
-    label: "لپ تاپ",
-    submenu: [
-      "لپ تاپ ایسوس",
-      "لپ تاپ لنوو",
-      "لپ تاپ اپل",
-      "برند دل",
-      "برند اچ‌پی",
-    ],
-  },
-  {
-    label: "لوازم جانبی",
-    submenu: ["هدفون", "ماوس", "کیبورد", "پاوربانک", "کابل شارژ"],
-  },
-  { label: "فعلا مشخص نیست", submenu: [] },
-];
-
 const iconList = [
   { ariaLabel: "search", Icon: searchIcon },
   { ariaLabel: "cart", Icon: cartIcon, href: "/cart" },
@@ -39,27 +17,26 @@ const iconList = [
 ];
 
 function Header() {
-  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
-  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLElement>,
-    submenu: string[]
-  ) => {
-    setAnchor(event.currentTarget);
-    setCurrentSubmenu(submenu);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 250);
+    };
 
-  const handleClose = () => {
-    setAnchor(null);
-    setCurrentSubmenu([]);
-  };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <AppBar
       component="nav"
       sx={{
-        bgcolor: "rgba(255, 255, 255, 0.2)",
+        bgcolor: isScrolled
+          ? "Complementary2.main"
+          : "rgba(255, 255, 255, 0.2)",
         backdropFilter: "blur(8px)",
         boxShadow: "none",
         pt: 1,
@@ -69,7 +46,7 @@ function Header() {
         left: 0,
         right: 0,
         zIndex: theme.zIndex.drawer + 1,
-        "&:hover": { bgcolor: "rgba(255, 255, 255, 0.8)" },
+        "&:hover": { bgcolor: "Complementary2.main" },
       }}
     >
       <Toolbar
@@ -81,13 +58,7 @@ function Header() {
         <Link href={"/"} passHref>
           <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
         </Link>
-        <Navbar
-          navItems={navItems}
-          anchor={anchor}
-          currentSubmenu={currentSubmenu}
-          handleClick={handleClick}
-          handleClose={handleClose}
-        />
+        <Navbar />
 
         <Box sx={{ display: "flex" }}>
           {iconList.map((icon, index) => (

@@ -24,3 +24,14 @@ export interface ISocialMedia {
 export interface AuthProps {
   role: number;
 }
+
+export interface IProductCard {
+  code: number;
+  image: string;
+  price: number;
+  discount: number;
+  discountPrice: number;
+  badge: string;
+  rate: number;
+  title: string;
+}

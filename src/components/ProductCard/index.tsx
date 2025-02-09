@@ -1,38 +1,38 @@
 "use client";
-import React from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Button,
-  Typography,
-  Chip,
-  Box,
-  Rating,
-} from "@mui/material";
 import WishIcon from "@/svg/wishIcon";
-import { IDiscount } from "@/type";
+import { IProductCard } from "@/type";
+import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+interface ProductProps {
+  product: IProductCard;
+}
 
-const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
+const MotionCard = motion(Card);
+
+const ProductCard = ({ product }: ProductProps) => {
   return (
-    <Card
+    <MotionCard
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ scale: 1.05, boxShadow: "5px 5px 15px rgba(0,0,0,0.2)" }}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "446px",
-        width: "334px",
+        height: "350px",
+        width: "300px",
         margin: "auto",
         boxShadow: 3,
         position: "relative",
         borderRadius: "16px",
         padding: "8px 16px",
+        cursor: "pointer",
       }}
     >
-      {/* Discount percentage */}
-      {product.discountedPrice && (
+      {product.discountPrice && (
         <Chip
-          label={`${product.discountedPrice}`}
+          label={`% ${product.discount}  تخفیف`}
           size="medium"
           sx={{
             fontSize: "12px",
@@ -46,8 +46,6 @@ const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
         />
       )}
 
-      {/* Product image */}
-
       <CardMedia
         component="img"
         height={"228px"}
@@ -55,79 +53,56 @@ const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
         alt={product.title}
         sx={{ objectFit: "contain", padding: "10px" }}
       />
-      <Button
-        variant="contained"
-        sx={{
-          padding: "12px 56px",
-          mt: 2,
-          bgcolor: "primary.main",
-          color: "white",
-          borderRadius: "8px",
-          fontWeight: "bold",
-          fontSize: "1rem",
-          textTransform: "none",
-          ":hover": {
-            backgroundColor: "#2563eb",
-          },
-        }}
-      >
-        افزودن به سبد
-      </Button>
-      {/* Product rating */}
+
       <Rating
         name="read-only"
-        value={product.rating}
+        value={product.rate}
         precision={0.5}
         readOnly
         size="small"
-        sx={{ textAlign: "center", marginTop: "8px" }}
+        sx={{ textAlign: "center", marginTop: "20px", color: "black" }}
       />
 
-      {/* Price section */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          mt: 1,
           position: "absolute",
-          bottom: 7,
-          right: 13,
+          bottom: 8,
+          right: 15,
         }}
       >
-        {product.originalPrice && (
+        {product.price && (
           <Typography
             variant="body2"
-            sx={{
-              fontSize: "1.2rem",
-              fontWeight: "bold",
-              mb: 2,
-            }}
+            sx={{ fontSize: "1.2rem", fontWeight: "bold", mb: 2 }}
           >
-            {product.price}
+            {product.discountPrice} تومان
           </Typography>
         )}
         <Typography
           variant="h6"
           sx={{
             textDecoration: "line-through",
+            textDecorationColor: "red",
             fontWeight: "bold",
             color: "gray",
             fontSize: "0.9rem",
-            marginTop: "4px",
           }}
         >
-          {product.originalPrice}
+          {product.price} تومان
         </Typography>
       </Box>
+
       <Typography
         variant="subtitle1"
         component="span"
-        sx={{ fontSize: "1rem", fontWeight: "bold", width: "auto" }}
+        sx={{ fontSize: "1rem", fontWeight: "bold" }}
       >
         {product.title}
       </Typography>
-      {/* Favorite icon */}
+
       <Box
         sx={{
           position: "absolute",
@@ -145,7 +120,8 @@ const BestDiscountCard: React.FC<{ product: IDiscount }> = ({ product }) => {
       >
         <WishIcon />
       </Box>
-    </Card>
+    </MotionCard>
   );
 };
-export default BestDiscountCard;
+
+export default ProductCard;
