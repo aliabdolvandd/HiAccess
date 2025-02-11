@@ -17,12 +17,12 @@ export const getSellerProducts = async (
 };
 
 export const updateSellerProduct = async (
-  code: string,
-  body: Partial<IShopProducts>
+  code: number,
+  body: { price: number; count: number; discount: number }
 ): Promise<IShopProducts> => {
   try {
     const data = await apiFetch<IShopProducts>(
-      `${SELLER_BASE_URL}/products/${code}`,
+      `${SELLER_BASE_URL}/sellers/product/${code}/add-price`,
       {
         method: "POST",
         body: JSON.stringify(body),

@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -21,6 +20,7 @@ import {
   Smartphone as SmartphoneIcon,
   Money,
 } from "@mui/icons-material";
+import { useDrawer } from "./seller-drawer-provider";
 
 const menuItems = [
   {
@@ -36,17 +36,12 @@ const menuItems = [
     href: "/seller/category",
   },
 ];
-
 const SellerNavbar = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+  const { isDrawerOpen, toggleDrawer } = useDrawer();
 
   return (
     <>
-      {/* Navbar*/}
+      {/* Navbar */}
       <AppBar
         position="static"
         sx={{ backgroundColor: "primary.main", color: "#fff" }}
@@ -58,11 +53,11 @@ const SellerNavbar = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             داشبورد مدیریت
           </Typography>
-          <Avatar alt="user" src="/images/avatar/man.png" />
+          <Avatar alt="user" src="/prof.png" />
         </Toolbar>
       </AppBar>
 
-      {/* Menu*/}
+      {/* Drawer */}
       <Drawer
         variant="persistent"
         anchor="right"
@@ -72,11 +67,7 @@ const SellerNavbar = () => {
             width: 240,
             backgroundColor: "#f5f5f5",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            overflowX: "hidden",
-            transition: "transform 0.3s ease",
-            transform: isDrawerOpen ? "translateX(0)" : "translateX(240px)",
             left: 0,
-            top: 0,
           },
         }}
       >
@@ -96,7 +87,7 @@ const SellerNavbar = () => {
           </IconButton>
         </Box>
 
-        {/* use details*/}
+        {/* User details */}
         <div
           style={{
             textAlign: "center",
@@ -106,7 +97,7 @@ const SellerNavbar = () => {
         >
           <Avatar
             alt="user photo"
-            src="/images/avatar/man.png"
+            src="/prof.png"
             sx={{ width: 64, height: 64, margin: "0 auto" }}
           />
           <Typography variant="h6" sx={{ marginTop: 1 }}>
@@ -117,7 +108,7 @@ const SellerNavbar = () => {
           </Typography>
         </div>
 
-        {/*list*/}
+        {/* List */}
         <List>
           {menuItems.map((item) => (
             <ListItem
@@ -127,9 +118,7 @@ const SellerNavbar = () => {
               sx={{
                 color: "#000",
                 cursor: "pointer",
-                "&:hover": {
-                  bgcolor: "neutral.main",
-                },
+                "&:hover": { bgcolor: "neutral.main" },
               }}
             >
               <ListItemIcon sx={{ color: "black" }}>{item.icon}</ListItemIcon>

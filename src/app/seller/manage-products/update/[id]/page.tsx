@@ -1,4 +1,4 @@
-import { getSellerProductById } from "@/api/seller-api/getProducts";
+import { getSellerProductById } from "@/api/seller-api/products";
 import { ServerPageProps } from "@/api/server-api/type";
 import SellerProductForm from "@/components/forms/seller-product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";

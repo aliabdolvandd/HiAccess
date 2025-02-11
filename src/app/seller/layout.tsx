@@ -1,9 +1,9 @@
 "use";
 import AuthProvider from "@/components/AuthProvider";
-import SellerNavbar from "@/components/layout/seller/Navbar";
+import DashboardContent from "@/components/layout/seller/seller-dashboard-context";
+import { DrawerProvider } from "@/components/layout/seller/seller-drawer-provider";
 import QueryProvider from "@/components/QueryProvider";
 import { auth } from "@/lib/session";
-import { Box } from "@mui/material";
 
 async function DashboardLayout({
   children,
@@ -14,13 +14,9 @@ async function DashboardLayout({
   return (
     <AuthProvider accessToken={accessToken || ""}>
       <QueryProvider>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <SellerNavbar />
-
-          <Box component="main" sx={{ flexGrow: 1 }}>
-            {children}
-          </Box>
-        </Box>
+        <DrawerProvider>
+          <DashboardContent>{children}</DashboardContent>
+        </DrawerProvider>
       </QueryProvider>
     </AuthProvider>
   );
