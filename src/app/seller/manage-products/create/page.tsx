@@ -1,5 +1,15 @@
-import React from "react";
+import SellerProductForm from "@/components/forms/seller-product-form";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
-export default function Page() {
-  return <div></div>;
+export default async function CreateProductPage() {
+  return (
+    <Box>
+      <Card>
+        <CardContent>
+          <Typography variant="h5">ایجاد محصول جدید</Typography>
+          <SellerProductForm />
+        </CardContent>
+      </Card>
+    </Box>
+  );
 }

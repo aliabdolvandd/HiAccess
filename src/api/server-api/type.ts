@@ -146,3 +146,31 @@ export interface IOrderItem {
   order: string;
   seller: ISeller;
 }
+interface SellerInfo {
+  lastPrice: number;
+  createdAt: string;
+  discount: number;
+  count: number;
+  id: string;
+  seller: ISeller;
+}
+
+export interface IShopProducts {
+  images: {
+    main: string;
+    list: string[];
+  };
+  colors: IColor[];
+  code: number;
+  titleFa: string;
+  titleEn: string;
+  status: "marketable" | "unmarketable";
+  badges: [];
+  category: ICategory;
+  brand: IBrand;
+  review: string;
+  specifications: IPropertyValue[];
+  expert_review: string;
+  id: string;
+  bestSeller?: SellerInfo;
+}

@@ -8,6 +8,8 @@ import { formDataToObject } from "@/lib/utils";
 
 export async function loginAction(state: LoginFormState, formData: FormData) {
   /// validate input
+  const role = Number(formData.get("role"));
+  console.log(role);
   const validatedFields = LoginFormSchema.safeParse(formDataToObject(formData));
   if (!validatedFields.success) {
     return {
@@ -32,5 +34,12 @@ export async function loginAction(state: LoginFormState, formData: FormData) {
     accessToken: data.tokens.accessToken,
     refreshToken: data.tokens.refreshToken,
   });
-  redirect("/dashboard");
+  if (role === 1) {
+    redirect("/");
+  }
+  if (role === 2) {
+    redirect("/seller");
+  } else {
+    redirect("/dashboard");
+  }
 }

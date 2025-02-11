@@ -67,7 +67,7 @@ export default function SellerBanner() {
           شوید
         </Typography>
       </Box>
-      <Link href={"/auth/register"}>
+      <Link href={"/auth/register/seller"}>
         <Button
           variant="contained"
           sx={{
