@@ -1,15 +1,14 @@
 "use server";
 import { SELLER_BASE_URL } from "@/config.server";
 import { apiFetch } from "../server-api/base";
-import { IProduct, PaginatedResultApi } from "../server-api/type";
+import { IShopProducts, PaginatedResultApi } from "../server-api/type";
 import { revalidateTag } from "next/cache";
-import { IProductForSeller } from "@/app/seller/set-price/page";
 
 export const getSellerProducts = async (
   params?: unknown
-): Promise<PaginatedResultApi<IProduct>> => {
+): Promise<PaginatedResultApi<IShopProducts>> => {
   const search = new URLSearchParams(params as Record<string, string>);
-  return apiFetch<PaginatedResultApi<IProduct>>(
+  return apiFetch<PaginatedResultApi<IShopProducts>>(
     `${SELLER_BASE_URL}/products?${search.toString()}`,
     {
       cache: "no-store",
@@ -18,22 +17,31 @@ export const getSellerProducts = async (
 };
 
 export const updateSellerProduct = async (
-  id: string,
-  body: Partial<IProductForSeller>
-): Promise<IProductForSeller> => {
-  debugger;
+  code: string,
+  body: Partial<IShopProducts>
+): Promise<IShopProducts> => {
   try {
-    const data = await apiFetch<IProductForSeller>(
-      `${SELLER_BASE_URL}/products/${id}`,
+    const data = await apiFetch<IShopProducts>(
+      `${SELLER_BASE_URL}/products/${code}`,
       {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(body),
       }
     );
 
-    revalidateTag(`seller-products-${id}`);
+    revalidateTag(`seller/manage-products-${code}`);
     return data;
   } catch (e) {
     throw e;
   }
+};
+export const getSellerProductById = async (
+  code: number
+): Promise<IShopProducts> => {
+  return apiFetch<IShopProducts>(`${SELLER_BASE_URL}/products/${code}`, {
+    cache: "force-cache",
+    next: {
+      tags: ["allSingleProduct", `products-${code}`],
+    },
+  });
 };

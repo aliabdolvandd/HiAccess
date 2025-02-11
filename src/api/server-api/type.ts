@@ -155,7 +155,7 @@ interface SellerInfo {
   seller: ISeller;
 }
 
-export interface IShopProducts {
+export interface IShopProducts extends Timestamp {
   images: {
     main: string;
     list: string[];
@@ -165,7 +165,7 @@ export interface IShopProducts {
   titleFa: string;
   titleEn: string;
   status: "marketable" | "unmarketable";
-  badges: [];
+  badges: IBadge;
   category: ICategory;
   brand: IBrand;
   review: string;

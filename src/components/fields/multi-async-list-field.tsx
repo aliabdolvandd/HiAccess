@@ -41,7 +41,7 @@ export default function MultiAsyncListField<T extends { id: string }>({
       {values?.map((v, index) => (
         <input
           type="hidden"
-          key={v.id}
+          key={v.id || index}
           name={`${name}.${index}`} // This will be sent to the backend
           defaultValue={v.id}
         />

@@ -1,3 +1,4 @@
+import ProductForm from "@/components/forms/product-form";
 import SellerProductForm from "@/components/forms/seller-product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
