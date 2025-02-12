@@ -1,5 +1,6 @@
 import { SELLER_BASE_URL } from "@/config.server";
 import { IProperty, PaginatedResultApi } from "../server-api/type";
+import { apiFetch } from "../server-api/base";
 
 export const getSellerProperties = async (
   params?: unknown

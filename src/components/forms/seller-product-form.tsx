@@ -21,7 +21,7 @@ import SingleUpload from "../upload/single-upload";
 import BrandField from "../fields/brand-field";
 import BadgeField from "../fields/badges-fields";
 import ColorsField from "../fields/colors-field";
-import { createOrUpdateSellerProductAction } from "@/action/seller/seller-action";
+import { createOrUpdateSellerProductAction } from "@/action/seller/seller-product";
 
 type ProductFormProps = {
   defaultValue?: IShopProducts;
