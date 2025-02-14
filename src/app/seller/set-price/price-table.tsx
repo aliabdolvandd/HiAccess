@@ -14,11 +14,19 @@ import {
 import { useState } from "react";
 
 export default function PriceProductList({
-  products,
+  products: initialProducts,
 }: {
   products: IShopProducts[];
 }) {
+  const [products, setProducts] = useState<IShopProducts[]>(initialProducts);
   const [editProduct, setEditProduct] = useState<IShopProducts | null>(null);
+
+  const handleUpdateProduct = (updatedProduct: IShopProducts) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+    );
+    setEditProduct(null);
+  };
 
   return (
     <>
@@ -60,10 +68,13 @@ export default function PriceProductList({
         </Table>
       </TableContainer>
 
-      <EditProductModal
-        product={editProduct}
-        onClose={() => setEditProduct(null)}
-      />
+      {editProduct && (
+        <EditProductModal
+          product={editProduct}
+          onClose={() => setEditProduct(null)}
+          // onUpdate={handleUpdateProduct}
+        />
+      )}
     </>
   );
 }

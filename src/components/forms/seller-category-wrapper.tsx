@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, Box } from "@mui/material";
 
 import { ICategory, PaginatedResultApi } from "@/api/server-api/type";
 import CategoryTable from "@/app/seller/category/category-table";
@@ -22,25 +22,29 @@ export default function CategoryClientWrapper({
   };
 
   return (
-    <div>
-      <Button variant="contained" color="primary" onClick={() => handleOpen()}>
+    <Box sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => handleOpen()}
+        sx={{ mb: 2, borderRadius: 2, alignSelf: "flex-end" }}
+      >
         افزودن دسته‌بندی
       </Button>
       <CategoryTable categories={categories} onEdit={handleOpen} />
-
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle>
+        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
           {selectedCategory ? "ویرایش دسته‌بندی" : "افزودن دسته‌بندی"}
         </DialogTitle>
         <DialogContent>
           <SellerCategoryForm defaultValue={selectedCategory || undefined} />
         </DialogContent>
       </Dialog>
-    </div>
+    </Box>
   );
 }

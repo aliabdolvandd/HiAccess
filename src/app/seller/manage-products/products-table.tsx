@@ -16,91 +16,120 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
 export function ProductTable({
   products,
 }: {
   products: PaginatedResultApi<IShopProducts>;
 }) {
   return (
-    <Grid2 container spacing={3} padding="20px 80px">
+    <Grid2
+      container
+      spacing={3}
+      sx={{
+        padding: "20px 40px",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gap: "20px",
+      }}
+    >
       {products.results.map((product) => (
-        <Grid2 key={product.code}>
-          <Card elevation={3} sx={{ borderRadius: 3, overflow: "hidden" }}>
-            {/* تصویر محصول */}
-            <CardMedia
-              component="img"
-              height="160"
-              image={product.images.main}
-              alt={product.titleFa}
-              sx={{ objectFit: "cover" }}
-            />
-            <CardHeader
-              title={product.titleFa}
-              subheader={product.titleEn}
-              sx={{ textAlign: "center", bgcolor: "#f5f5f5" }}
-            />
-            <CardContent>
-              <Grid2 container spacing={2}>
-                <Grid2>
-                  <Typography variant="body2">
-                    <strong>کد محصول:</strong> {product.code}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>وضعیت:</strong>{" "}
-                    {product.status === "marketable"
-                      ? "قابل فروش"
-                      : "غیر قابل فروش"}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>دسته‌بندی:</strong> {product.category.titleFa}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>برند:</strong> {product.brand.titleFa}
-                  </Typography>
-                </Grid2>
-                <Grid2 xs={6}>
-                  <Typography variant="body2">
-                    <strong>قیمت:</strong>{" "}
-                    {product.bestSeller?.price?.toLocaleString()} تومان
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>موجودی:</strong> {product.bestSeller?.count}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>تخفیف:</strong> {product.bestSeller?.discount}%
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>بروزرسانی:</strong>{" "}
-                    {new Date(product.updatedAt ?? "").toLocaleDateString("fa")}
-                  </Typography>
-                </Grid2>
-              </Grid2>
-            </CardContent>
-            {/* دکمه‌های اکشن */}
-            <Stack direction="row" spacing={1} p={2} justifyContent="center">
-              <Tooltip title="ویرایش">
-                <IconButton
-                  color="secondary"
-                  component={Link}
-                  href={"/seller/manage-products/update/" + product.code}
-                >
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="حذف">
-                <DeleteAlertDialog
-                  onConfirm={async () => deleteProductAction(product.id)}
-                >
-                  <IconButton color="error">
-                    <Delete />
-                  </IconButton>
-                </DeleteAlertDialog>
-              </Tooltip>
-            </Stack>
-          </Card>
-        </Grid2>
+        <ProductCard key={product.code} product={product} />
       ))}
     </Grid2>
+  );
+}
+
+function ProductCard({ product }: { product: IShopProducts }) {
+  const [formattedDate, setFormattedDate] = useState("0");
+
+  useEffect(() => {
+    if (product.updatedAt) {
+      setFormattedDate(new Date(product.updatedAt).toLocaleDateString("fa"));
+    }
+  }, [product.updatedAt]);
+
+  return (
+    <Card
+      elevation={3}
+      sx={{ borderRadius: 3, overflow: "hidden", width: "100%", maxWidth: 350 }}
+    >
+      <CardMedia
+        component="img"
+        height="160"
+        image={product.images.main}
+        alt={product.titleFa}
+        sx={{ objectFit: "cover" }}
+      />
+
+      <CardHeader
+        title={product.titleFa}
+        subheader={product.titleEn}
+        sx={{ textAlign: "center", bgcolor: "#f5f5f5" }}
+      />
+
+      <CardContent>
+        <Grid2 container spacing={1}>
+          <Grid2>
+            <Typography variant="body2">
+              <strong>کد محصول:</strong> {product.code}
+            </Typography>
+            <Typography variant="body2">
+              <strong>وضعیت:</strong>{" "}
+              {product.status === "marketable" ? "قابل فروش" : "غیر قابل فروش"}
+            </Typography>
+            <Typography variant="body2">
+              <strong>دسته‌بندی:</strong> {product.category.titleFa}
+            </Typography>
+            <Typography variant="body2">
+              <strong>برند:</strong> {product.brand.titleFa}
+            </Typography>
+          </Grid2>
+          <Grid2>
+            <Typography variant="body2">
+              <strong>قیمت:</strong>{" "}
+              {product.bestSeller?.lastPrice
+                ? product.bestSeller.lastPrice.toLocaleString()
+                : "0"}{" "}
+              تومان
+            </Typography>
+            <Typography variant="body2">
+              <strong>موجودی:</strong> {product.bestSeller?.count ?? "نامشخص"}
+            </Typography>
+            <Typography variant="body2">
+              <strong>تخفیف:</strong>{" "}
+              {product.bestSeller?.discount
+                ? `${product.bestSeller.discount}%`
+                : "بدون تخفیف"}
+            </Typography>
+            <Typography variant="body2">
+              <strong>بروزرسانی:</strong> {formattedDate}
+            </Typography>
+          </Grid2>
+        </Grid2>
+      </CardContent>
+
+      {/* دکمه‌های ویرایش و حذف */}
+      <Stack direction="row" spacing={1} p={2} justifyContent="center">
+        <Tooltip title="ویرایش">
+          <IconButton
+            color="secondary"
+            component={Link}
+            href={`/seller/manage-products/update/${product.code}`}
+          >
+            <Edit />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="حذف">
+          <DeleteAlertDialog
+            onConfirm={async () => deleteProductAction(product.id)}
+          >
+            <IconButton color="error">
+              <Delete />
+            </IconButton>
+          </DeleteAlertDialog>
+        </Tooltip>
+      </Stack>
+    </Card>
   );
 }
