@@ -16,9 +16,11 @@ import { updateSellerProduct } from "@/api/seller-api/products";
 export default function EditProductModal({
   product,
   onClose,
+  onUpdate,
 }: {
   product: IShopProducts | null;
   onClose: () => void;
+  onUpdate: (updatedProduct: IShopProducts) => void;
 }) {
   const [price, setPrice] = useState<string>("");
   const [count, setCount] = useState<string>("");
@@ -26,7 +28,7 @@ export default function EditProductModal({
 
   useEffect(() => {
     if (product) {
-      setPrice(product.bestSeller?.lastPrice?.toString() ?? "");
+      setPrice(product.bestSeller?.price?.toString() ?? "");
       setCount(product.bestSeller?.count?.toString() ?? "");
       setDiscount(product.bestSeller?.discount?.toString() ?? "");
     }
@@ -36,11 +38,24 @@ export default function EditProductModal({
 
   const handleSave = async () => {
     try {
-      await updateSellerProduct(product.code, {
+      const updatedData = {
         price: price ? Number(price) : 0,
         count: count ? Number(count) : 0,
         discount: discount ? Number(discount) : 0,
+      };
+
+      await updateSellerProduct(product.code, updatedData);
+
+      onUpdate({
+        ...product,
+        bestSeller: {
+          ...product.bestSeller!,
+          price: updatedData.price,
+          count: updatedData.count,
+          discount: updatedData.discount,
+        },
       });
+
       onClose();
     } catch (error) {
       console.log(error);

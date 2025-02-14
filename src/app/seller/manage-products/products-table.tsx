@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 export function ProductTable({
   products,
 }: {
@@ -42,7 +43,6 @@ export function ProductTable({
 
 function ProductCard({ product }: { product: IShopProducts }) {
   const [formattedDate, setFormattedDate] = useState("0");
-
   useEffect(() => {
     if (product.updatedAt) {
       setFormattedDate(new Date(product.updatedAt).toLocaleDateString("fa"));
@@ -75,7 +75,7 @@ function ProductCard({ product }: { product: IShopProducts }) {
               <strong>کد محصول:</strong> {product.code}
             </Typography>
             <Typography variant="body2">
-              <strong>وضعیت:</strong>{" "}
+              <strong>وضعیت:</strong>
               {product.status === "marketable" ? "قابل فروش" : "غیر قابل فروش"}
             </Typography>
             <Typography variant="body2">
@@ -87,10 +87,8 @@ function ProductCard({ product }: { product: IShopProducts }) {
           </Grid2>
           <Grid2>
             <Typography variant="body2">
-              <strong>قیمت:</strong>{" "}
-              {product.bestSeller?.lastPrice
-                ? product.bestSeller.lastPrice.toLocaleString()
-                : "0"}{" "}
+              <strong>قیمت:</strong>
+              {product.bestSeller?.price ? product.bestSeller.price : "نامشخص"}
               تومان
             </Typography>
             <Typography variant="body2">
@@ -109,7 +107,6 @@ function ProductCard({ product }: { product: IShopProducts }) {
         </Grid2>
       </CardContent>
 
-      {/* دکمه‌های ویرایش و حذف */}
       <Stack direction="row" spacing={1} p={2} justifyContent="center">
         <Tooltip title="ویرایش">
           <IconButton

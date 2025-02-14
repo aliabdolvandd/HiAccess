@@ -72,7 +72,7 @@ export default function PriceProductList({
         <EditProductModal
           product={editProduct}
           onClose={() => setEditProduct(null)}
-          // onUpdate={handleUpdateProduct}
+          onUpdate={handleUpdateProduct}
         />
       )}
     </>
