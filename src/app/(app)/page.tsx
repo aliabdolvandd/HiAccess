@@ -7,10 +7,11 @@ import { Box } from "@mui/material";
 import LatestSection from "@/components/Home/LatestSection";
 import SellerBanner from "@/components/Home/Banner/SellerBanner";
 import WhyUsSection from "@/components/Home/WhyUsSection";
+import QueryProvider from "@/components/QueryProvider";
 
 export default function Home() {
   return (
-    <>
+    <QueryProvider>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
         <Banner />
         <LatestSection />
@@ -19,6 +20,6 @@ export default function Home() {
         <SellerBanner />
         <WhyUsSection />
       </Box>
-    </>
+    </QueryProvider>
   );
 }

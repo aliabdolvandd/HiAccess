@@ -1,10 +1,10 @@
 "use client";
+import { IShopProducts } from "@/api/server-api/type";
 import WishIcon from "@/svg/wishIcon";
-import { IProductCard } from "@/type";
 import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 interface ProductProps {
-  product: IProductCard;
+  product: IShopProducts;
 }
 
 const MotionCard = motion(Card);
@@ -30,9 +30,9 @@ const ProductCard = ({ product }: ProductProps) => {
         cursor: "pointer",
       }}
     >
-      {product.discountPrice && (
+      {product.bestSeller?.discount && (
         <Chip
-          label={`% ${product.discount}  تخفیف`}
+          label={`% ${product.bestSeller.discount}  تخفیف`}
           size="medium"
           sx={{
             fontSize: "12px",
@@ -45,18 +45,19 @@ const ProductCard = ({ product }: ProductProps) => {
           }}
         />
       )}
-
-      <CardMedia
-        component="img"
-        height={"228px"}
-        image={product.image}
-        alt={product.title}
-        sx={{ objectFit: "contain", padding: "10px" }}
-      />
+      {product.images && (
+        <CardMedia
+          component="img"
+          height={"228px"}
+          image={product.images.main}
+          alt={product.titleEn}
+          sx={{ objectFit: "contain", padding: "10px" }}
+        />
+      )}
 
       <Rating
         name="read-only"
-        value={product.rate}
+        value={5}
         precision={0.5}
         readOnly
         size="small"
@@ -73,26 +74,29 @@ const ProductCard = ({ product }: ProductProps) => {
           right: 15,
         }}
       >
-        {product.price && (
+        {product.bestSeller?.lastPrice && (
           <Typography
             variant="body2"
             sx={{ fontSize: "1.2rem", fontWeight: "bold", mb: 2 }}
           >
-            {product.discountPrice} تومان
+            {product.bestSeller.lastPrice} تومان
           </Typography>
         )}
-        <Typography
-          variant="h6"
-          sx={{
-            textDecoration: "line-through",
-            textDecorationColor: "red",
-            fontWeight: "bold",
-            color: "gray",
-            fontSize: "0.9rem",
-          }}
-        >
-          {product.price} تومان
-        </Typography>
+
+        {product.bestSeller?.discount && product.bestSeller.discount !== 0 && (
+          <Typography
+            variant="h6"
+            sx={{
+              textDecoration: "line-through",
+              textDecorationColor: "red",
+              fontWeight: "bold",
+              color: "gray",
+              fontSize: "0.9rem",
+            }}
+          >
+            {product.bestSeller.discount} تومان
+          </Typography>
+        )}
       </Box>
 
       <Typography
@@ -100,7 +104,7 @@ const ProductCard = ({ product }: ProductProps) => {
         component="span"
         sx={{ fontSize: "1rem", fontWeight: "bold" }}
       >
-        {product.title}
+        {product.titleFa}
       </Typography>
 
       <Box

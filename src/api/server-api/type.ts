@@ -71,7 +71,7 @@ export interface IColor extends Timestamp {
   id: string;
 }
 
-interface IPropertyValue {
+export interface IPropertyValue {
   name: string;
   title: string;
   value: string;

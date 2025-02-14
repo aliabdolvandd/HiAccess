@@ -1,13 +1,17 @@
+import { ServerPageProps } from "@/api/server-api/type";
+import { getProductByCode } from "@/api/shop/shop-products";
 import ProductDetail from "@/components/ProductsDetaile";
 import { Container } from "@mui/material";
 import React from "react";
 
-function page() {
+export async function Page({ params }: ServerPageProps) {
+  const { id } = await params;
+  const product = await getProductByCode(Number(id));
   return (
     <Container maxWidth="xl">
-      <ProductDetail />
+      <ProductDetail product={product} />
     </Container>
   );
 }
 
-export default page;
+export default Page;

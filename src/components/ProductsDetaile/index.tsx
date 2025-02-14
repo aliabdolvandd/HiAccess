@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Box,
   Typography,
@@ -7,6 +6,7 @@ import {
   IconButton,
   Divider,
   Rating,
+  Container,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -15,10 +15,15 @@ import { useState } from "react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FeatureProduct from "./FeatureProduct";
 import Comments from "./CommentSection";
+import { IShopProducts } from "@/api/server-api/type";
+import LoadMore from "../buttons/loadButton";
 
-const ProductDetail = () => {
+interface ProductDetailProps {
+  product: IShopProducts;
+}
+
+const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
   const [quantity, setQuantity] = useState(1);
-
   const handleIncrease = () => {
     setQuantity((prev) => prev + 1);
   };
@@ -27,11 +32,12 @@ const ProductDetail = () => {
     if (quantity > 1) setQuantity((prev) => prev - 1);
   };
 
+  if (!product) return <Typography>محصولی یافت نشد.</Typography>;
+
   return (
-    <Box sx={{ pt: 12, maxWidth: "1440px", px: 2, mx: "auto" }}>
-      {/* Breadcrumb */}
+    <Container maxWidth="xl" sx={{ pt: 12 }}>
       <Typography variant="subtitle2" sx={{ color: "gray", mb: 3 }}>
-        خانه / دسته‌بندی / لپ‌تاپ
+        خانه / {product.category.titleFa} / {product.titleFa}
       </Typography>
 
       <Box
@@ -42,16 +48,11 @@ const ProductDetail = () => {
           justifyContent: "space-between",
         }}
       >
-        {/* Product Images */}
-        <Box
-          sx={{
-            flex: "1 1 40%",
-            maxWidth: "500px",
-          }}
-        >
+        {/* بخش تصاویر */}
+        <Box sx={{ flex: "1 1 40%", maxWidth: "500px" }}>
           <Image
-            src="/image2.png"
-            alt="محصول"
+            src={product.images.main}
+            alt={product.titleFa}
             width={400}
             height={400}
             style={{
@@ -64,11 +65,11 @@ const ProductDetail = () => {
           <Box
             sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 2 }}
           >
-            {[1, 2, 3].map((_, index) => (
+            {product.images.list.map((img, index) => (
               <Image
                 key={index}
-                src="/image2.png"
-                alt={`محصول کوچک ${index + 1}`}
+                src={img}
+                alt={`تصویر ${index + 1}`}
                 width={120}
                 height={100}
                 style={{
@@ -81,110 +82,72 @@ const ProductDetail = () => {
             ))}
           </Box>
         </Box>
-
-        {/* Product Details */}
         <Box
           sx={{
             flex: "1 1 50%",
             display: "flex",
             flexDirection: "column",
-            gap: 1,
+            gap: 2,
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Rating
-              value={4.5}
-              readOnly
-              sx={{ mb: 2, color: "black", width: "16px", height: "16px" }}
-            />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Rating value={4.5} readOnly />
             <IconButton>
               <FavoriteBorder />
             </IconButton>
           </Box>
-          <Typography
-            variant="h5"
-            fontWeight="700"
-            fontSize={"28px"}
-            gutterBottom
-          >
-            لپ‌تاپ 14 اینچی ایسوس
+
+          <Typography variant="h5" fontWeight="700">
+            {product.titleFa}
           </Typography>
           <Typography
             variant="subtitle2"
-            sx={{ color: "gray", fontSize: "16px", fontWeight: "700" }}
+            sx={{ color: "gray", fontWeight: "700" }}
           >
-            ASUS Laptop 14-Inch
+            {product.titleEn}
           </Typography>
           <Divider />
 
-          {/* Product Description */}
           <Typography
             variant="body1"
-            sx={{ lineHeight: 1.8, fontWeight: "400", textAlign: "justify" }}
+            sx={{ lineHeight: 1.8, textAlign: "justify" }}
           >
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوال و آینده
-            شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
-            بیشتری.
+            {product.review}
           </Typography>
 
-          {/* Price */}
-          <Box>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", mb: 2, fontSize: "24px" }}
-            >
-              1,200,000 تومان
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                textDecoration: "line-through",
-                textDecorationColor: "red",
-                color: "gray",
-              }}
-            >
-              1,500,000 تومان
-            </Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
+            {product.bestSeller?.lastPrice ?? "نامشخص"} تومان
+          </Typography>
 
-            {/* Product Colors */}
-            <Box sx={{ mt: 3 }}>
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: "bold", mb: 1, fontSize: "18px" }}
-              >
-                انتخاب رنگ:
-              </Typography>
-              <Box sx={{ display: "flex", gap: 2 }}>
-                {["قرمز", "آبی", "سبز", "مشکی"].map((color, index) => (
-                  <Button
-                    key={index}
-                    variant="contained"
-                    sx={{
-                      minWidth: "50px",
-                      height: "50px",
-                      backgroundColor:
-                        color === "مشکی" ? "black" : color.toLowerCase(),
-                      color: "white",
-                      borderRadius: "50%",
-                      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                      "&:hover": {
-                        backgroundColor:
-                          color === "مشکی"
-                            ? "gray"
-                            : `${color.toLowerCase()}CC`,
-                      },
-                    }}
-                  >
-                    {color}
-                  </Button>
-                ))}
-              </Box>
+          {/* color picker*/}
+          <Box>
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+              انتخاب رنگ:
+            </Typography>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              {product.colors.map((color, index) => (
+                <Button
+                  key={index}
+                  variant="contained"
+                  sx={{
+                    minWidth: "40px",
+                    height: "40px",
+                    backgroundColor: color.hexCode,
+                    color: "white",
+                    borderRadius: "50%",
+                  }}
+                ></Button>
+              ))}
             </Box>
           </Box>
 
-          {/* Quantity and Add to Cart */}
+          {/* quantity*/}
           <Box
             sx={{
               display: "flex",
@@ -224,14 +187,26 @@ const ProductDetail = () => {
               افزودن به سبد خرید
             </Button>
           </Box>
-          <Divider sx={{ my: 1 }} />
-          <Box sx={{ flex: 2 }}>
-            <FeatureProduct />
+
+          <Divider />
+          <FeatureProduct Feature={product.specifications} />
+          <Divider />
+          <Box
+            sx={{
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+              padding: "10px",
+            }}
+          >
+            <Typography variant="h6" sx={{ pb: "10px" }}>
+              بررسی تخصصی:
+            </Typography>
+            <LoadMore review={product.expert_review} />
           </Box>
         </Box>
       </Box>
+
       <Comments />
-    </Box>
+    </Container>
   );
 };
 

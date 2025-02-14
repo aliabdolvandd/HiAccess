@@ -1,12 +1,13 @@
 "use client";
-import { IProductCard } from "@/type";
+
 import SectionTitle from "../SectionTitle";
 import { Box } from "@mui/material";
 import Link from "next/link";
 import ProductCard from "../ProductCard";
+import { IShopProducts } from "@/api/server-api/type";
 
 interface ProductListProps {
-  products: IProductCard[];
+  products: IShopProducts[];
   title: string;
 }
 

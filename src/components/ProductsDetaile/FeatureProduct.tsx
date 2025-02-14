@@ -1,16 +1,12 @@
 "use client";
+import { IPropertyValue } from "@/api/server-api/type";
 import { Box, Typography } from "@mui/material";
 
-const Feature = [
-  { title: "سری پردازنده", value: "Celeron" },
-  { title: "حافظه داخلی", value: "512 گیگابایت" },
-  { title: "باتری", value: "6 سلولی" },
-  { title: "اندازه صفحه نمایش", value: "15.6 اینچ" },
-  { title: "وزن", value: "1.8 کیلوگرم" },
-  { title: "ابعاد", value: "360x235x20 میلی‌متر" },
-];
+type FeatureProps = {
+  Feature: IPropertyValue[];
+};
 
-const FeatureProduct = () => {
+const FeatureProduct = ({ Feature }: FeatureProps) => {
   return (
     <Box sx={{}}>
       <Typography
@@ -41,6 +37,7 @@ const FeatureProduct = () => {
               boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
               backgroundColor: "#fff",
               display: "flex",
+              gap: 2,
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
