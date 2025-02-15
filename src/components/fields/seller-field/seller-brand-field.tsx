@@ -2,15 +2,15 @@
 
 import { IBrand } from "@/api/server-api/type";
 import React from "react";
-import AsyncListField from "../fields/async-list-filed";
 import { useSellerBrandsQuery } from "@/api/seller-api/seller-client/seller-brands";
+import AsyncListField from "../async-list-filed";
 
 type Props = {
   name: string;
   defaultValue?: IBrand;
 };
 
-export default function SellerBrandField({ name, defaultValue }: Props) {
+export default function BrandField({ name, defaultValue }: Props) {
   const { data, isLoading } = useSellerBrandsQuery("");
   return (
     <AsyncListField

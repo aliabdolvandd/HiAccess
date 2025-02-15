@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import AsyncListField from "../async-list-filed";
 import { useSellerCategoriesQuery } from "@/api/seller-api/seller-client/seller-categories";

@@ -14,7 +14,7 @@ async function getSellerAllCategories(params: { q?: string }) {
 
 export function useSellerCategoriesQuery(q: string) {
   return useQuery({
-    queryKey: ["categories", q],
+    queryKey: ["sellerCategories", q],
     queryFn: () => getSellerAllCategories({ q }),
   });
 }

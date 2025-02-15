@@ -1,7 +1,6 @@
 "use client";
 
-import { createOrUpdateProductAction } from "@/action/products";
-import { ICategory, IProduct, IShopProducts } from "@/api/server-api/type";
+import { ICategory, IShopProducts } from "@/api/server-api/type";
 import {
   Alert,
   Box,
@@ -16,12 +15,12 @@ import {
 import React, { useActionState, useState } from "react";
 import AIForm from "./AIForm";
 import SubmitButton from "../SubmitButton";
-import CategoryField from "../fields/category-field";
 import SingleUpload from "../upload/single-upload";
-import BrandField from "../fields/brand-field";
-import BadgeField from "../fields/badges-fields";
-import ColorsField from "../fields/colors-field";
 import { createOrUpdateSellerProductAction } from "@/action/seller/seller-product";
+import SellerCategoryField from "../sellerFields/seller-category-field";
+import SellerBadgeField from "../sellerFields/seller-badge-field";
+import SellerColorsField from "../sellerFields/seller-color-field";
+import SellerBrandField from "../sellerFields/seller-brand-field";
 
 type ProductFormProps = {
   defaultValue?: IShopProducts;
@@ -54,21 +53,24 @@ function SellerProductForm({ defaultValue }: ProductFormProps) {
           />
         </Stack>
         <Stack direction="row" gap={2}>
-          <CategoryField
+          <SellerCategoryField
             onChange={setCategory}
             name="category"
             defaultValue={defaultValue?.category}
           />
-          <BrandField name="brand" defaultValue={defaultValue?.brand} />
+          <SellerBrandField name="brand" defaultValue={defaultValue?.brand} />
         </Stack>
         <Stack direction="row" gap={2}>
-          <BadgeField
+          <SellerBadgeField
             name="badges"
             defaultValue={
               defaultValue?.badges ? [defaultValue.badges] : undefined
             }
           />
-          <ColorsField name="colors" defaultValue={defaultValue?.colors} />
+          <SellerColorsField
+            name="colors"
+            defaultValue={defaultValue?.colors}
+          />
         </Stack>
         <AIForm
           schema={[

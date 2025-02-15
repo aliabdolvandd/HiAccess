@@ -1,8 +1,9 @@
 "use client";
-import { useCategoriesQuery } from "@/api/client-api/categories";
+
 import { ICategory } from "@/api/server-api/type";
 import React, { useState } from "react";
 import AsyncListField from "../fields/async-list-filed";
+import { useSellerCategoriesQuery } from "@/api/seller-api/seller-client/seller-categories";
 
 type Props = {
   name: string;
@@ -12,7 +13,7 @@ type Props = {
   onChange?: (value: ICategory | null) => void;
 };
 
-export default function CategoryField({
+export default function SellerCategoryField({
   name,
   defaultValue,
   error,
@@ -20,7 +21,8 @@ export default function CategoryField({
   onChange,
 }: Props) {
   const [query, setQuery] = useState("");
-  const { data, isLoading } = useCategoriesQuery(query);
+  const { data, isLoading } = useSellerCategoriesQuery(query);
+
   return (
     <AsyncListField
       error={error}

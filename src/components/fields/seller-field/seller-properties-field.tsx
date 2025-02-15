@@ -1,3 +1,4 @@
+"use client";
 import { IProperty } from "@/api/server-api/type";
 import React, { useState } from "react";
 
