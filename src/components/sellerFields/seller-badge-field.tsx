@@ -14,7 +14,6 @@ export default function SellerBadgeField({
 }: BadgeFieldProps) {
   const [query, setQuery] = useState("");
   const { data, isLoading } = useSellerBadgesQuery(query);
-  console.log(data?.results);
   return (
     <MultiAsyncListField
       options={data?.results ?? []}
