@@ -1,4 +1,3 @@
-"use";
 import AuthProvider from "@/components/AuthProvider";
 import DashboardContent from "@/components/layout/seller/seller-dashboard-context";
 import { DrawerProvider } from "@/components/layout/seller/seller-drawer-provider";
@@ -11,6 +10,7 @@ async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const { accessToken } = await auth();
+
   return (
     <AuthProvider accessToken={accessToken || ""}>
       <QueryProvider>
