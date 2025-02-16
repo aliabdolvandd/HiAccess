@@ -11,9 +11,13 @@ export default async function SellerLogin() {
         alignItems="center"
         my={3}
       >
-        <Typography variant="h5">ورود</Typography>
-        <MuiLink component={Link} href="/auth/register/seller">
-          ساخت اکانت
+        <Typography variant="h5">ورود فروشنده</Typography>
+        <MuiLink
+          sx={{ textDecorationLine: "none" }}
+          component={Link}
+          href="/auth/register/seller"
+        >
+          <Typography>ساخت اکانت</Typography>
         </MuiLink>
       </Stack>
       <LoginForm role={2} />

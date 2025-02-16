@@ -22,11 +22,15 @@ function Register() {
           alignItems="center"
         >
           <Typography variant="h5">ثبت نام</Typography>
-          <MuiLink component={Link} href="/auth/login">
-            قبلا ثبت نام کرده‌اید؟
+          <MuiLink
+            sx={{ textDecorationLine: "none" }}
+            component={Link}
+            href="/auth/login"
+          >
+            <Typography>قبلا ثبت نام کرده‌اید؟</Typography>
           </MuiLink>
         </Stack>
-        <RegisterForm role={3} />
+        <RegisterForm role={1} />
       </CardContent>
     </Card>
   );

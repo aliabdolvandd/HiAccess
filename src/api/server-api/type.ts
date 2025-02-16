@@ -1,4 +1,26 @@
 import { ReactNode } from "react";
+export type RegisterResponse = {
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  user: IUser;
+  profile: IProfile;
+};
+export interface IProfile {
+  user: string;
+  addressList: IAddress[];
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
+export interface IAddress {
+  location: [number, number];
+  street: string;
+  city: string;
+  postalCode: string;
+}
+export type LoginResponse = Omit<RegisterResponse, "profile">;
 
 interface Timestamp {
   createdAt: string;

@@ -43,5 +43,5 @@ export async function register(state: RegisterFormState, formData: FormData) {
       message: "register failed",
     };
   }
-  redirect("/dashboard");
+  redirect("/");
 }
