@@ -1,5 +1,7 @@
 "use client";
 import { IShopProducts } from "@/api/server-api/type";
+import { FormatPrice } from "@/components/FormatPrice";
+
 import EditProductModal from "@/components/PriceModal";
 import {
   Table,
@@ -36,7 +38,7 @@ export default function PriceProductList({
             <TableRow>
               <TableCell>کد</TableCell>
               <TableCell>نام فارسی</TableCell>
-              <TableCell>نام انگلیسی</TableCell>
+              <TableCell>قیمت</TableCell>
               <TableCell>دسته‌بندی</TableCell>
               <TableCell>برند</TableCell>
               <TableCell>وضعیت</TableCell>
@@ -48,7 +50,9 @@ export default function PriceProductList({
               <TableRow key={product.id}>
                 <TableCell>{product.code}</TableCell>
                 <TableCell>{product.titleFa}</TableCell>
-                <TableCell>{product.titleEn}</TableCell>
+                <TableCell>
+                  {FormatPrice(product.bestSeller?.price ?? 0)}
+                </TableCell>
                 <TableCell>{product.category.titleFa}</TableCell>
                 <TableCell>{product.brand.titleFa}</TableCell>
                 <TableCell>

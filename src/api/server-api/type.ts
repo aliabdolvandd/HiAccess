@@ -169,7 +169,7 @@ export interface IOrderItem {
   seller: ISeller;
 }
 interface SellerInfo {
-  lastPrice: number;
+  price: number;
   createdAt: string;
   discount: number;
   count: number;
