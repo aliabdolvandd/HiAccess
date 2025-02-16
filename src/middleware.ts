@@ -13,26 +13,26 @@ export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const { isLogin, isLogout, needToRefresh, role } = await auth();
 
-  // اگر نیاز به ریفرش توکن باشد، آن را انجام می‌دهیم
+  // refresh token
   if (needToRefresh) {
     await refreshTokenAction();
     return NextResponse.redirect(req.nextUrl);
   }
 
-  // مسیرهای عمومی مانند لاگین و ثبت‌نام
+  // public route
   if (path.startsWith("/auth") && isLogin) {
     const redirectPath =
       Number(role) === 3 ? "/dashboard" : Number(role) === 2 ? "/seller" : "/";
     return NextResponse.redirect(new URL(redirectPath, req.nextUrl));
   }
 
-  // بررسی مسیرهای محافظت‌شده
+  // protect route
   if (Object.values(protectedRoutes).some((route) => path.startsWith(route))) {
     if (isLogout) {
       return NextResponse.redirect(new URL("/auth/login", req.nextUrl));
     }
 
-    // بررسی نقش‌های مجاز برای مسیرهای مختلف
+    // check roles
     if (path.startsWith(protectedRoutes.admin) && Number(role) !== 3) {
       return NextResponse.redirect(new URL("/403", req.nextUrl));
     }
@@ -44,7 +44,6 @@ export default async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// مسیرهایی که Middleware نباید روی آن‌ها اجرا شود
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };
