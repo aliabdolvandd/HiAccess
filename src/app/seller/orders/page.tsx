@@ -1,7 +1,7 @@
 import { ServerPageProps } from "@/api/server-api/type";
-import { OrdersTable } from "@/app/dashboard/orders/order-table";
 import { getSellerOrders } from "@/api/seller-api/seller-orders";
 import { Box, Typography } from "@mui/material";
+import { SellerOrdersTable } from "./order-table";
 
 export default async function SellerOrdersPage({
   searchParams,
@@ -13,7 +13,7 @@ export default async function SellerOrdersPage({
       <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
         سفارش ها
       </Typography>
-      <OrdersTable orders={orders} />
+      <SellerOrdersTable orders={orders} />
     </Box>
   );
 }

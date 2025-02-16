@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-function Register() {
+function SellerRegister() {
   return (
     <Card sx={{ width: 500 }} elevation={8}>
       <CardContent
@@ -21,9 +21,13 @@ function Register() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h5">ثبت نام</Typography>
-          <MuiLink component={Link} href="/auth/login/seller">
-            قبلا ثبت نام کرده‌اید؟
+          <Typography variant="h5">ثبت نام فروشنده</Typography>
+          <MuiLink
+            sx={{ textDecorationLine: "none" }}
+            component={Link}
+            href="/auth/login/seller"
+          >
+            <Typography>قبلا ثبت نام کرده‌اید؟</Typography>
           </MuiLink>
         </Stack>
         <RegisterForm role={2} />
@@ -32,4 +36,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default SellerRegister;

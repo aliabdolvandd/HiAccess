@@ -10,7 +10,7 @@ function RegisterForm({ role }: AuthProps) {
   });
   return (
     <form action={action}>
-      <input hidden name="role" readOnly value={role} />
+      <input name="role" readOnly hidden value={role}></input>
       <Stack gap={3}>
         <Stack
           mt={2}

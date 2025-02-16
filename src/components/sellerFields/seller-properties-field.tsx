@@ -1,19 +1,19 @@
-import { usePropertiesQuery } from "@/api/client-api/properties";
 import { IProperty } from "@/api/server-api/type";
 import React, { useState } from "react";
 import MultiAsyncListField from "../fields/multi-async-list-field";
+import { useSellerPropertiesQuery } from "@/api/seller-api/seller-client/seller-propertis";
 
 type PropertiesFieldProps = {
   name: string;
   defaultValue?: IProperty[];
 };
 
-export default function PropertiesField({
+export default function SellerPropertiesField({
   defaultValue,
   name,
 }: PropertiesFieldProps) {
   const [query, setQuery] = useState("");
-  const { data, isLoading } = usePropertiesQuery(query);
+  const { data, isLoading } = useSellerPropertiesQuery(query);
   return (
     <MultiAsyncListField
       options={data?.results ?? []}

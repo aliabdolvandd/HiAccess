@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -16,19 +16,46 @@ import { updateSellerProduct } from "@/api/seller-api/products";
 export default function EditProductModal({
   product,
   onClose,
+  onUpdate,
 }: {
   product: IShopProducts | null;
   onClose: () => void;
+  onUpdate: (updatedProduct: IShopProducts) => void;
 }) {
-  const [price, setPrice] = useState(product?.bestSeller?.lastPrice ?? 0);
-  const [count, setCount] = useState(product?.bestSeller?.count ?? 0);
-  const [discount, setDiscount] = useState(product?.bestSeller?.discount ?? 0);
+  const [price, setPrice] = useState<string>("");
+  const [count, setCount] = useState<string>("");
+  const [discount, setDiscount] = useState<string>("");
+
+  useEffect(() => {
+    if (product) {
+      setPrice(product.bestSeller?.price?.toString() ?? "");
+      setCount(product.bestSeller?.count?.toString() ?? "");
+      setDiscount(product.bestSeller?.discount?.toString() ?? "");
+    }
+  }, [product]);
 
   if (!product) return null;
 
   const handleSave = async () => {
     try {
-      await updateSellerProduct(product.code, { price, count, discount });
+      const updatedData = {
+        price: price ? Number(price) : 0,
+        count: count ? Number(count) : 0,
+        discount: discount ? Number(discount) : 0,
+      };
+
+      await updateSellerProduct(product.code, updatedData);
+
+      onUpdate({
+        ...product,
+        bestSeller: {
+          ...product.bestSeller!,
+          price: updatedData.price,
+          count: updatedData.count,
+          discount: updatedData.discount,
+        },
+      });
+
       onClose();
     } catch (error) {
       console.log(error);
@@ -45,7 +72,7 @@ export default function EditProductModal({
           fullWidth
           margin="dense"
           value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <TextField
           label="تعداد جدید"
@@ -53,7 +80,7 @@ export default function EditProductModal({
           fullWidth
           margin="dense"
           value={count}
-          onChange={(e) => setCount(Number(e.target.value))}
+          onChange={(e) => setCount(e.target.value)}
         />
         <TextField
           label="تخفیف"
@@ -61,7 +88,7 @@ export default function EditProductModal({
           fullWidth
           margin="dense"
           value={discount}
-          onChange={(e) => setDiscount(Number(e.target.value))}
+          onChange={(e) => setDiscount(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

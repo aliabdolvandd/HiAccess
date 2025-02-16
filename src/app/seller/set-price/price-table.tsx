@@ -1,5 +1,7 @@
 "use client";
 import { IShopProducts } from "@/api/server-api/type";
+import { FormatPrice } from "@/components/FormatPrice";
+
 import EditProductModal from "@/components/PriceModal";
 import {
   Table,
@@ -14,11 +16,19 @@ import {
 import { useState } from "react";
 
 export default function PriceProductList({
-  products,
+  products: initialProducts,
 }: {
   products: IShopProducts[];
 }) {
+  const [products, setProducts] = useState<IShopProducts[]>(initialProducts);
   const [editProduct, setEditProduct] = useState<IShopProducts | null>(null);
+
+  const handleUpdateProduct = (updatedProduct: IShopProducts) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+    );
+    setEditProduct(null);
+  };
 
   return (
     <>
@@ -28,7 +38,7 @@ export default function PriceProductList({
             <TableRow>
               <TableCell>کد</TableCell>
               <TableCell>نام فارسی</TableCell>
-              <TableCell>نام انگلیسی</TableCell>
+              <TableCell>قیمت</TableCell>
               <TableCell>دسته‌بندی</TableCell>
               <TableCell>برند</TableCell>
               <TableCell>وضعیت</TableCell>
@@ -40,7 +50,9 @@ export default function PriceProductList({
               <TableRow key={product.id}>
                 <TableCell>{product.code}</TableCell>
                 <TableCell>{product.titleFa}</TableCell>
-                <TableCell>{product.titleEn}</TableCell>
+                <TableCell>
+                  {FormatPrice(product.bestSeller?.price ?? 0)}
+                </TableCell>
                 <TableCell>{product.category.titleFa}</TableCell>
                 <TableCell>{product.brand.titleFa}</TableCell>
                 <TableCell>
@@ -60,10 +72,13 @@ export default function PriceProductList({
         </Table>
       </TableContainer>
 
-      <EditProductModal
-        product={editProduct}
-        onClose={() => setEditProduct(null)}
-      />
+      {editProduct && (
+        <EditProductModal
+          product={editProduct}
+          onClose={() => setEditProduct(null)}
+          onUpdate={handleUpdateProduct}
+        />
+      )}
     </>
   );
 }

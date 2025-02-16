@@ -7,7 +7,7 @@ export default async function CategoryPage() {
 
   return (
     <Card>
-      <Typography>مدیریت دسته‌بندی‌ها</Typography>
+      <Typography sx={{ pt: "20px" }}>مدیریت دسته‌بندی‌ها</Typography>
       <CategoryClientWrapper categories={categories} />
     </Card>
   );

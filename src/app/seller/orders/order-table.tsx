@@ -1,55 +1,53 @@
-"use client";
-import { IOrder, IOrderItem, PaginatedResultApi } from "@/api/server-api/type";
-import AITable from "@/components/tables/AITable";
+import { IOrder, PaginatedResultApi } from "@/api/server-api/type";
+import { TableContainer } from "@/components/tables/TableContainer";
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { use } from "react";
-export function OrdersTable({
+import OrderRow from "./order-row";
+
+export function SellerOrdersTable({
   orders,
 }: {
   orders: Promise<PaginatedResultApi<IOrder>>;
 }) {
   const allOrders = use(orders);
+
   return (
-    <>
-      <AITable
-        data={allOrders}
-        schema={[
-          {
-            title: "شناسه",
-            render: (row) => row.id,
-          },
-          {
-            title: "کاربر",
-            render: (row) => row.user.email,
-          },
-          {
-            title: "وضعیت",
-            render: (row) => row.orderStatus,
-          },
-          {
-            title: "شهر",
-            render: (row) => row.shippingAddress.city,
-          },
-        ]}
-        subTable={{
-          header: "کالاها",
-          key: "orderItems",
-          schema: [
-            {
-              title: "کالا",
-              render: (row: IOrderItem) => row.productSeller.product.titleFa,
-            },
-            {
-              title: "تعداد",
-              render: (row: IOrderItem) => row.quantity,
-            },
-            {
-              title: "قیمت",
-              render: (row: IOrderItem) => row.productSeller.price,
-            },
-          ],
-        }}
-      />
-    </>
+    <Box sx={{ p: 2 }}>
+      <Paper sx={{ borderRadius: 2, boxShadow: 2, overflow: "hidden" }}>
+        <TableContainer title="Orders">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>شناسه</TableCell>
+                <TableCell>کاربر</TableCell>
+                <TableCell>وضعیت</TableCell>
+                <TableCell>شهر</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {allOrders?.results?.length ? (
+                allOrders.results.map((order) => (
+                  <OrderRow key={order.id} order={order} />
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    سفارشی یافت نشد!
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Box>
   );
 }
-export const RoleMap = ["مشتری", "فروشنده", "ادمین"];

@@ -14,7 +14,7 @@ async function getSellerAllProperties(params: { q?: string }) {
 
 export function useSellerPropertiesQuery(q: string) {
   return useQuery({
-    queryKey: ["properties", q],
+    queryKey: ["sellerProperties", q],
     queryFn: () => getSellerAllProperties({ q }),
   });
 }

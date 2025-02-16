@@ -1,6 +1,7 @@
+"use client";
 import { IColor } from "@/api/server-api/type";
 import React, { useState } from "react";
-import MultiAsyncListField from "../fields/multi-async-list-field";
+import MultiAsyncListField from "../multi-async-list-field";
 import { useSellerColorsQuery } from "@/api/seller-api/seller-client/seller-colors";
 
 type ColorFieldProps = {
@@ -8,10 +9,7 @@ type ColorFieldProps = {
   defaultValue?: IColor[];
 };
 
-export default function SellerColorsField({
-  defaultValue,
-  name,
-}: ColorFieldProps) {
+export default function ColorsField({ defaultValue, name }: ColorFieldProps) {
   const [query, setQuery] = useState("");
   const { data, isLoading } = useSellerColorsQuery(query);
   return (

@@ -1,8 +1,8 @@
-import ProductForm from "@/components/forms/product-form";
+"use client";
 import SellerProductForm from "@/components/forms/seller-product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
-export default async function CreateProductPage() {
+export default function CreateProductPage() {
   return (
     <Box>
       <Card>
