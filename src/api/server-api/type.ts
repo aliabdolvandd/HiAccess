@@ -168,7 +168,7 @@ export interface IOrderItem {
   order: string;
   seller: ISeller;
 }
-interface SellerInfo {
+export interface SellerInfo {
   price: number;
   createdAt: string;
   discount: number;
