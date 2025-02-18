@@ -5,10 +5,13 @@ import { useCartStore } from "@/store/cart-provider";
 type Props = {
   product: IShopProducts;
   seller: SellerInfo;
+  color: string;
+  quantity: number;
 };
 
-const AddToCartButton = ({ product, seller }: Props) => {
+const AddToCartButton = ({ product, seller, color, quantity }: Props) => {
   const { incrementItemCount } = useCartStore((state) => state);
+  console.log("Rendered AddToCartButton - Received Quantity:", quantity);
 
   return (
     <Button
@@ -20,6 +23,8 @@ const AddToCartButton = ({ product, seller }: Props) => {
         incrementItemCount({
           product,
           productSeller: seller,
+          color,
+          quantity,
         })
       }
     >

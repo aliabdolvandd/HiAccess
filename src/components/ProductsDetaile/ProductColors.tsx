@@ -4,10 +4,15 @@ import { useState } from "react";
 
 interface ProductColorsProps {
   colors: IColor[];
+  onColorSelect: (color: string) => void;
 }
 
-const ProductColors = ({ colors }: ProductColorsProps) => {
+const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    onColorSelect(color);
+  };
   return (
     <Box>
       <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
@@ -18,7 +23,7 @@ const ProductColors = ({ colors }: ProductColorsProps) => {
           <Button
             key={index}
             variant={selectedColor === color.hexCode ? "outlined" : "contained"}
-            onClick={() => setSelectedColor(color.hexCode)}
+            onClick={() => handleColorSelect(color.hexCode)}
             sx={{
               minWidth: "40px",
               height: "40px",
@@ -26,7 +31,7 @@ const ProductColors = ({ colors }: ProductColorsProps) => {
               color: "white",
               borderRadius: "50%",
               border:
-                selectedColor === color.hexCode ? "2px solid black" : "none",
+                selectedColor === color.hexCode ? "2px solid blue" : "none",
               transition: "all 0.3s ease",
             }}
           ></Button>

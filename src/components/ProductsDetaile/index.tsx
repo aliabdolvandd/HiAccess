@@ -18,13 +18,13 @@ import AddToCartButton from "./AddToCartButton";
 import ProductQuantity from "./ProductQuantity";
 import ProductColors from "./ProductColors";
 import ProductImages from "./images";
-
 interface ProductDetailProps {
   product: IShopProducts;
 }
 
 const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [selectColor, setSelectColor] = useState<string | null>(null);
 
   if (!product) return <Typography>محصولی یافت نشد.</Typography>;
 
@@ -87,7 +87,10 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             {product.bestSeller?.lastPrice ?? "نامشخص"} تومان
           </Typography>
 
-          <ProductColors colors={product.colors} />
+          <ProductColors
+            colors={product.colors}
+            onColorSelect={setSelectColor}
+          />
 
           <Box
             sx={{
@@ -98,8 +101,14 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             }}
           >
             <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
+
             {product.bestSeller && (
-              <AddToCartButton product={product} seller={product.bestSeller} />
+              <AddToCartButton
+                product={product}
+                seller={product.bestSeller}
+                color={selectColor ?? ""}
+                quantity={quantity}
+              />
             )}
           </Box>
 

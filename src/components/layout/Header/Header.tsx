@@ -7,12 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./Navbar";
 import profileIcon from "@/svg/profileIcon";
-import cartIcon from "@/svg/cartIcon";
 import searchIcon from "@/svg/searchIcon";
+import CartPopover from "@/components/Cart/CartPopover";
 
 const iconList = [
   { ariaLabel: "search", Icon: searchIcon },
-  { ariaLabel: "cart", Icon: cartIcon, href: "/cart" },
+  { ariaLabel: "cart", Popover: <CartPopover />, href: "/cart" },
   { ariaLabel: "profile", Icon: profileIcon, href: "/profile" },
 ];
 
@@ -21,7 +21,7 @@ function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 250);
+      setIsScrolled(window.scrollY > 200);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -49,12 +49,7 @@ function Header() {
         "&:hover": { bgcolor: "Complementary2.main" },
       }}
     >
-      <Toolbar
-        sx={{
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
         <Link href={"/"} passHref>
           <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
         </Link>
@@ -63,24 +58,19 @@ function Header() {
         <Box sx={{ display: "flex" }}>
           {iconList.map((icon, index) => (
             <React.Fragment key={index}>
-              {icon.href ? (
+              {icon.Popover ? (
+                icon.Popover
+              ) : icon.href ? (
                 <Link href={icon.href} passHref>
                   <IconButton
                     aria-label={icon.ariaLabel}
-                    sx={{
-                      color: "black",
-                    }}
+                    sx={{ color: "black" }}
                   >
                     <icon.Icon />
                   </IconButton>
                 </Link>
               ) : (
-                <IconButton
-                  aria-label={icon.ariaLabel}
-                  sx={{
-                    color: "black",
-                  }}
-                >
+                <IconButton aria-label={icon.ariaLabel} sx={{ color: "black" }}>
                   <icon.Icon />
                 </IconButton>
               )}
