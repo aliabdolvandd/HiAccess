@@ -11,7 +11,6 @@ type Props = {
 
 const AddToCartButton = ({ product, seller, color, quantity }: Props) => {
   const { incrementItemCount } = useCartStore((state) => state);
-  console.log("Rendered AddToCartButton - Received Quantity:", quantity);
 
   return (
     <Button
