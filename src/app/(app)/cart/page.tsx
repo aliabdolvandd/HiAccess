@@ -14,7 +14,6 @@ import ProductPrice from "./productPrice";
 import CartTotal from "./TotalCart";
 import Image from "next/image";
 import Link from "next/link";
-import { color } from "framer-motion";
 
 const CartPage = () => {
   const cartItems = useCartStore((state) => state.items);
@@ -34,10 +33,6 @@ const CartPage = () => {
         height: "100vh",
       }}
     >
-      {/* <Typography variant="h4" gutterBottom>
-        سبد خرید
-      </Typography> */}
-
       {cartItems.length === 0 ? (
         <Box
           sx={{

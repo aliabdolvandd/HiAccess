@@ -1,20 +1,13 @@
 "use client";
-
-import React, { useCallback, useState } from "react";
-import {
-  Popover,
-  Box,
-  Typography,
-  Button,
-  IconButton,
-  Divider,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Popover, Box, Typography, Button, IconButton } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import CartIcon from "@/svg/cartIcon";
 import { useCartStore } from "@/store/cart-provider";
 import { Add, Delete, Remove } from "@mui/icons-material";
 import ProductPrice from "@/app/(app)/cart/productPrice";
+import { OrderItemWithQuantity } from "@/store/cart";
 
 const CartPopover = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -31,11 +24,11 @@ const CartPopover = () => {
     setAnchorEl(null);
   };
 
-  const handleIncrease = (item) => {
+  const handleIncrease = (item: OrderItemWithQuantity) => {
     incrementItemCount(item);
   };
 
-  const handleDecrease = (item) => {
+  const handleDecrease = (item: OrderItemWithQuantity) => {
     if (item.quantity > 1) {
       decrementItemCount(item.productSeller.id, item.product.id, item.color);
     } else {
@@ -160,7 +153,6 @@ const CartPopover = () => {
                   );
                 })}
               </Box>
-              {/* <Divider sx={{ my: 2 }} /> */}
             </>
           )}
 
