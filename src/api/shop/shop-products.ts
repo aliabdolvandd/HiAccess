@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { IShopProducts, PaginatedResultApi } from "../server-api/type";
 import Axios from "../client-api/base";
-import { BASE_URL } from "@/config.server";
 async function getShopAllProducts() {
   const res = await Axios.get<PaginatedResultApi<IShopProducts>>("/products", {
     params: { pageSize: 1000 },

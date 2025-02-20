@@ -1,72 +1,26 @@
 import { useCallback, useState } from "react";
 
-export const useFilteredAndSortedProducts = (
-  products: any[],
-  initialFilters: any
+export const useFilteredAndSortedData = <T, F extends { sort: string }>(
+  data: T[],
+  initialFilters: F,
+  filterFn: (item: T, filters: F) => boolean,
+  sortFn: (a: T, b: T, sortType: string) => number
 ) => {
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState<F>(initialFilters);
 
-  const handleFilterChange = useCallback(
-    (newFilters: Partial<typeof filters>) => {
-      setFilters((prev) => ({ ...prev, ...newFilters }));
-    },
-    []
-  );
+  const handleFilterChange = useCallback((newFilters: Partial<F>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  }, []);
 
   const handleSortChange = useCallback((sort: string) => {
     setFilters((prev) => ({ ...prev, sort }));
   }, []);
 
-  const filterProducts = (products: any[], filters: any) => {
-    let filteredProducts = products.filter(
-      (p) => p.category?.slug === filters.categorySlug
-    );
-
-    if (filters.available) {
-      filteredProducts = filteredProducts.filter(
-        (p) => p.status === "marketable"
-      );
-    }
-
-    if (filters.discount) {
-      filteredProducts = filteredProducts.filter((p) => p.bestSeller?.discount);
-    }
-
-    filteredProducts = filteredProducts.filter(
-      (p) =>
-        (p.bestSeller?.lastPrice ?? 0) >= filters.priceRange[0] &&
-        (p.bestSeller?.lastPrice ?? 0) <= filters.priceRange[1]
-    );
-
-    return filteredProducts;
-  };
-
-  const sortProducts = (products: any[], sortType: string) => {
-    return [...products].sort((a, b) => {
-      switch (sortType) {
-        case "cheapest":
-          return (
-            (a.bestSeller?.lastPrice ?? 0) - (b.bestSeller?.lastPrice ?? 0)
-          );
-        case "expensive":
-          return (
-            (b.bestSeller?.lastPrice ?? 0) - (a.bestSeller?.lastPrice ?? 0)
-          );
-        case "latest":
-          return (
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
-        default:
-          return 0;
-      }
-    });
-  };
-
-  let filteredProducts = filterProducts(products, filters);
-  filteredProducts = sortProducts(filteredProducts, filters.sort);
+  let filteredData = data.filter((item) => filterFn(item, filters));
+  filteredData = [...filteredData].sort((a, b) => sortFn(a, b, filters.sort));
 
   return {
-    filteredProducts,
+    filteredData,
     filters,
     handleFilterChange,
     handleSortChange,
