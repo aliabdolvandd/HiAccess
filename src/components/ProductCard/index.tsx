@@ -10,102 +10,127 @@ interface ProductProps {
 const MotionCard = motion(Card);
 
 const ProductCard = ({ product }: ProductProps) => {
+  const lastPrice = product.bestSeller?.lastPrice ?? 0;
+  const discountPercentage = product.bestSeller?.discount ?? 0;
+  const finalPrice = lastPrice - (lastPrice * discountPercentage) / 100;
   return (
     <MotionCard
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      whileHover={{ scale: 1.05, boxShadow: "5px 5px 15px rgba(0,0,0,0.2)" }}
+      whileHover={{ scale: 1.05, boxShadow: "5px 5px 20px rgba(0,0,0,0.2)" }}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "350px",
+        height: "370px",
         width: "300px",
         margin: "auto",
-        boxShadow: 3,
+        boxShadow: 4,
         position: "relative",
         borderRadius: "16px",
-        padding: "8px 16px",
+        padding: "12px",
         cursor: "pointer",
+        overflow: "hidden",
       }}
     >
-      {product.bestSeller?.discount && (
+      {product.bestSeller && product.bestSeller.discount > 0 && (
         <Chip
-          label={`% ${product.bestSeller.discount}  تخفیف`}
+          label={`% ${discountPercentage} تخفیف`}
           size="medium"
           sx={{
             fontSize: "12px",
             position: "absolute",
             top: 10,
             left: 10,
-            bgcolor: "Accent.main",
+            bgcolor: "error.main",
+            color: "white",
             fontWeight: "bold",
             borderRadius: "5px",
           }}
         />
       )}
-      {product.images && (
+
+      {product.colors?.length > 0 && (
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 10,
+            left: 10,
+            display: "flex",
+            gap: "4px",
+          }}
+        >
+          {product.colors.map((color) => (
+            <Box
+              key={color.hexCode}
+              sx={{
+                width: 18,
+                height: 18,
+                borderRadius: "50%",
+                backgroundColor: color.hexCode,
+                border: "1px solid #ccc",
+              }}
+            />
+          ))}
+        </Box>
+      )}
+
+      {product.images?.main && (
         <CardMedia
           component="img"
-          height={"228px"}
+          height={"240px"}
           image={product.images.main}
-          alt={product.titleEn}
-          sx={{ objectFit: "contain", padding: "10px" }}
+          alt={product.titleEn || "Product Image"}
+          sx={{ objectFit: "contain", padding: "10px", borderRadius: "8px" }}
         />
       )}
 
-      <Rating
-        name="read-only"
-        value={5}
-        precision={0.5}
-        readOnly
-        size="small"
-        sx={{ textAlign: "center", marginTop: "20px", color: "black" }}
-      />
+      <Typography
+        variant="subtitle1"
+        component="span"
+        sx={{
+          fontSize: "1rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginBottom: "4px",
+        }}
+      >
+        {product.titleFa}
+      </Typography>
 
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-end",
-          position: "absolute",
-          bottom: 8,
-          right: 15,
+          gap: "4px",
         }}
       >
-        {product.bestSeller?.lastPrice && (
+        {(product.bestSeller?.discount ?? 0) > 0 && (
           <Typography
             variant="body2"
-            sx={{ fontSize: "1.2rem", fontWeight: "bold", mb: 2 }}
-          >
-            {product.bestSeller.lastPrice} تومان
-          </Typography>
-        )}
-
-        {product.bestSeller?.discount && product.bestSeller.discount !== 0 && (
-          <Typography
-            variant="h6"
             sx={{
               textDecoration: "line-through",
               textDecorationColor: "red",
-              fontWeight: "bold",
               color: "gray",
               fontSize: "0.9rem",
             }}
           >
-            {product.bestSeller.discount} تومان
+            {lastPrice} تومان
           </Typography>
         )}
-      </Box>
 
-      <Typography
-        variant="subtitle1"
-        component="span"
-        sx={{ fontSize: "1rem", fontWeight: "bold" }}
-      >
-        {product.titleFa}
-      </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: "1.2rem",
+            fontWeight: "bold",
+          }}
+        >
+          {finalPrice} تومان
+        </Typography>
+      </Box>
 
       <Box
         sx={{
@@ -114,12 +139,12 @@ const ProductCard = ({ product }: ProductProps) => {
           right: 10,
           backgroundColor: "white",
           borderRadius: "50%",
-          width: 32,
-          height: 32,
+          width: 36,
+          height: 36,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          boxShadow: 1,
+          boxShadow: 2,
         }}
       >
         <WishIcon />
