@@ -15,7 +15,7 @@ export default function LatestSection() {
   return (
     <Box>
       <ProductList
-        products={products?.results || []}
+        products={products?.results.slice(0, 6) || []}
         title="جدید ترین های اخیر"
       />
     </Box>

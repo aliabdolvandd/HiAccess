@@ -1,9 +1,10 @@
 "use client";
 
-import SectionTitle from "../SectionTitle";
+import { useRef, useState } from "react";
 import { Box } from "@mui/material";
-import ProductCard from "../ProductCard";
 import { IShopProducts } from "@/api/server-api/type";
+import SectionTitle from "../SectionTitle";
+import ProductCard from "../ProductCard";
 
 interface ProductListProps {
   products: IShopProducts[];
@@ -11,32 +12,68 @@ interface ProductListProps {
 }
 
 const ProductList = ({ products, title }: ProductListProps) => {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!sliderRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !sliderRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   return (
     <Box sx={{ pt: 3, px: "15px" }}>
       <SectionTitle title={title} />
       <Box
+        ref={sliderRef}
         sx={{
           display: "flex",
-          flexWrap: "nowrap",
           alignItems: "center",
-          justifyContent: "center",
           gap: 8,
-          overflow: "hidden",
+          overflowX: "auto",
+          whiteSpace: "nowrap",
+          cursor: isDragging ? "grabbing" : "grab",
+          userSelect: "none",
+          scrollBehavior: "smooth",
+          "&::-webkit-scrollbar": { display: "none" },
         }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
       >
-        {products.map((product) => (
-          <Box
-            key={product.code}
-            sx={{
-              flex: "1 1 calc(25% - 16px)",
-              maxWidth: "300px",
-
-              padding: "10px 0",
-            }}
-          >
-            <ProductCard product={product} />
-          </Box>
-        ))}
+        {products.length > 0 ? (
+          products.map((product) => (
+            <Box
+              key={product.code}
+              sx={{
+                flex: "0 0 auto",
+                maxWidth: "300px",
+                minWidth: "250px",
+                padding: "10px",
+              }}
+            >
+              <ProductCard product={product} />
+            </Box>
+          ))
+        ) : (
+          <Box sx={{ padding: 2 }}>محصولی موجود نیست</Box>
+        )}
       </Box>
     </Box>
   );
