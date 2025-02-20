@@ -17,7 +17,7 @@ export function useShopProductsQuery() {
 
 export const getProductByCode = async (code: number) => {
   try {
-    const res = await Axios.get<IShopProducts>(`${BASE_URL}/products/${code}`);
+    const res = await Axios.get<IShopProducts>(`/products/${code}`);
     return res.data;
   } catch (error) {
     console.log(error);

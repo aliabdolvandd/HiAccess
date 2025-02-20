@@ -2,7 +2,6 @@
 
 import SectionTitle from "../SectionTitle";
 import { Box } from "@mui/material";
-import Link from "next/link";
 import ProductCard from "../ProductCard";
 import { IShopProducts } from "@/api/server-api/type";
 
@@ -35,12 +34,7 @@ const ProductList = ({ products, title }: ProductListProps) => {
               padding: "10px 0",
             }}
           >
-            {/* <Link
-              style={{ textDecoration: "none" }}
-              href={`/products/${product.code}`}
-            > */}
             <ProductCard product={product} />
-            {/* </Link> */}
           </Box>
         ))}
       </Box>
