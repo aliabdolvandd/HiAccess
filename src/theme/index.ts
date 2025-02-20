@@ -1,8 +1,6 @@
 "use client";
 
 import { createTheme } from "@mui/material/styles";
-import { Vazirmatn } from "next/font/google";
-
 declare module "@mui/material/styles" {
   interface Palette {
     neutral: Palette["primary"];
@@ -20,12 +18,6 @@ declare module "@mui/material/styles" {
     Accent?: PaletteOptions["primary"];
   }
 }
-
-const vazir = Vazirmatn({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin", "arabic"],
-  display: "swap",
-});
 
 const theme = createTheme({
   palette: {
@@ -50,7 +42,7 @@ const theme = createTheme({
     colorSchemeSelector: "class",
   },
   typography: {
-    fontFamily: vazir.style.fontFamily,
+    fontFamily: "VAZIR",
   },
   components: {
     MuiAlert: {
