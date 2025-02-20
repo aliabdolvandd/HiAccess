@@ -3,6 +3,8 @@ import { IShopProducts } from "@/api/server-api/type";
 import WishIcon from "@/svg/wishIcon";
 import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import UseTruncate from "../TruncateText";
+import Link from "next/link";
 interface ProductProps {
   product: IShopProducts;
 }
@@ -24,7 +26,7 @@ const ProductCard = ({ product }: ProductProps) => {
         flexDirection: "column",
         justifyContent: "space-between",
         height: "370px",
-        width: "300px",
+        width: "290px",
         margin: "auto",
         boxShadow: 4,
         position: "relative",
@@ -75,29 +77,31 @@ const ProductCard = ({ product }: ProductProps) => {
           ))}
         </Box>
       )}
-
-      {product.images?.main && (
-        <CardMedia
-          component="img"
-          height={"240px"}
-          image={product.images.main}
-          alt={product.titleEn || "Product Image"}
-          sx={{ objectFit: "contain", padding: "10px", borderRadius: "8px" }}
-        />
+      <Link href={`/products/${product.code}`}>
+        {product.images?.main && (
+          <CardMedia
+            component="img"
+            height={"240px"}
+            image={product.images.main}
+            alt={product.titleEn || "Product Image"}
+            sx={{ objectFit: "contain", padding: "10px", borderRadius: "8px" }}
+          />
+        )}
+      </Link>
+      {product.titleFa && (
+        <Typography
+          variant="subtitle1"
+          component="span"
+          sx={{
+            fontSize: "1rem",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: "4px",
+          }}
+        >
+          {UseTruncate(product.titleFa, 30)}
+        </Typography>
       )}
-
-      <Typography
-        variant="subtitle1"
-        component="span"
-        sx={{
-          fontSize: "1rem",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: "4px",
-        }}
-      >
-        {product.titleFa}
-      </Typography>
 
       <Box
         sx={{
@@ -117,7 +121,7 @@ const ProductCard = ({ product }: ProductProps) => {
               fontSize: "0.9rem",
             }}
           >
-            {lastPrice} تومان
+            {lastPrice.toLocaleString("fa-IR")} تومان
           </Typography>
         )}
 
@@ -128,7 +132,7 @@ const ProductCard = ({ product }: ProductProps) => {
             fontWeight: "bold",
           }}
         >
-          {finalPrice} تومان
+          {finalPrice.toLocaleString("fa-IR")} تومان
         </Typography>
       </Box>
 

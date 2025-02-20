@@ -35,12 +35,12 @@ const ProductList = ({ products, title }: ProductListProps) => {
               padding: "10px 0",
             }}
           >
-            <Link
+            {/* <Link
               style={{ textDecoration: "none" }}
               href={`/products/${product.code}`}
-            >
-              <ProductCard product={product} />
-            </Link>
+            > */}
+            <ProductCard product={product} />
+            {/* </Link> */}
           </Box>
         ))}
       </Box>

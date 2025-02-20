@@ -14,8 +14,12 @@ interface GetProductsByCategoryProps {
 export default function GetProductsByCategory({
   params,
 }: GetProductsByCategoryProps) {
-  const { data: products, isError, isLoading } = useShopProductsQuery();
-
+  const {
+    data: products,
+    isError,
+    isLoading,
+  } = useShopProductsQuery({ pageSize: 100 });
+  console.log(products);
   const initialFilters = {
     sort: "latest" as "latest" | "cheapest" | "expensive",
     available: false,
@@ -61,7 +65,9 @@ export default function GetProductsByCategory({
         <Box display="flex" flexWrap="wrap">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <Box key={product.id} sx={{ padding: "8px 16px" }}>
+                <ProductCard product={product} />
+              </Box>
             ))
           ) : (
             <Typography>محصولی موجود نیست</Typography>

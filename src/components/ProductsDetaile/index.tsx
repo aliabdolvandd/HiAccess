@@ -84,7 +84,8 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
           </Typography>
 
           <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
-            {product.bestSeller?.lastPrice ?? "نامشخص"} تومان
+            {product.bestSeller?.lastPrice.toLocaleString("fa-IR") ?? "نامشخص"}{" "}
+            تومان
           </Typography>
 
           <ProductColors

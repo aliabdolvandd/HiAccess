@@ -34,7 +34,9 @@ const ProductFilterSidebar = ({
   return (
     <Box
       sx={{
-        width: 250,
+        width: "210px",
+        // minWidth: "200px",
+        flexShrink: 0,
         padding: 2,
         borderRadius: 2,
         boxShadow: 2,

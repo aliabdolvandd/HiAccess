@@ -4,7 +4,7 @@ import Axios from "../client-api/base";
 import { BASE_URL } from "@/config.server";
 async function getShopAllProducts() {
   const res = await Axios.get<PaginatedResultApi<IShopProducts>>("/products", {
-    params: { pageSize: 25 },
+    params: { pageSize: 1000 },
   });
   return res.data;
 }
