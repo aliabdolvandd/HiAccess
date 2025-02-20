@@ -2,28 +2,33 @@ import React, { useState } from "react";
 import { Box, Card, Grid2, Typography } from "@mui/material";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { slug } from "@/lib/customValidation";
 
 const products = [
   {
     id: 1,
+    slug: "mobile1",
     image: "/image.png",
     hoverImage: "imageh.png",
     title: "گوشی موبایل",
   },
   {
     id: 2,
+    slug: "lp",
     image: "/imagel.png",
     hoverImage: "/imagelh.png",
     title: "لپ‌تاپ",
   },
   {
     id: 3,
+    slug: "headphones",
     image: "/imagehd.png",
     hoverImage: "/imagehdh.png",
     title: "هدفون",
   },
   {
     id: 4,
+    slug: "audio-video",
     image: "/imagej.png",
     hoverImage: "/imagejh.png",
     title: "لوازم جانبی",
@@ -61,7 +66,7 @@ const Category = () => {
               onMouseEnter={() => setHovered(product.id)}
               onMouseLeave={() => setHovered(null)}
             >
-              <Link href={`/category/${product.title}`}>
+              <Link href={`/category/${product.slug}`}>
                 {/* shadow */}
                 <MotionCard
                   initial={{ y: 0, boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)" }}

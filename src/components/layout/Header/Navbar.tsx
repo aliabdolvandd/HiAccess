@@ -10,34 +10,55 @@ import theme from "@/theme";
 const navItems = [
   {
     label: "موبایل و تبلت",
-    submenu: ["گوشی موبایل", "تبلت", "سیم کارت", "برند سامسونگ", "برند اپل"],
+    slug: "mobile-tablet",
+    submenu: [
+      { label: "گوشی هوشمند", slug: "smartphones" },
+      { label: "تبلت", slug: "tablet" },
+      { label: "ساعت هوشمند", slug: "smartwatches" },
+      { label: "لوازم جانبی موبایل", slug: "mobile-accessories" },
+    ],
   },
   {
     label: "لپ تاپ",
+    slug: "lp",
     submenu: [
-      "لپ تاپ ایسوس",
-      "لپ تاپ لنوو",
-      "لپ تاپ اپل",
-      "برند دل",
-      "برند اچ‌پی",
+      { label: "لپ تاپ دانشجویی", slug: "student-laptops" },
+      { label: "لپ تاپ گیمینگ", slug: "gaming-laptops" },
+      { label: "لپ تاپ اداری", slug: "office-laptops" },
+      { label: "لوازم جانبی لپ تاپ", slug: "laptop-accessories" },
     ],
   },
   {
     label: "لوازم جانبی",
-    submenu: ["هدفون", "ماوس", "کیبورد", "پاوربانک", "کابل شارژ"],
+    slug: "accessories",
+    submenu: [
+      { label: "هدفون و هندزفری", slug: "headphones-earphones" },
+      { label: "ماوس و کیبورد", slug: "mouse-keyboard" },
+      { label: "پاوربانک", slug: "powerbanks" },
+      { label: "کابل و شارژر", slug: "cables-chargers" },
+    ],
   },
   {
-    label: "هدفون",
-    submenu: ["هدفون بی‌سیم", "هدفون گیمینگ", "هدفون ورزشی"],
+    label: "صوتی و تصویری",
+    slug: "audio-video",
+    submenu: [
+      { label: "تلویزیون", slug: "tv" },
+      { label: "سینمای خانگی", slug: "home-theater" },
+      { label: "اسپیکر", slug: "speakers" },
+      { label: "هدفون", slug: "headphones" },
+    ],
   },
 ];
+
 const Navbar = () => {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-  const [currentSubmenu, setCurrentSubmenu] = useState<string[]>([]);
+  const [currentSubmenu, setCurrentSubmenu] = useState<
+    { label: string; slug: string }[]
+  >([]);
 
   const handleClick = (
     event: React.MouseEvent<HTMLElement>,
-    submenu: string[]
+    submenu: { label: string; slug: string }[]
   ) => {
     setAnchor(event.currentTarget);
     setCurrentSubmenu(submenu);
@@ -126,10 +147,10 @@ const Navbar = () => {
                 }}
               >
                 <Link
-                  href={`/category/${subItem}`}
+                  href={`/category/${subItem.slug}`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  {subItem}
+                  {subItem.label}
                 </Link>
               </MenuItem>
             ))}

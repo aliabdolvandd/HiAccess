@@ -11,9 +11,9 @@ import searchIcon from "@/svg/searchIcon";
 import CartPopover from "@/components/Cart/CartPopover";
 
 const iconList = [
-  { ariaLabel: "search", Icon: searchIcon },
-  { ariaLabel: "cart", Popover: <CartPopover />, href: "/cart" },
-  { ariaLabel: "profile", Icon: profileIcon, href: "/profile" },
+  { Icon: searchIcon },
+  { Popover: <CartPopover />, href: "/cart" },
+  { Icon: profileIcon, href: "/profile" },
 ];
 
 function Header() {
@@ -62,15 +62,12 @@ function Header() {
                 icon.Popover
               ) : icon.href ? (
                 <Link href={icon.href} passHref>
-                  <IconButton
-                    aria-label={icon.ariaLabel}
-                    sx={{ color: "black" }}
-                  >
+                  <IconButton sx={{ color: "black" }}>
                     <icon.Icon />
                   </IconButton>
                 </Link>
               ) : (
-                <IconButton aria-label={icon.ariaLabel} sx={{ color: "black" }}>
+                <IconButton sx={{ color: "black" }}>
                   <icon.Icon />
                 </IconButton>
               )}
