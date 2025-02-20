@@ -1,11 +1,13 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 
 interface SectionTitleProps {
   title: string;
+  href: string;
 }
 
-const SectionTitle = ({ title }: SectionTitleProps) => {
+const SectionTitle = ({ title, href }: SectionTitleProps) => {
   return (
     <Box
       sx={{
@@ -26,11 +28,13 @@ const SectionTitle = ({ title }: SectionTitleProps) => {
       >
         {title}
       </Typography>
-      <Button sx={{ bgcolor: "white", padding: "12px 16px" }}>
-        <Typography fontSize={"16px"} fontWeight={700}>
-          مشاهده بیشتر
-        </Typography>
-      </Button>
+      <Link href={href}>
+        <Button sx={{ bgcolor: "white", padding: "12px 16px" }}>
+          <Typography fontSize={"16px"} fontWeight={700}>
+            مشاهده بیشتر
+          </Typography>
+        </Button>
+      </Link>
     </Box>
   );
 };

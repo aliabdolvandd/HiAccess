@@ -9,9 +9,10 @@ import ProductCard from "../ProductCard";
 interface ProductListProps {
   products: IShopProducts[];
   title: string;
+  href: string;
 }
 
-const ProductList = ({ products, title }: ProductListProps) => {
+const ProductList = ({ products, title, href }: ProductListProps) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -38,7 +39,7 @@ const ProductList = ({ products, title }: ProductListProps) => {
 
   return (
     <Box sx={{ pt: 3, px: "15px" }}>
-      <SectionTitle title={title} />
+      <SectionTitle title={title} href={href} />
       <Box
         ref={sliderRef}
         sx={{

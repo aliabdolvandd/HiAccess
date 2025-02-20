@@ -12,11 +12,19 @@ export default function LatestSection() {
   if (isError) {
     return <Typography>خطا در دریافت اطلاعات</Typography>;
   }
+  const latest = products?.results
+    .filter((p) => p.bestSeller?.createdAt)
+    .sort(
+      (a, b) =>
+        new Date(b.bestSeller!.createdAt).getTime() -
+        new Date(a.bestSeller!.createdAt).getTime()
+    );
   return (
     <Box>
       <ProductList
-        products={products?.results.slice(0, 6) || []}
+        products={latest?.slice(0, 6) || []}
         title="جدید ترین های اخیر"
+        href="/latest"
       />
     </Box>
   );
