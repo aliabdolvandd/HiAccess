@@ -1,4 +1,4 @@
-import { useShopProductsQuery } from "@/api/shop/shop-products";
+import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import ProductList from "@/components/ProductList";
 import { Box, Typography } from "@mui/material";
 

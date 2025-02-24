@@ -1,7 +1,7 @@
 "use client";
 
 import { IShopProducts } from "@/api/server-api/type";
-import { useShopProductsQuery } from "@/api/shop/shop-products";
+import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import { useFilteredAndSortedData } from "@/components/Filter/action";
 import ProductFilterSidebar from "@/components/Filter/filterSidbar";
 import ProductSort from "@/components/Filter/sort";

@@ -20,6 +20,8 @@ import { AppBar } from "./components/HeaderAppBar";
 import { DrawerContext } from "./DrawerProvider";
 import { Divider } from "@mui/material";
 import { logoutAction } from "@/action/auth/logout";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function DashboardHeader() {
   const { isOpen, handleOpen } = React.useContext(DrawerContext);
@@ -137,14 +139,9 @@ export default function DashboardHeader() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
+          <Link href={"/dashboard"}>
+            <Image src={"/logo.png"} alt="logo" width={100} height={30}></Image>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useShopProductsQuery } from "@/api/shop/shop-products";
+import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import ProductCard from "../ProductCard";
 import ProductFilterSidebar from "../Filter/filterSidbar";

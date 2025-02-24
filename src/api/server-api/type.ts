@@ -197,3 +197,11 @@ export interface IShopProducts extends Timestamp {
   id: string;
   bestSeller?: SellerInfo;
 }
+
+export interface IComments extends Timestamp {
+  product: number;
+  user: IUser;
+  text: string;
+  rating: number;
+  id: string;
+}

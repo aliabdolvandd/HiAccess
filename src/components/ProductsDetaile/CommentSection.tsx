@@ -1,23 +1,21 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { useState } from "react";
+"use client";
+import { UseAllComments } from "@/api/shop-api/shop-comments";
+import { Box, Typography, Rating } from "@mui/material";
+import { CommentForm } from "./commentForm";
+import { IComments } from "@/api/server-api/type";
 
-const Comments = () => {
-  const [comments] = useState([
-    {
-      id: 1,
-      name: "علی عبدالوند",
-      comment: "این یک نظر آزمایشی است.",
-      rating: 5,
-    },
-    { id: 2, name: "محمد یوسفی", comment: "خیلی محصول خوبی بود.", rating: 4 },
-    { id: 3, name: "سارا احمدی", comment: "ممنون از کیفیت خوبتون.", rating: 5 },
-    { id: 4, name: "مهدی رضایی", comment: "کاش تخفیف بیشتری داشت.", rating: 3 },
-  ]);
-  const [visibleComments, setVisibleComments] = useState(3);
+interface Props {
+  value: Partial<IComments>;
+}
+const Comments = ({ value }: Props) => {
+  const {
+    data: comments,
+    isError,
+    isLoading,
+  } = UseAllComments(value.product as number);
 
-  const handleShowMore = () => {
-    setVisibleComments((prev) => prev + 3);
-  };
+  if (isError) return <Typography>خطا در دریافت اطلاعات</Typography>;
+  if (isLoading) return <Typography>در حال دریافت اطلاعات...</Typography>;
 
   return (
     <Box
@@ -28,77 +26,47 @@ const Comments = () => {
         mt: 12,
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{ marginBottom: "16px", fontWeight: "bold" }}
-      >
-        دیدگاه‌های شما
-      </Typography>
-      <TextField
-        multiline
-        rows={3}
-        placeholder="دیدگاه خود را اینجا بنویسید..."
-        fullWidth
-        sx={{
-          marginBottom: "16px",
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ alignSelf: "flex-start" }}
-        >
-          ثبت نظر
-        </Button>
-      </Box>
-      <Typography
-        variant="h6"
-        sx={{ marginTop: "32px", marginBottom: "16px", fontWeight: "bold" }}
-      >
-        11 دیدگاه
-      </Typography>
-      {comments.slice(0, visibleComments).map((comment) => (
-        <Box
-          key={comment.id}
+      {value.product && <CommentForm value={value as IComments} />}
+      {comments!.results.length > 0 && (
+        <Typography
+          variant="h6"
           sx={{
-            padding: "16px",
-            backgroundColor: "#fff",
-            borderRadius: "8px",
+            marginTop: "32px",
             marginBottom: "16px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+            fontWeight: "bold",
           }}
         >
-          <Typography
-            variant="subtitle1"
-            sx={{ fontWeight: "bold", marginBottom: "8px" }}
+          {comments?.total} دیدگاه
+        </Typography>
+      )}
+
+      {comments?.results.length === 0 ? (
+        <Typography>هیچ کامنتی برای این محصول ثبت نشده است</Typography>
+      ) : (
+        comments?.results.map((comment) => (
+          <Box
+            key={comment.id}
+            sx={{
+              padding: "16px",
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              marginBottom: "16px",
+            }}
           >
-            {comment.name}
-          </Typography>
-          <Typography variant="body2" sx={{ marginBottom: "8px" }}>
-            {comment.comment}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "gold" }}>
-            {"⭐".repeat(comment.rating)}
-          </Typography>
-        </Box>
-      ))}
-      {visibleComments < comments.length && (
-        <Box
-          sx={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
-        >
-          <Button variant="outlined" onClick={handleShowMore}>
-            مشاهده بیشتر
-          </Button>
-        </Box>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: "bold", marginBottom: "8px" }}
+            >
+              {comment.user.firstName} {comment.user.lastName}
+            </Typography>
+            <Typography variant="body2" sx={{ marginBottom: "8px" }}>
+              {comment.text}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "gold" }}>
+              <Rating value={comment.rating} readOnly />
+            </Typography>
+          </Box>
+        ))
       )}
     </Box>
   );

@@ -1,5 +1,5 @@
 import { ServerPageProps } from "@/api/server-api/type";
-import { getProductByCode } from "@/api/shop/shop-products";
+import { getProductByCode } from "@/api/shop-api/shop-products";
 import ProductDetail from "@/components/ProductsDetaile";
 import { Container } from "@mui/material";
 import React from "react";

@@ -137,7 +137,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
         </Box>
       </Box>
 
-      <Comments />
+      <Comments value={{ product: product.code }} />
     </Container>
   );
 };
