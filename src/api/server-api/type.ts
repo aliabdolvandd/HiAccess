@@ -205,3 +205,7 @@ export interface IComments extends Timestamp {
   rating: number;
   id: string;
 }
+export interface IUserShop extends Timestamp {
+  user: IUser;
+  profile: IProfile;
+}
