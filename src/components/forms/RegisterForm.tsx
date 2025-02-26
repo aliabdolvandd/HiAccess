@@ -7,10 +7,12 @@ import React, { useActionState } from "react";
 function RegisterForm({ role }: AuthProps) {
   const [state, action, pending] = useActionState(register, {
     message: "",
+    errors: {},
   });
+
   return (
     <form action={action}>
-      <input name="role" readOnly hidden value={role}></input>
+      <input type="number" name="role" readOnly hidden value={role}></input>
       <Stack gap={3}>
         <Stack
           mt={2}

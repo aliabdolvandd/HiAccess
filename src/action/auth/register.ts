@@ -1,14 +1,25 @@
 "use server";
 import "server-only";
 
-import { RegisterFormState, RegisterFormSchema } from "@/lib/validations";
+import {
+  RegisterFormState,
+  RegisterFormSchema,
+  RegisterType,
+  FormState,
+} from "@/lib/validations";
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { BASE_URL } from "@/config.server";
 import { formDataToObject } from "@/lib/utils";
+import { chooseAuthRedirectPath } from "./helper";
+import { ApiError } from "@/api/server-api/base";
+import {
+  registerAdminRequest,
+  registerShopRequest,
+  registerUserRequest,
+} from "@/api/server-api/auth";
+import { LoginResponse } from "@/api/server-api/type";
 
 export async function register(state: RegisterFormState, formData: FormData) {
-  /// validate input
   const validatedFields = RegisterFormSchema.safeParse(
     formDataToObject(formData)
   );
@@ -17,31 +28,30 @@ export async function register(state: RegisterFormState, formData: FormData) {
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
+  let data: LoginResponse | undefined = undefined;
+
   try {
-    const res = await fetch(`${BASE_URL}/auth/admin/register`, {
-      method: "post",
-      body: JSON.stringify(validatedFields.data),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      return {
-        message: data.message,
-        errors: data.errors,
-      };
+    if (validatedFields.data.role === 2) {
+      data = await registerShopRequest(validatedFields.data);
+    } else if (validatedFields.data.role === 3) {
+      data = await registerAdminRequest(validatedFields.data);
     } else {
-      await createSession({
-        accessToken: data.tokens.accessToken,
-        refreshToken: data.tokens.refreshToken,
-      });
+      data = await registerUserRequest(validatedFields.data);
     }
-  } catch (err) {
-    console.log(err);
-    return {
-      message: "register failed",
-    };
+
+    await createSession({
+      accessToken: data.tokens.accessToken,
+      refreshToken: data.tokens.refreshToken,
+      role: data.user.role,
+    });
+  } catch (e) {
+    if (e instanceof ApiError) {
+      return {
+        message: e.message,
+        errors: e.body as FormState<RegisterType>["errors"],
+      };
+    }
   }
-  redirect("/");
+  const path = chooseAuthRedirectPath(data?.user.role);
+  redirect(path);
 }

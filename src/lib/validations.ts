@@ -11,6 +11,7 @@ export const RegisterFormSchema = z.object({
   lastName: z.string().min(2, { message: "حداقل ۲ کارکتر وارد کنید." }).trim(),
   email: z.string().email({ message: "لطفا یک ایمیل معتبر وارد کنید." }).trim(),
   password: password(),
+  role: z.number(),
 });
 
 export type RegisterType = z.infer<typeof RegisterFormSchema>;
