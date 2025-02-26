@@ -19,6 +19,7 @@ export interface IAddress {
   street: string;
   city: string;
   postalCode: string;
+  _id: string;
 }
 export type LoginResponse = Omit<RegisterResponse, "profile">;
 
@@ -205,7 +206,25 @@ export interface IComments extends Timestamp {
   rating: number;
   id: string;
 }
+interface IUserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: 1 | 2 | 3;
+  isActive: boolean;
+  id: string;
+}
+interface IUserProfile {
+  user: string;
+  addressList: IAddress[];
+  nationCode: string;
+  mobile: string;
+  birthday: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
 export interface IUserShop extends Timestamp {
-  user: IUser;
-  profile: IProfile;
+  user: IUserProfile;
+  profile: IUserProfile;
 }

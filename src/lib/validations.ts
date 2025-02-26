@@ -155,3 +155,13 @@ export const BadgeFormSchema = z.object({
 export type BadgeType = z.infer<typeof BadgeFormSchema>;
 
 export type BadgeFormState = FormState<BadgeType>;
+
+export const UpdateAddressSchema = z.object({
+  _id: z.string().trim(),
+  city: z.string().trim(),
+  street: z.string().min(3, "نام خیابان را وارد نمایید").trim(),
+  postalCode: z.string().min(2, "کد پستی خود را وارد نمایید").trim(),
+  location: z.tuple([z.number(), z.number()]),
+});
+export type AddressType = z.infer<typeof UpdateAddressSchema>;
+export type AddressFormState = FormState<AddressType>;
