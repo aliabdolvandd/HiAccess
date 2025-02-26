@@ -8,3 +8,8 @@ export async function logoutAction() {
   await deleteSession();
   redirect("/auth/login");
 }
+
+export async function logoutUserAction() {
+  await deleteSession();
+  redirect("/");
+}

@@ -27,7 +27,7 @@ export default function MiniDrawer() {
       </DrawerHeader>
       <Divider />
       <List>
-        {SIDEBAR_ITEMS.map(({ text, href, Icon }, index) => {
+        {SIDEBAR_ITEMS.map(({ text, href, Icon }) => {
           return (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
