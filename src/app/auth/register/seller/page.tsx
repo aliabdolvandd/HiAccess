@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/forms/RegisterForm";
+import SellerRegisterForm from "@/components/forms/register-form-seller";
 import {
   Card,
   CardContent,
@@ -30,7 +30,7 @@ function SellerRegister() {
             <Typography>قبلا ثبت نام کرده‌اید؟</Typography>
           </MuiLink>
         </Stack>
-        <RegisterForm role={2} />
+        <SellerRegisterForm role={2} />
       </CardContent>
     </Card>
   );

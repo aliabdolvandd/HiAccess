@@ -14,7 +14,6 @@ import { chooseAuthRedirectPath } from "./helper";
 import { ApiError } from "@/api/server-api/base";
 import {
   registerAdminRequest,
-  registerShopRequest,
   registerUserRequest,
 } from "@/api/server-api/auth";
 import { LoginResponse } from "@/api/server-api/type";
@@ -31,9 +30,7 @@ export async function register(state: RegisterFormState, formData: FormData) {
   let data: LoginResponse | undefined = undefined;
 
   try {
-    if (validatedFields.data.role === 2) {
-      data = await registerShopRequest(validatedFields.data);
-    } else if (validatedFields.data.role === 3) {
+    if (validatedFields.data.role === 3) {
       data = await registerAdminRequest(validatedFields.data);
     } else {
       data = await registerUserRequest(validatedFields.data);

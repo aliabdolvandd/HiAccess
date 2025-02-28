@@ -17,6 +17,21 @@ export const RegisterFormSchema = z.object({
 export type RegisterType = z.infer<typeof RegisterFormSchema>;
 export type RegisterFormState = FormState<RegisterType>;
 
+export const RegisterFormSellerSchema = z.object({
+  firstName: z.string().min(2, { message: "حداقل ۲ کارکتر وارد کنید." }).trim(),
+  lastName: z.string().min(2, { message: "حداقل ۲ کارکتر وارد کنید." }).trim(),
+  email: z.string().email({ message: "لطفا یک ایمیل معتبر وارد کنید." }).trim(),
+  password: password(),
+  role: z.number(),
+  shopName: z
+    .string()
+    .min(2, { message: "حداقل 2 کاراکتر وارد نمایید" })
+    .trim(),
+  shopSlug: z.string().min(2, { message: "حداقل 2 کارکتر وارد نمایید" }).trim(),
+});
+export type SellerRegisterType = z.infer<typeof RegisterFormSellerSchema>;
+export type SellerRegisterFormState = FormState<SellerRegisterType>;
+
 export const LoginFormSchema = z.object({
   email: z.string().email({ message: "لطفا یک ایمیل معتبر وارد کنید." }).trim(),
   password: z.string(),
