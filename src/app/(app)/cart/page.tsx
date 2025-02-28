@@ -131,14 +131,16 @@ const CartPage = () => {
             }}
           >
             <CartTotal cartItems={cartItems} />
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{ mt: 2 }}
-            >
-              ادامه خرید
-            </Button>
+            <Link href={"/checkout"}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{ mt: 2 }}
+              >
+                ادامه خرید
+              </Button>
+            </Link>
           </Box>
         </>
       )}
