@@ -73,12 +73,14 @@ const CartPage = () => {
             {cartItems.map((item) => {
               return (
                 <Card key={item.product.id} sx={{ mb: 2, display: "flex" }}>
-                  <CardMedia
-                    component="img"
-                    sx={{ width: 120, height: 120 }}
-                    image={item.product.images.main}
-                    alt={item.product.titleFa}
-                  />
+                  <Link href={`/products/${item.product.code}`}>
+                    <CardMedia
+                      component="img"
+                      sx={{ width: 120, height: 120 }}
+                      image={item.product.images.main}
+                      alt={item.product.titleFa}
+                    />
+                  </Link>
                   <CardContent sx={{ flex: 1 }}>
                     <Typography variant="h6">{item.product.titleFa}</Typography>
 
@@ -86,7 +88,14 @@ const CartPage = () => {
                       price={item.productSeller.lastPrice}
                       discount={item.productSeller.discount}
                     />
-
+                    <Box
+                      sx={{
+                        width: 18,
+                        height: 18,
+                        bgcolor: item.color,
+                        borderRadius: "50%",
+                      }}
+                    ></Box>
                     <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
                       <IconButton
                         onClick={() => incrementItem(item)}
