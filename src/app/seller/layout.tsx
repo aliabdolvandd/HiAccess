@@ -1,6 +1,6 @@
 import AuthProvider from "@/components/AuthProvider";
-import DashboardContent from "@/components/layout/seller/seller-dashboard-context";
-import { DrawerProvider } from "@/components/layout/seller/seller-drawer-provider";
+import DashboardContent from "@/components/seller/sellerLayout/seller-dashboard-context";
+import { DrawerProvider } from "@/components/seller/sellerLayout/seller-drawer-provider";
 import QueryProvider from "@/components/QueryProvider";
 import { auth } from "@/lib/session";
 
