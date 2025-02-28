@@ -1,6 +1,6 @@
 "use client";
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/shop/ProductCard";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 

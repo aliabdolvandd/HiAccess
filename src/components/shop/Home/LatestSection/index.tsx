@@ -1,8 +1,10 @@
+"use client";
+
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
-import ProductList from "@/components/ProductList";
+import ProductList from "@/components/shop/ProductList";
 import { Box, Typography } from "@mui/material";
 
-export default function BestDiscount() {
+export default function LatestSection() {
   const { data: products, isLoading, isError } = useShopProductsQuery();
   if (isLoading) {
     return <Typography> در حال دریافت اطلاعات </Typography>;
@@ -10,17 +12,19 @@ export default function BestDiscount() {
   if (isError) {
     return <Typography>خطا در دریافت اطلاعات</Typography>;
   }
-  const DiscountProducts = products?.results
-    .filter((p) => p.bestSeller?.discount)
+  const latest = products?.results
+    .filter((p) => p.bestSeller?.createdAt)
     .sort(
-      (a, b) => (b.bestSeller!.discount || 0) - (a.bestSeller!.discount || 0)
+      (a, b) =>
+        new Date(b.bestSeller!.createdAt).getTime() -
+        new Date(a.bestSeller!.createdAt).getTime()
     );
   return (
     <Box>
       <ProductList
-        products={DiscountProducts?.slice(0, 6) || []}
-        title="پر تخفیف ترین ها "
-        href="/discount"
+        products={latest?.slice(0, 6) || []}
+        title="جدید ترین های اخیر"
+        href="/latest"
       />
     </Box>
   );

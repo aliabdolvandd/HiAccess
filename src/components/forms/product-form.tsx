@@ -16,11 +16,11 @@ import {
 import React, { useActionState, useState } from "react";
 import AIForm from "./AIForm";
 import SubmitButton from "../SubmitButton";
-import CategoryField from "../fields/category-field";
+import CategoryField from "../admin/fields/category-field";
 import SingleUpload from "../upload/single-upload";
-import BrandField from "../fields/brand-field";
-import BadgeField from "../fields/badges-fields";
-import ColorsField from "../fields/colors-field";
+import BrandField from "../admin/fields/brand-field";
+import BadgeField from "../admin/fields/badges-fields";
+import ColorsField from "../admin/fields/colors-field";
 
 type ProductFormProps = {
   defaultValue?: IProduct;

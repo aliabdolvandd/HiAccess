@@ -2,10 +2,10 @@
 import { createOrUpdateSellerAction } from "@/action/sellers";
 import { Stack } from "@mui/material";
 import { useActionState } from "react";
-import SubmitButton from "../SubmitButton";
+import SubmitButton from "../../SubmitButton";
 import { ISeller } from "@/api/server-api/type";
-import AIForm from "./AIForm";
-import UserField from "../fields/user-field";
+import AIForm from "../../forms/AIForm";
+import UserField from "../../admin/fields/user-field";
 
 type SellerFormProps = {
   defaultValue?: ISeller;

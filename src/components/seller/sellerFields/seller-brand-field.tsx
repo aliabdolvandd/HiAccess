@@ -2,7 +2,7 @@
 
 import { IBrand } from "@/api/server-api/type";
 import React from "react";
-import AsyncListField from "../fields/async-list-filed";
+import AsyncListField from "../../admin/fields/async-list-filed";
 import { useSellerBrandsQuery } from "@/api/seller-api/seller-client/seller-brands";
 
 type Props = {

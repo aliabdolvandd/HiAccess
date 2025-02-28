@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import Profile from "@/components/ProfileSection/profile";
+import Profile from "@/components/shop/ProfileSection/profile";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Link from "next/link";
 import { logoutUserAction } from "@/action/auth/logout";

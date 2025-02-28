@@ -5,7 +5,7 @@ import { Button, Dialog, DialogTitle, DialogContent, Box } from "@mui/material";
 
 import { ICategory, PaginatedResultApi } from "@/api/server-api/type";
 import CategoryTable from "@/app/seller/category/category-table";
-import SellerCategoryForm from "./seller-category-form";
+import SellerCategoryForm from "../../forms/seller-category-form";
 export default function CategoryClientWrapper({
   categories,
 }: {

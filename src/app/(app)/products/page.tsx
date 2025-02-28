@@ -2,10 +2,10 @@
 
 import { IShopProducts } from "@/api/server-api/type";
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
-import { useFilteredAndSortedData } from "@/components/Filter/action";
-import ProductFilterSidebar from "@/components/Filter/filterSidbar";
-import ProductSort from "@/components/Filter/sort";
-import ProductCard from "@/components/ProductCard";
+import { useFilteredAndSortedData } from "@/components/shop/Filter/action";
+import ProductFilterSidebar from "@/components/shop/Filter/filterSidbar";
+import ProductSort from "@/components/shop/Filter/sort";
+import ProductCard from "@/components/shop/ProductCard";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 

@@ -2,7 +2,7 @@
 
 import { ICategory } from "@/api/server-api/type";
 import React, { useState } from "react";
-import AsyncListField from "../fields/async-list-filed";
+import AsyncListField from "../../admin/fields/async-list-filed";
 import { useSellerCategoriesQuery } from "@/api/seller-api/seller-client/seller-categories";
 
 type Props = {

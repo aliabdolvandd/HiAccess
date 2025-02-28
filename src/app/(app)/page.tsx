@@ -1,12 +1,12 @@
 "use client";
 
-import Banner from "@/components/Home/Banner/Banner";
-import Category from "@/components/Category";
-import BestDiscount from "@/components/Home/BestDiscount";
+import Banner from "@/components/shop/Home/Banner/Banner";
+import Category from "@/components/shop/Category";
+import BestDiscount from "@/components/shop/Home/BestDiscount";
 import { Box } from "@mui/material";
-import LatestSection from "@/components/Home/LatestSection";
-import SellerBanner from "@/components/Home/Banner/SellerBanner";
-import WhyUsSection from "@/components/Home/WhyUsSection";
+import LatestSection from "@/components/shop/Home/LatestSection";
+import SellerBanner from "@/components/shop/Home/Banner/SellerBanner";
+import WhyUsSection from "@/components/shop/Home/WhyUsSection";
 import QueryProvider from "@/components/QueryProvider";
 
 export default function Home() {

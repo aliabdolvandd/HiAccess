@@ -2,11 +2,11 @@
 
 import { ICategory } from "@/api/server-api/type";
 import { Stack } from "@mui/material";
-import AIForm from "./AIForm";
+import AIForm from "../../forms/AIForm";
 import { useActionState } from "react";
 import { createOrUpdateSellerCategoryAction } from "@/action/seller/seller-category";
-import SellerCategoryField from "../fields/seller-field/seller-category-field";
-import SubmitButton from "../SubmitButton";
+import SellerCategoryField from "../../admin/fields/seller-field/seller-category-field";
+import SubmitButton from "../../SubmitButton";
 
 type Props = {
   defaultValue?: ICategory;

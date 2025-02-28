@@ -2,7 +2,7 @@ import { AppLayout } from "@/components/layout";
 import React, { ComponentProps } from "react";
 
 import { Box } from "@mui/material";
-import UserProfilePage from "@/components/ProfileSection/profileDrawer";
+import UserProfilePage from "@/components/shop/ProfileSection/profileDrawer";
 
 const layout = ({ children }: ComponentProps<"div">) => {
   return (

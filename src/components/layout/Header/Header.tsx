@@ -7,8 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./Navbar";
 import profileIcon from "@/svg/profileIcon";
-import CartPopover from "@/components/Cart/CartPopover";
-import SearchDialog from "@/components/search";
+import CartPopover from "@/components/shop/Cart/CartPopover";
+import SearchDialog from "@/components/shop/search";
 import SearchIcon from "@/svg/searchIcon";
 
 const iconList = [

@@ -1,6 +1,6 @@
 import { IUser } from "@/api/server-api/type";
 import React from "react";
-import AIForm from "../forms/AIForm";
+import AIForm from "../../forms/AIForm";
 
 type Props = {
   defaultValue?: IUser;

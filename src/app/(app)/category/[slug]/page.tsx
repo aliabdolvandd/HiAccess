@@ -1,5 +1,5 @@
 "use client";
-import GetProductsByCategory from "@/components/Category/productsByCategory";
+import GetProductsByCategory from "@/components/shop/Category/productsByCategory";
 import { Box } from "@mui/material";
 import { useParams } from "next/navigation";
 export default function ProductBYCategoryPage() {

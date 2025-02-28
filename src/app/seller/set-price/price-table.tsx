@@ -1,8 +1,8 @@
 "use client";
 
 import { IShopProducts, PaginatedResultApi } from "@/api/server-api/type";
-import { FormatPrice } from "@/components/FormatPrice";
-import EditProductModal from "@/components/PriceModal";
+import { FormatPrice } from "@/components/shop/FormatPrice";
+import EditProductModal from "@/components/shop/PriceModal";
 import AITable from "@/components/tables/AITable";
 import { Button } from "@mui/material";
 import { use, useState } from "react";
