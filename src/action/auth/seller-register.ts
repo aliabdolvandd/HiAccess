@@ -26,7 +26,6 @@ export async function sellerRegister(
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
-  console.log("validatedFields.data", validatedFields.data);
   let data: LoginResponse | undefined = undefined;
 
   try {

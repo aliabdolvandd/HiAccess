@@ -9,7 +9,6 @@ function SellerRegisterForm({ role }: AuthProps) {
     message: "",
     errors: {},
   });
-  console.log(role);
   return (
     <form action={action}>
       <input type="number" name="role" readOnly hidden value={role}></input>
