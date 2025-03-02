@@ -5,7 +5,8 @@ import { Button, Dialog, DialogTitle, DialogContent, Box } from "@mui/material";
 
 import { ICategory, PaginatedResultApi } from "@/api/server-api/type";
 import CategoryTable from "@/app/seller/category/category-table";
-import SellerCategoryForm from "../../forms/seller-category-form";
+import SellerCategoryForm from "./seller-category-form";
+
 export default function CategoryClientWrapper({
   categories,
 }: {
@@ -22,7 +23,7 @@ export default function CategoryClientWrapper({
   };
 
   return (
-    <Box sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+    <Box sx={{ width: "75vw", p: 2, display: "flex", flexDirection: "column" }}>
       <Button
         variant="contained"
         color="primary"

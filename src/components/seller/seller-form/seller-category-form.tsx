@@ -5,8 +5,9 @@ import { Stack } from "@mui/material";
 import AIForm from "../../forms/AIForm";
 import { useActionState } from "react";
 import { createOrUpdateSellerCategoryAction } from "@/action/seller/seller-category";
-import SellerCategoryField from "../../admin/fields/seller-field/seller-category-field";
+
 import SubmitButton from "../../SubmitButton";
+import SellerCategoryField from "../seller-field/seller-category-field";
 
 type Props = {
   defaultValue?: ICategory;

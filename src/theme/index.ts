@@ -20,6 +20,7 @@ declare module "@mui/material/styles" {
 }
 
 const theme = createTheme({
+  direction: "rtl",
   palette: {
     neutral: {
       main: "#8D99AE",

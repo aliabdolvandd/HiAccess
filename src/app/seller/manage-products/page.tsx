@@ -8,7 +8,7 @@ export default async function CategoryPage({ searchParams }: ServerPageProps) {
   const params = await searchParams;
   const products = await getSellerProducts(params);
   return (
-    <TableContainer title="محصول" createLink="/seller/manage-products/create">
+    <TableContainer title="محصولات" createLink="/seller/manage-products/create">
       <ProductTable products={products} />
     </TableContainer>
   );

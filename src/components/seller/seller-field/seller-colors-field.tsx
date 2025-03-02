@@ -1,8 +1,9 @@
 "use client";
 import { IColor } from "@/api/server-api/type";
 import React, { useState } from "react";
-import MultiAsyncListField from "../multi-async-list-field";
+
 import { useSellerColorsQuery } from "@/api/seller-api/seller-client/seller-colors";
+import MultiAsyncListField from "@/components/admin/fields/multi-async-list-field";
 
 type ColorFieldProps = {
   name: string;

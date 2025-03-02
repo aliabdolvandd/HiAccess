@@ -21,6 +21,7 @@ import {
   Money,
 } from "@mui/icons-material";
 import { useDrawer } from "./seller-drawer-provider";
+import SellerHeader from "./seller-header";
 
 const menuItems = [
   {

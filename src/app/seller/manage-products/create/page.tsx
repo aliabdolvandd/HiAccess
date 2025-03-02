@@ -1,5 +1,6 @@
 "use client";
-import SellerProductForm from "@/components/forms/seller-product-form";
+
+import SellerProductForm from "@/components/seller/seller-form/seller-product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export default function CreateProductPage() {

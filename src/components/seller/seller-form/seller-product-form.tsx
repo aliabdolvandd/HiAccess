@@ -13,14 +13,15 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useActionState, useState } from "react";
-import AIForm from "./AIForm";
-import SubmitButton from "../SubmitButton";
-import SingleUpload from "../upload/single-upload";
+
 import { createOrUpdateSellerProductAction } from "@/action/seller/seller-product";
 import SellerCategoryField from "../sellerFields/seller-category-field";
 import SellerBadgeField from "../sellerFields/seller-badge-field";
 import SellerColorsField from "../sellerFields/seller-color-field";
 import SellerBrandField from "../sellerFields/seller-brand-field";
+import SingleUpload from "@/components/upload/single-upload";
+import AIForm from "@/components/forms/AIForm";
+import SubmitButton from "@/components/SubmitButton";
 
 type ProductFormProps = {
   defaultValue?: IShopProducts;

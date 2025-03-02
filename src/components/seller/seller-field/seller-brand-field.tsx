@@ -3,7 +3,7 @@
 import { IBrand } from "@/api/server-api/type";
 import React from "react";
 import { useSellerBrandsQuery } from "@/api/seller-api/seller-client/seller-brands";
-import AsyncListField from "../async-list-filed";
+import AsyncListField from "@/components/admin/fields/async-list-filed";
 
 type Props = {
   name: string;

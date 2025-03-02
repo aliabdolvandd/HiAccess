@@ -1,8 +1,9 @@
 "use client";
 import { IBadge } from "@/api/server-api/type";
 import React, { useState } from "react";
-import MultiAsyncListField from "../multi-async-list-field";
+
 import { useSellerBadgesQuery } from "@/api/seller-api/seller-client/seller-badge";
+import MultiAsyncListField from "@/components/admin/fields/multi-async-list-field";
 
 type BadgeFieldProps = {
   name: string;

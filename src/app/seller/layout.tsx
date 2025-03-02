@@ -3,8 +3,9 @@ import DashboardContent from "@/components/seller/sellerLayout/seller-dashboard-
 import { DrawerProvider } from "@/components/seller/sellerLayout/seller-drawer-provider";
 import QueryProvider from "@/components/QueryProvider";
 import { auth } from "@/lib/session";
+import { Box } from "@mui/material";
 
-async function DashboardLayout({
+async function SellerLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -15,11 +16,13 @@ async function DashboardLayout({
     <AuthProvider accessToken={accessToken || ""}>
       <QueryProvider>
         <DrawerProvider>
-          <DashboardContent>{children}</DashboardContent>
+          <Box component="main">
+            <DashboardContent>{children}</DashboardContent>
+          </Box>
         </DrawerProvider>
       </QueryProvider>
     </AuthProvider>
   );
 }
 
-export default DashboardLayout;
+export default SellerLayout;

@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import AsyncListField from "../async-list-filed";
+
 import { useSellerCategoriesQuery } from "@/api/seller-api/seller-client/seller-categories";
 import { ICategory } from "@/api/server-api/type";
+import AsyncListField from "@/components/admin/fields/async-list-filed";
 
 type Props = {
   name: string;

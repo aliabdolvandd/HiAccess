@@ -3,7 +3,7 @@ import { IProperty } from "@/api/server-api/type";
 import React, { useState } from "react";
 
 import { useSellerPropertiesQuery } from "@/api/seller-api/seller-client/seller-propertis";
-import MultiAsyncListField from "../multi-async-list-field";
+import MultiAsyncListField from "@/components/admin/fields/multi-async-list-field";
 
 type PropertiesFieldProps = {
   name: string;

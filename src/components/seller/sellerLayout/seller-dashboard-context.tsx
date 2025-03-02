@@ -1,26 +1,35 @@
 "use client";
 
 import { Box } from "@mui/material";
-import SellerNavbar from "./Navbar";
-import { useDrawer } from "./seller-drawer-provider";
+import SellerHeader from "./seller-header";
+import SideMenu from "./slideMenu";
 
 const DashboardContent = ({ children }: { children: React.ReactNode }) => {
-  const { isDrawerOpen } = useDrawer();
-
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <SellerNavbar />
+    <>
       <Box
-        component="main"
         sx={{
-          flexGrow: 1,
-          transition: "margin 0.3s ease-in-out",
-          marginLeft: isDrawerOpen ? "240px" : "0px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {children}
+        <SellerHeader />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            marginLeft: "280px",
+            transition: "margin 0.3s ease-in-out",
+            padding: 2,
+          }}
+        >
+          <SideMenu />
+          <Box>{children}</Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

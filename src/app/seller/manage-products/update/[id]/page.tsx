@@ -1,6 +1,6 @@
 import { getSellerProductById } from "@/api/seller-api/products";
 import { ServerPageProps } from "@/api/server-api/type";
-import SellerProductForm from "@/components/forms/seller-product-form";
+import SellerProductForm from "@/components/seller/seller-form/seller-product-form";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export default async function UpdateCity({ params }: ServerPageProps) {
