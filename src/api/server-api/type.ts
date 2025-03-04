@@ -228,3 +228,10 @@ export interface IUserShop extends Timestamp {
   user: IUserProfile;
   profile: IUserProfile;
 }
+export interface IGetProductsBySeller extends Timestamp {
+  lastPrice: number;
+  discount: number;
+  count: number;
+  id: string;
+  seller: ISeller;
+}

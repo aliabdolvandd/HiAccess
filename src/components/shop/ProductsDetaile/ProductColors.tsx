@@ -1,4 +1,5 @@
 import { IColor } from "@/api/server-api/type";
+import { Check } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -8,7 +9,9 @@ interface ProductColorsProps {
 }
 
 const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(
+    colors[0].hexCode
+  );
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
     onColorSelect(color);
@@ -33,8 +36,22 @@ const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
               border:
                 selectedColor === color.hexCode ? "2px solid blue" : "none",
               transition: "all 0.3s ease",
+              position: "relative",
             }}
-          ></Button>
+          >
+            {selectedColor === color.hexCode && (
+              <Check
+                fontSize="small"
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  color: "blue",
+                }}
+              />
+            )}
+          </Button>
         ))}
       </Box>
     </Box>

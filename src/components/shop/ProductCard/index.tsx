@@ -1,7 +1,7 @@
 "use client";
 import { IShopProducts } from "@/api/server-api/type";
 import WishIcon from "@/svg/wishIcon";
-import { Box, Card, CardMedia, Chip, Rating, Typography } from "@mui/material";
+import { Box, Card, CardMedia, Chip, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import UseTruncate from "../TruncateText";
 import Link from "next/link";
