@@ -15,6 +15,7 @@ import {
   Money,
 } from "@mui/icons-material";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const mainListItems = [
   { title: "داشبورد", icon: <SmartphoneIcon />, href: "/seller" },
@@ -39,20 +40,41 @@ const secondaryListItems = [
 ];
 
 export default function MenuContent() {
+  const pathname = usePathname();
+
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between", pt: 2 }}>
       <List dense>
-        {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: "block" }}>
-            <ListItemButton selected={index === 0}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <Link href={item.href} style={{ textDecoration: "none" }}>
-                <ListItemText primary={item.title} sx={{ color: "#000" }} />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {mainListItems.map((item, index) => {
+          const isSelected = pathname === item.href;
+
+          return (
+            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                component={Link}
+                href={item.href}
+                selected={isSelected}
+                sx={{
+                  borderRadius: "8px",
+                  "&.Mui-selected": {
+                    backgroundColor: "primary.main",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "primary.dark",
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ color: isSelected ? "white" : "inherit" }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
+
       <List dense>
         {secondaryListItems.map((item, index) => (
           <ListItem key={index} disablePadding sx={{ display: "block" }}>
