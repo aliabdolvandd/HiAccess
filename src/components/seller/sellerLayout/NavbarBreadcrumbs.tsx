@@ -3,6 +3,8 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs, { breadcrumbsClasses } from "@mui/material/Breadcrumbs";
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   margin: theme.spacing(1, 0),
@@ -16,18 +18,22 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
 }));
 
 export default function NavbarBreadcrumbs() {
+  const pathName = usePathname();
+  const path = pathName.split("/").filter((path) => path);
   return (
     <StyledBreadcrumbs
       aria-label="breadcrumb"
       separator={<NavigateNextRoundedIcon fontSize="small" />}
     >
-      <Typography variant="body1">Dashboard</Typography>
-      <Typography
-        variant="body1"
-        sx={{ color: "text.primary", fontWeight: 600 }}
-      >
-        Home
-      </Typography>
+      {path.length > 0 && (
+        <Typography variant="body1">{path[path.length - 1]}</Typography>
+      )}
+
+      <Link href={"/seller"} style={{ textDecoration: "none" }}>
+        <Typography variant="body1" sx={{ color: "black", fontWeight: 600 }}>
+          Dashboard
+        </Typography>
+      </Link>
     </StyledBreadcrumbs>
   );
 }

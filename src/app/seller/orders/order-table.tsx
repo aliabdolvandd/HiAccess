@@ -22,7 +22,7 @@ export function SellerOrdersTable({
   return (
     <Box sx={{ p: 2, width: "75vw" }}>
       <Paper sx={{ borderRadius: 2, boxShadow: 2, overflow: "hidden" }}>
-        <TableContainer title="Orders">
+        <TableContainer title="سفارش ها">
           <Table>
             <TableHead>
               <TableRow>

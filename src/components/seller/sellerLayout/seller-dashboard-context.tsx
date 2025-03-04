@@ -6,30 +6,40 @@ import SideMenu from "./slideMenu";
 
 const DashboardContent = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        zIndex: 1200,
+      }}
+    >
+      <SideMenu />
       <Box
+        component="main"
         sx={{
+          flexGrow: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
         <SellerHeader />
         <Box
-          component="main"
           sx={{
+            width: "100%",
+            maxWidth: "1200px",
+            mt: 3,
+            margin: "0 auto",
             flexGrow: 1,
-            marginLeft: "280px",
-            transition: "margin 0.3s ease-in-out",
-            padding: 2,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          <SideMenu />
-          <Box>{children}</Box>
+          {children}
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

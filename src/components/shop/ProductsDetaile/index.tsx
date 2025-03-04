@@ -13,11 +13,12 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FeatureProduct from "./FeatureProduct";
 import Comments from "./CommentSection";
 import { IShopProducts } from "@/api/server-api/type";
-import LoadMore from "../buttons/loadButton";
+
 import AddToCartButton from "./AddToCartButton";
 import ProductQuantity from "./ProductQuantity";
 import ProductColors from "./ProductColors";
 import ProductImages from "./images";
+import LoadMore from "@/components/buttons/loadButton";
 interface ProductDetailProps {
   product: IShopProducts;
 }

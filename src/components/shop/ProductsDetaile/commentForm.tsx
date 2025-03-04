@@ -3,9 +3,9 @@
 import { useActionState, useEffect, useState } from "react";
 import { Stack, TextField, Rating, Typography, Box } from "@mui/material";
 import { createOrUpdateCommentAction } from "@/api/shop-api/server-shop/comment-action";
-import SubmitButton from "../SubmitButton";
 import { IComments } from "@/api/server-api/type";
 import { useQueryClient } from "@tanstack/react-query";
+import SubmitButton from "@/components/SubmitButton";
 
 type CommentFormProps = {
   value: IComments;

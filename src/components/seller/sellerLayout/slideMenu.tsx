@@ -1,23 +1,19 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Avatar from "@mui/material/Avatar";
 import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-
 import MenuContent from "./MenuContent";
 import CardAlert from "./CardAlert";
-import SelectContent from "./SelectContent";
-import OptionsMenu from "./OptionsMenu";
-
+import { Button, Typography } from "@mui/material";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { logoutUserAction } from "@/action/auth/logout";
 const drawerWidth = 300;
 
 const Drawer = styled(MuiDrawer)({
   width: drawerWidth,
   flexShrink: 0,
   boxSizing: "border-box",
+  zIndex: 1100,
   mt: 10,
   [`& .${drawerClasses.paper}`]: {
     width: drawerWidth,
@@ -39,35 +35,28 @@ export default function SideMenu() {
         <MenuContent />
         <CardAlert />
       </Box>
-      <Stack
-        direction="row"
+      <Box
         sx={{
+          display: "flex",
           p: 2,
           gap: 1,
-          alignItems: "center",
-          borderTop: "1px solid",
-          borderColor: "divider",
         }}
       >
-        <Avatar
-          sizes="small"
-          alt="Riley Carter"
-          src="/static/images/avatar/7.jpg"
-          sx={{ width: 36, height: 36 }}
-        />
-        <Box sx={{ mr: "auto" }}>
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: 500, lineHeight: "16px" }}
-          >
-            Riley Carter
-          </Typography>
-          <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            riley@email.com
-          </Typography>
-        </Box>
-        <OptionsMenu />
-      </Stack>
+        <Button
+          onClick={() => logoutUserAction()}
+          color="error"
+          fullWidth
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 3,
+            textTransform: "none",
+          }}
+        >
+          <LogoutRoundedIcon fontSize="small" />
+          <Typography>خروج از حساب کاربری</Typography>
+        </Button>
+      </Box>
     </Drawer>
   );
 }

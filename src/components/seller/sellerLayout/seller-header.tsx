@@ -11,14 +11,17 @@ export default function SellerHeader() {
     <Stack
       direction="row-reverse"
       sx={{
-        display: "flex",
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
         width: "100%",
+        height: "64px",
         alignItems: "center",
-        justifyContent: "flex-start",
-        bgcolor: "primary.main",
-        padding: "10px 8px",
+        justifyContent: "space-between",
+        bgcolor: "Complementary2.main",
+        paddingX: 2,
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
       }}
-      spacing={105}
     >
       <NavbarBreadcrumbs />
       <Stack direction="row-reverse" sx={{ gap: 2 }}>

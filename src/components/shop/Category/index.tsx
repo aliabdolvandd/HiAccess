@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, Card, Grid2, Typography } from "@mui/material";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { slug } from "@/lib/customValidation";
 
 const products = [
   {

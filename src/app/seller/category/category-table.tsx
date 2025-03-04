@@ -24,7 +24,7 @@ export default function CategoryTable({ categories, onEdit }: Props) {
   return (
     <TableContainer
       component={Paper}
-      sx={{ mt: 2, boxShadow: 3, borderRadius: 2 }}
+      sx={{ mt: 1, boxShadow: 3, borderRadius: 2 }}
     >
       <Table size="small">
         <TableHead>
