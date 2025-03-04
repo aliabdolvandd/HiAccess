@@ -15,10 +15,10 @@ export default function PageViewsBarChart() {
     theme.palette.primary.light,
   ];
   return (
-    <Card variant="outlined" sx={{ width: "1000px" }}>
+    <Card variant="outlined" sx={{ width: "100%" }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          Page views and downloads
+          بازدید صفحه و دانلود ها
         </Typography>
         <Stack sx={{ justifyContent: "space-between" }}>
           <Stack
@@ -30,12 +30,12 @@ export default function PageViewsBarChart() {
             }}
           >
             <Typography variant="h4" component="p">
-              1.3M
+              1.3 میلیون
             </Typography>
             <Chip size="small" color="error" label="-8%" />
           </Stack>
           <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            Page views and downloads for the last 6 months
+            بازدید و بارگیری صفحه در 6 ماه گذشته
           </Typography>
         </Stack>
         <BarChart

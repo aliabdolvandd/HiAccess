@@ -60,7 +60,7 @@ export default function MenuContent() {
                     backgroundColor: "primary.main",
                     color: "white",
                     "&:hover": {
-                      backgroundColor: "primary.dark",
+                      backgroundColor: "primary.main",
                     },
                   },
                 }}

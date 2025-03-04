@@ -30,6 +30,7 @@ const DashboardContent = ({ children }: { children: React.ReactNode }) => {
             width: "100%",
             maxWidth: "1200px",
             mt: 3,
+            pt: 2,
             margin: "0 auto",
             flexGrow: 1,
             display: "flex",
