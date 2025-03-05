@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
 import { Box, TextField, Button, Typography, Grid2 } from "@mui/material";
+import { useCartStore } from "@/store/cart-provider";
+import { FormatPrice } from "@/components/shop/FormatPrice";
 
 const PaymentGatewayPage = () => {
+  const cart = useCartStore((state) => state.items);
   const [cardNumber, setCardNumber] = useState("");
   const [cvv2, setCvv2] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
   const [expiryYear, setExpiryYear] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [email, setEmail] = useState("");
-  const [amount, setAmount] = useState(12980000);
 
   const handlePayment = () => {
     console.log("پرداخت انجام شد");
@@ -18,7 +20,16 @@ const PaymentGatewayPage = () => {
   const handleCancel = () => {
     console.log("پرداخت لغو شد");
   };
+  const amount = cart.reduce((total, item) => {
+    const itemPrice = item.product.bestSeller?.lastPrice || 0;
+    const discount = item.product.bestSeller?.discount || 0;
 
+    const discountAmount = (itemPrice * discount) / 100;
+    const finalPrice = itemPrice - discountAmount;
+    const itemTotal = finalPrice * item.quantity;
+
+    return total + itemTotal;
+  }, 0);
   return (
     <Box
       sx={{
@@ -46,7 +57,7 @@ const PaymentGatewayPage = () => {
         <Typography>کد پذیرنده: 267895351</Typography>
         <Typography>شماره ترمینال: 68723549</Typography>
         <Typography sx={{ fontWeight: "bold", marginTop: "8px" }}>
-          مبلغ قابل پرداخت: {amount.toLocaleString()} ریال
+          مبلغ قابل پرداخت: {FormatPrice(amount)}
         </Typography>
       </Box>
 

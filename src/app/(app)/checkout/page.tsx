@@ -5,16 +5,13 @@ import { useCartStore } from "@/store/cart-provider";
 import PaymentMethod from "./payment";
 import CartTotal from "../cart/TotalCart";
 import Link from "next/link";
+import AddressField from "./field-address";
 
 const Checkout = () => {
   const cart = useCartStore((state) => state.items);
   const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [discountCode, setDiscountCode] = useState("");
-
-  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
-  };
 
   const handleDiscountCodeChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -69,14 +66,7 @@ const Checkout = () => {
         </Typography>
       </Box>
 
-      <TextField
-        label="آدرس ارسال"
-        variant="outlined"
-        fullWidth
-        value={address}
-        onChange={handleAddressChange}
-        sx={{ marginBottom: "16px" }}
-      />
+      <AddressField address={address} setAddress={setAddress} />
 
       <PaymentMethod
         paymentMethod={paymentMethod}
@@ -91,12 +81,14 @@ const Checkout = () => {
         onChange={handleDiscountCodeChange}
         sx={{ marginBottom: "16px" }}
       />
+
       <Link href={"/paymentGateway"}>
         <Button
           variant="contained"
           color="primary"
           onClick={handleSubmit}
           fullWidth
+          disabled={cart.length === 0}
         >
           پرداخت
         </Button>
