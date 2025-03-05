@@ -8,6 +8,7 @@ export default async function SellerOrdersPage({
 }: ServerPageProps) {
   const params = await searchParams;
   const orders = getSellerOrders(params);
+
   return (
     <Box>
       <SellerOrdersTable orders={orders} />
