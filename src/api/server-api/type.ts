@@ -265,3 +265,17 @@ export interface ISellerOrderItem {
   order: string;
   seller: ISeller;
 }
+
+export interface ICreateOrder {
+  shippingAddress: {
+    street: string;
+    city: string;
+    postalCode: string;
+    location: [number, number];
+  };
+  deliveryDate: string;
+  orderItems: {
+    productSeller: string;
+    quantity: number;
+  };
+}

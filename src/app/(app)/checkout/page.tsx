@@ -9,7 +9,6 @@ import AddressField from "./field-address";
 
 const Checkout = () => {
   const cart = useCartStore((state) => state.items);
-  const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [discountCode, setDiscountCode] = useState("");
 
@@ -20,7 +19,7 @@ const Checkout = () => {
   };
 
   const handleSubmit = () => {
-    console.log({ address, paymentMethod, discountCode, cart });
+    console.log({ paymentMethod, discountCode, cart });
   };
 
   return (
@@ -66,7 +65,7 @@ const Checkout = () => {
         </Typography>
       </Box>
 
-      <AddressField address={address} setAddress={setAddress} />
+      <AddressField />
 
       <PaymentMethod
         paymentMethod={paymentMethod}

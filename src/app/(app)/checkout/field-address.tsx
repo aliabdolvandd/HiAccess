@@ -1,3 +1,4 @@
+import { useSelectedAddressStore } from "@/store/address-checkout-store";
 import { useAddressStore } from "@/store/address-provider";
 import {
   Box,
@@ -8,14 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 
-interface AddressProps {
-  address: string;
-  setAddress: (address: string) => void;
-}
-export default function AddressField({ address, setAddress }: AddressProps) {
+export default function AddressField() {
   const addressList = useAddressStore((state) => state.addresses);
+  const { selectedAddress, setSelectedAddress } = useSelectedAddressStore();
+
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
+    const selectedAddr = addressList.find(
+      (addr) =>
+        `${addr.city}, ${addr.street}, ${addr.postalCode}, ${addr.location[0]}, ${addr.location[1]}` ===
+        event.target.value
+    );
+
+    if (selectedAddr) {
+      setSelectedAddress(selectedAddr);
+    }
   };
   return (
     <Box sx={{ marginBottom: "16px" }}>
@@ -23,7 +30,14 @@ export default function AddressField({ address, setAddress }: AddressProps) {
         انتخاب آدرس
       </Typography>
       <FormControl component="fieldset">
-        <RadioGroup value={address} onChange={handleAddressChange}>
+        <RadioGroup
+          value={
+            selectedAddress
+              ? `${selectedAddress.city}, ${selectedAddress.street}, ${selectedAddress.postalCode}, ${selectedAddress.location[0]}, ${selectedAddress.location[1]}`
+              : ""
+          }
+          onChange={handleAddressChange}
+        >
           {addressList.map((addr, index) => {
             const addrString = `${addr.city}, ${addr.street}, ${addr.postalCode}, ${addr.location[0]}, ${addr.location[1]}`;
             return (
