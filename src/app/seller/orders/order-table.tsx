@@ -1,7 +1,8 @@
-import { IOrder, PaginatedResultApi } from "@/api/server-api/type";
+import { ISellerOrders, PaginatedResultApi } from "@/api/server-api/type";
 import { TableContainer } from "@/components/tables/TableContainer";
 import {
   Box,
+  CircularProgress,
   Paper,
   Table,
   TableBody,
@@ -15,10 +16,13 @@ import OrderRow from "./order-row";
 export function SellerOrdersTable({
   orders,
 }: {
-  orders: Promise<PaginatedResultApi<IOrder>>;
+  orders: Promise<PaginatedResultApi<ISellerOrders>>;
 }) {
   const allOrders = use(orders);
 
+  if (!allOrders) {
+    return <CircularProgress sx={{ display: "block", margin: "auto" }} />;
+  }
   return (
     <Box sx={{ p: 2, width: "75vw" }}>
       <Paper sx={{ borderRadius: 2, boxShadow: 2, overflow: "hidden" }}>

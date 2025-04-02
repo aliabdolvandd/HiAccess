@@ -11,7 +11,7 @@ const ProductImages = ({ images, title }: ProductImagesProps) => {
   const [mainImage, setMainImage] = useState(images.main);
 
   return (
-    <Box sx={{ flex: "1 1 40%", maxWidth: "500px" }}>
+    <Box sx={{ pt: 1, maxWidth: "500px" }}>
       <Image
         src={mainImage}
         alt={title}

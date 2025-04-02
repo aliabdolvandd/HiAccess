@@ -181,3 +181,34 @@ export const UpdateAddressSchema = z.object({
 });
 export type AddressType = z.infer<typeof UpdateAddressSchema>;
 export type AddressFormState = FormState<AddressType>;
+
+export const paymentSchema = z.object({
+  cardNumber: z
+    .string()
+    .min(16, "شماره کارت باید 16 رقم باشد")
+    .max(16, "شماره کارت باید 16 رقم باشد")
+    .regex(/^\d+$/, "شماره کارت فقط باید شامل اعداد باشد"),
+  cvv2: z
+    .string()
+    .min(3, "CVV2 باید حداقل 3 رقم باشد")
+    .max(3, "CVV2 باید حداکثر 3 رقم باشد")
+    .regex(/^\d+$/, "CVV2 فقط باید شامل اعداد باشد"),
+  expiryMonth: z
+    .string()
+    .min(2, "ماه باید دو رقم باشد")
+    .max(2, "ماه باید دو رقم باشد")
+    .regex(/^\d+$/, "ماه باید فقط شامل اعداد باشد")
+    .refine((val) => parseInt(val) >= 1 && parseInt(val) <= 12, {
+      message: "ماه باید بین 01 و 12 باشد",
+    }),
+  expiryYear: z
+    .string()
+    .min(2, "سال باید دو رقم باشد")
+    .max(2, "سال باید دو رقم باشد")
+    .regex(/^\d+$/, "سال باید فقط شامل اعداد باشد"),
+  securityCode: z
+    .string()
+    .min(3, "کد امنیتی باید حداقل 3 رقم باشد")
+    .max(3, "کد امنیتی باید حداکثر 3 رقم باشد")
+    .regex(/^\d+$/, "کد امنیتی فقط باید شامل اعداد باشد"),
+});

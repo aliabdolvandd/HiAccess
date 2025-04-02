@@ -10,146 +10,152 @@ import {
   TableRow,
   Paper,
   Button,
-  IconButton,
-  Stack,
   DialogTitle,
   DialogContent,
   Dialog,
   DialogActions,
+  Typography,
+  IconButton,
 } from "@mui/material";
-import { Edit, Delete, AddLocation } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
 import { IAddress } from "@/api/server-api/type";
-import { AddressForm } from "./Addres-form";
 
-interface AddressProps {
-  address: IAddress[];
-}
-const AddressTable = ({ address }: AddressProps) => {
-  const [currentAddress, setCurrentAddress] = useState<IAddress | null>(null);
-  const [open, setOpen] = useState(false);
+import { useAddressStore } from "@/store/address-provider";
+import { AddressForm } from "./Address-form";
 
-  const handleOpen = (addr: IAddress | null) => {
-    setCurrentAddress(addr);
-    setOpen(true);
+export const AddressTable = () => {
+  const addresses = useAddressStore((state) => state.addresses);
+  const removeAddress = useAddressStore((state) => state.removeAddress);
+  const [selectedAddress, setSelectedAddress] = useState<IAddress | null>(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [addressToDelete, setAddressToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (addressId: string) => {
+    setAddressToDelete(addressId);
+    setOpenDeleteDialog(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setCurrentAddress(null);
+  const handleDeleteConfirm = () => {
+    if (addressToDelete) {
+      removeAddress(addressToDelete);
+      setOpenDeleteDialog(false);
+      setAddressToDelete(null);
+    }
   };
 
+  const handleDeleteCancel = () => {
+    setOpenDeleteDialog(false);
+    setAddressToDelete(null);
+  };
+  console.log(addresses);
   return (
-    <Stack
-      spacing={3}
-      sx={{ maxWidth: "100vw", width: "70vw", p: 3, flexGrow: 1, mt: 20 }}
-    >
+    <Paper sx={{ mt: 10, width: "80%", padding: 4 }}>
+      <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold", mb: 2 }}>
+        لیست آدرس‌ها
+      </Typography>
+
       <Button
         variant="contained"
         color="primary"
-        startIcon={<AddLocation />}
-        onClick={() => handleOpen(null)}
+        onClick={() => setOpenForm(true)}
         sx={{
-          alignSelf: "end",
-          px: 3,
-          py: 1.5,
-          fontSize: "1rem",
-          borderRadius: 3,
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+          mb: 2,
+          backgroundColor: "primary.main",
         }}
       >
         افزودن آدرس جدید
       </Button>
 
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle sx={{ fontWeight: "bold", textAlign: "center" }}>
-          {currentAddress ? "ویرایش آدرس" : "افزودن آدرس جدید"}
-        </DialogTitle>
+      {addresses.length === 0 ? (
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          sx={{ textAlign: "center" }}
+        >
+          هیچ آدرسی ثبت نشده است.
+        </Typography>
+      ) : (
+        <TableContainer component={Paper} sx={{ boxShadow: 3 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>خیابان</TableCell>
+                <TableCell>شهر</TableCell>
+                <TableCell>کد پستی</TableCell>
+                <TableCell>عملیات</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {addresses.map((addr) => (
+                <TableRow key={addr._id}>
+                  <TableCell>{addr.street}</TableCell>
+                  <TableCell>{addr.city}</TableCell>
+                  <TableCell>{addr.postalCode}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => setSelectedAddress(addr)}
+                      sx={{ mr: 1 }}
+                    >
+                      <Edit />
+                    </IconButton>
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDeleteClick(addr._id)}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+
+      {/* Edit Address Dialog */}
+      <Dialog open={!!selectedAddress} onClose={() => setSelectedAddress(null)}>
+        <DialogTitle>ویرایش آدرس</DialogTitle>
         <DialogContent>
-          <AddressForm value={currentAddress} />
+          {selectedAddress && (
+            <AddressForm
+              editAddress={selectedAddress}
+              onClose={() => setSelectedAddress(null)}
+            />
+          )}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            color="error"
-            sx={{ fontWeight: "bold" }}
-          >
-            بستن
-          </Button>
+          <Button onClick={() => setSelectedAddress(null)}>بستن</Button>
         </DialogActions>
       </Dialog>
 
-      {/* جدول ریسپانسیو با طراحی زیبا */}
-      <TableContainer
-        component={Paper}
-        sx={{
-          width: "100%",
-          overflowX: "auto",
-          borderRadius: 3,
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <Table sx={{ minWidth: 600 }}>
-          <TableHead>
-            <TableRow sx={{ bgcolor: "primary.main" }}>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                شهر
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                خیابان
-              </TableCell>
-              <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                کد پستی
-              </TableCell>
-              <TableCell
-                sx={{ color: "white", fontWeight: "bold" }}
-                align="center"
-              >
-                عملیات
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {address.map((addr, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  "&:nth-of-type(odd)": { bgcolor: "#f9f9f9" },
-                  "&:hover": { bgcolor: "#f1f1f1" },
-                }}
-              >
-                <TableCell>{addr.city}</TableCell>
-                <TableCell>{addr.street}</TableCell>
-                <TableCell>{addr.postalCode}</TableCell>
-                <TableCell align="center">
-                  <IconButton
-                    color="primary"
-                    onClick={() => handleOpen(addr)}
-                    sx={{
-                      mx: 0.5,
-                      transition: "0.2s",
-                      "&:hover": { scale: "1.1" },
-                    }}
-                  >
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    sx={{
-                      mx: 0.5,
-                      transition: "0.2s",
-                      "&:hover": { scale: "1.1" },
-                    }}
-                  >
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Stack>
+      {/* Add Address Dialog */}
+      <Dialog open={openForm} onClose={() => setOpenForm(false)}>
+        <DialogTitle>افزودن آدرس جدید</DialogTitle>
+        <DialogContent>
+          <AddressForm onClose={() => setOpenForm(false)} editAddress={null} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenForm(false)}>بستن</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={openDeleteDialog} onClose={handleDeleteCancel}>
+        <DialogTitle>تأیید حذف</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            آیا از حذف این آدرس اطمینان دارید؟
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel}>لغو</Button>
+          <Button onClick={handleDeleteConfirm} color="error">
+            تایید
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Paper>
   );
 };
-
-export default AddressTable;

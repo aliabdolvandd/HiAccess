@@ -1,3 +1,4 @@
+"use client";
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import ProductList from "@/components/shop/ProductList";
 import { Box, Typography } from "@mui/material";

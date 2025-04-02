@@ -6,6 +6,8 @@ import {
   Divider,
   Rating,
   Container,
+  Chip,
+  Breadcrumbs,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -19,6 +21,9 @@ import ProductQuantity from "./ProductQuantity";
 import ProductColors from "./ProductColors";
 import ProductImages from "./images";
 import LoadMore from "@/components/buttons/loadButton";
+import SimilarProducts from "./Similarproducts";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Link from "next/link";
 interface ProductDetailProps {
   product: IShopProducts;
 }
@@ -30,10 +35,24 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
   if (!product) return <Typography>محصولی یافت نشد.</Typography>;
 
   return (
-    <Container maxWidth="xl" sx={{ pt: 12 }}>
-      <Typography variant="subtitle2" sx={{ color: "gray", mb: 3 }}>
-        خانه / {product.category.titleFa} / {product.titleFa}
-      </Typography>
+    <Container maxWidth="xl" sx={{ pt: 14 }}>
+      <Breadcrumbs
+        separator={<NavigateNextIcon fontSize="small" />}
+        sx={{ mb: 3 }}
+      >
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <Typography sx={{ color: "#000" }}> خانه</Typography>
+        </Link>
+        <Link
+          href={`/category/${product.category.slug}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography sx={{ color: "#000" }}>
+            {product.category.titleFa}
+          </Typography>
+        </Link>
+        <Typography color="gray">{product.titleFa}</Typography>
+      </Breadcrumbs>
 
       <Box
         sx={{
@@ -43,7 +62,17 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
           justifyContent: "space-between",
         }}
       >
-        <ProductImages images={product.images} title={product.titleFa} />
+        <Box sx={{ flex: "0 1 40%" }}>
+          <ProductImages images={product.images} title={product.titleFa} />
+
+          {product.category?.returnReasonAlert && (
+            <Box sx={{ width: "90%" }}>
+              <Typography sx={{ mt: 6, textAlign: "left", color: "gray" }}>
+                {product.category.returnReasonAlert}
+              </Typography>
+            </Box>
+          )}
+        </Box>
 
         <Box
           sx={{
@@ -61,6 +90,23 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             }}
           >
             <Rating value={4.5} readOnly />
+            <Chip
+              sx={{
+                backgroundColor: "#f0f0f0",
+                fontWeight: "bold",
+                paddingX: 1.5,
+                paddingY: 0.5,
+                borderRadius: "8px",
+              }}
+              label={
+                <Typography
+                  variant="body2"
+                  sx={{ color: "#007bff", fontWeight: 600 }}
+                >
+                  {product.bestSeller?.seller.name}
+                </Typography>
+              }
+            />
             <IconButton>
               <FavoriteBorder />
             </IconButton>
@@ -69,9 +115,10 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
           <Typography variant="h5" fontWeight="700">
             {product.titleFa}
           </Typography>
+
           <Typography
             variant="subtitle2"
-            sx={{ color: "gray", fontWeight: "700" }}
+            sx={{ color: "gray", fontWeight: "700", alignSelf: "end" }}
           >
             {product.titleEn}
           </Typography>
@@ -136,6 +183,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             </Box>
           )}
         </Box>
+        <SimilarProducts code={product.code} />
       </Box>
 
       <Comments value={{ product: product.code }} />

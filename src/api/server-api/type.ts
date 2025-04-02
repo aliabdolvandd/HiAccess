@@ -228,3 +228,54 @@ export interface IUserShop extends Timestamp {
   user: IUserProfile;
   profile: IUserProfile;
 }
+export interface IGetProductsBySeller extends Timestamp {
+  lastPrice: number;
+  discount: number;
+  count: number;
+  id: string;
+  seller: ISeller;
+}
+
+export interface ISellerOrders {
+  shippingAddress: {
+    street: string;
+    city: string;
+    postalCode: string;
+    location: [number, number];
+  };
+  user: IUser;
+  deliveryDate: string;
+  orderStatus: OrderStatus;
+  orderItems: [ISellerOrderItem];
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
+export interface ISellerOrderItem {
+  id: string;
+  productSeller: {
+    product: string;
+    seller: string;
+    price: number;
+    count: number;
+    discount: number;
+    id: string;
+  };
+  quantity: number;
+  order: string;
+  seller: ISeller;
+}
+
+export interface ICreateOrder {
+  shippingAddress: {
+    street: string;
+    city: string;
+    postalCode: string;
+    location: [number, number];
+  };
+  deliveryDate: string;
+  orderItems: {
+    productSeller: string;
+    quantity: number;
+  };
+}
