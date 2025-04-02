@@ -14,7 +14,7 @@ export default function PriceProductList({
 }) {
   const [editProduct, setEditProduct] = useState<IShopProducts | null>(null);
 
-  const handleUpdateProduct = (updatedProduct: IShopProducts) => {
+  const handleUpdateProduct = () => {
     setEditProduct(null);
   };
   const allProducts = use(products);

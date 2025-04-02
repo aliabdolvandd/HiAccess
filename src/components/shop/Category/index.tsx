@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Box, Card, Grid2, Typography } from "@mui/material";
 import Link from "next/link";

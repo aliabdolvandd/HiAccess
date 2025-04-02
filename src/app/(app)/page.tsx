@@ -1,5 +1,3 @@
-"use client";
-
 import Banner from "@/components/shop/Home/Banner/Banner";
 import Category from "@/components/shop/Category";
 import BestDiscount from "@/components/shop/Home/BestDiscount";
@@ -9,7 +7,7 @@ import SellerBanner from "@/components/shop/Home/Banner/SellerBanner";
 import WhyUsSection from "@/components/shop/Home/WhyUsSection";
 import QueryProvider from "@/components/QueryProvider";
 
-export default function Home() {
+export default async function Home() {
   return (
     <QueryProvider>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
