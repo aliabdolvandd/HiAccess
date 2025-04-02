@@ -16,7 +16,7 @@ export async function refreshTokenAction() {
       }
     );
     await createSession(data);
-  } catch (e) {
+  } catch {
     await deleteSession();
     redirect("/auth/login");
   }

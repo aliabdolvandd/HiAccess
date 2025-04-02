@@ -41,15 +41,12 @@ export default function PageViewsBarChart() {
         <BarChart
           borderRadius={8}
           colors={colorPalette}
-          xAxis={
-            [
-              {
-                scaleType: "band",
-                categoryGapRatio: 0.5,
-                data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-              },
-            ] as any
-          }
+          xAxis={[
+            {
+              scaleType: "band",
+              data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+            },
+          ]}
           series={[
             {
               id: "page-views",
