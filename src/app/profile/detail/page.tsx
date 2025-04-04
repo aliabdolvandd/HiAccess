@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React from "react";
 import UserProfileTable from "./detail-table";
 import { Box } from "@mui/material";

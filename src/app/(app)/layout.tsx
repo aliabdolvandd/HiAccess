@@ -1,7 +1,12 @@
 import { AppLayout } from "@/components/layout";
-import React, { ComponentProps } from "react";
+import { ReactNode } from "react";
 
-const layout = ({ children }: ComponentProps<"div">) => {
-  return <AppLayout> {children} </AppLayout>;
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
+  return <AppLayout>{children}</AppLayout>;
 };
-export default layout;
+
+export default Layout;

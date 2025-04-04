@@ -277,5 +277,5 @@ export interface ICreateOrder {
   orderItems: {
     productSeller: string;
     quantity: number;
-  };
+  }[]; // 👈 حتماً اینجا باید [] باشه
 }
