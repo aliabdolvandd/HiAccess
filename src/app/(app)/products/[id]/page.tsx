@@ -5,7 +5,7 @@ import ProductDetail from "@/components/shop/ProductsDetaile";
 import { Container } from "@mui/material";
 import React from "react";
 
-export async function Page({ params }: ServerPageProps) {
+async function Page({ params }: ServerPageProps) {
   const { id } = await params;
   const product = await getProductByCode(Number(id));
   return (

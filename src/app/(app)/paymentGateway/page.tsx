@@ -6,6 +6,7 @@ import { FormatPrice } from "@/components/shop/FormatPrice";
 import { paymentSchema } from "@/lib/validations";
 import { useSelectedAddressStore } from "@/store/address-checkout-store";
 import { createOrderAction } from "@/action/order";
+import { ICreateOrder } from "@/api/server-api/type";
 
 const PaymentGatewayPage = () => {
   const cart = useCartStore((state) => state.items);
@@ -40,34 +41,31 @@ const PaymentGatewayPage = () => {
     const validationResult = paymentSchema.safeParse(data);
 
     if (!validationResult.success) {
-      const errorMessages = validationResult.error.formErrors.fieldErrors;
-      setErrors(errorMessages);
+      setErrors(validationResult.error.formErrors.fieldErrors);
       return;
     }
 
-    console.log("پرداخت انجام شد");
-    if (validationResult.success) {
-      const orderData = {
-        shippingAddress: {
-          city: selectedAddress?.city,
-          street: selectedAddress?.street,
-          postalCode: selectedAddress?.postalCode,
-          location: selectedAddress?.location,
-        },
-        deliveryDate: "2025-01-30T12:12:29.041Z",
-        orderItems: cart.map((item) => ({
-          productSeller: item.product.bestSeller?.id,
-          quantity: item.quantity, //
-        })),
-      };
-      try {
-        await createOrderAction(orderData);
-      } catch (e) {
-        console.log(e);
-      }
+    const orderData: ICreateOrder = {
+      shippingAddress: {
+        city: selectedAddress!.city,
+        street: selectedAddress!.street,
+        postalCode: selectedAddress!.postalCode,
+        location: selectedAddress!.location,
+      },
+      deliveryDate: "2025-01-30T12:12:29.041Z",
+      orderItems: cart.map((item) => ({
+        productSeller: item.product.bestSeller!.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      await createOrderAction(orderData);
+      console.log("پرداخت و سفارش با موفقیت انجام شد");
+    } catch (error) {
+      console.error("خطا در ایجاد سفارش:", error);
     }
   };
-
   const handleCancel = () => {
     console.log("پرداخت لغو شد");
   };
