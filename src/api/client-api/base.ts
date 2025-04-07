@@ -1,6 +1,6 @@
 import axios from "axios";
 const Axios = axios.create({
-  baseURL: "https://backend-divar.liara.run",
+  baseURL: "process.env.NEXT_PUBLIC_BASE_URL",
 });
 
 export default Axios;
