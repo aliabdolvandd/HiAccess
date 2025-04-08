@@ -12,9 +12,9 @@ export default async function Home() {
     <QueryProvider>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
         <Banner />
-{/*         <LatestSection /> */}
+        <LatestSection />
         <Category />
-{/*         <BestDiscount /> */}
+        <BestDiscount />
         <SellerBanner />
         <WhyUsSection />
       </Box>

@@ -42,11 +42,14 @@ const SearchDialog = ({ open, onClose }: SearchDialogProps) => {
   if (isError) return <Typography>خطا در دریافت اطلاعات</Typography>;
   if (isLoading) return <Typography>در حال بارگذاری...</Typography>;
 
-  const filteredProducts = products?.results.filter(
-    (product) =>
-      product.titleFa.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-      product.brand.titleFa.toLowerCase().includes(debouncedQuery.toLowerCase())
-  );
+  const filteredProducts =
+    products?.results?.filter(
+      (product) =>
+        product.titleFa.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
+        product.brand.titleFa
+          .toLowerCase()
+          .includes(debouncedQuery.toLowerCase())
+    ) || [];
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">

@@ -8,7 +8,7 @@ export default function BestDiscount() {
   if (isLoading) {
     return <Typography> در حال دریافت اطلاعات </Typography>;
   }
-  if (isError) {
+  if (isError || !products || !products.results) {
     return <Typography>خطا در دریافت اطلاعات</Typography>;
   }
   const DiscountProducts = products?.results

@@ -9,10 +9,10 @@ export default function LatestSection() {
   if (isLoading) {
     return <Typography> در حال دریافت اطلاعات </Typography>;
   }
-  if (isError) {
+  if (isError || !products || !products.results) {
     return <Typography>خطا در دریافت اطلاعات</Typography>;
   }
-  const latest = products?.results
+  const latest = products!.results
     .filter((p) => p.bestSeller?.createdAt)
     .sort(
       (a, b) =>
