@@ -6,6 +6,7 @@ import LatestSection from "@/components/shop/Home/LatestSection";
 import SellerBanner from "@/components/shop/Home/Banner/SellerBanner";
 import WhyUsSection from "@/components/shop/Home/WhyUsSection";
 import QueryProvider from "@/components/QueryProvider";
+import TestEnv from "@/components/shop/FormatPrice/test";
 
 export default async function Home() {
   return (
@@ -13,6 +14,7 @@ export default async function Home() {
       <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
         <Banner />
         <LatestSection />
+        <TestEnv />
         <Category />
         <BestDiscount />
         <SellerBanner />
