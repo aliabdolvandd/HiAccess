@@ -6,6 +6,7 @@ import LatestSection from "@/components/shop/Home/LatestSection";
 import SellerBanner from "@/components/shop/Home/Banner/SellerBanner";
 import WhyUsSection from "@/components/shop/Home/WhyUsSection";
 import QueryProvider from "@/components/QueryProvider";
+import AdminBanner from "@/components/shop/Home/Banner/AdminBanner";
 
 export default async function Home() {
   return (
@@ -16,6 +17,7 @@ export default async function Home() {
         <Category />
         <BestDiscount />
         <SellerBanner />
+        <AdminBanner />
         <WhyUsSection />
       </Box>
     </QueryProvider>
