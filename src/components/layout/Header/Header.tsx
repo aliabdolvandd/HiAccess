@@ -1,15 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import theme from "@/theme";
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Drawer } from "@mui/material";
+import MenuRounded from "@mui/icons-material/MenuRounded";
 import Image from "next/image";
 import Link from "next/link";
+import theme from "@/theme";
 import Navbar from "./Navbar";
+
 import profileIcon from "@/svg/profileIcon";
 import CartPopover from "@/components/shop/Cart/CartPopover";
 import SearchDialog from "@/components/shop/search";
 import SearchIcon from "@/svg/searchIcon";
+import NavbarMobile from "./NavbarMobile";
 
 const iconList = [
   { type: "search", Icon: SearchIcon },
@@ -20,6 +23,7 @@ const iconList = [
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,10 +31,12 @@ function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMobile = () => {
+    setMobileOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -53,10 +59,21 @@ function Header() {
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Link href={"/"} passHref>
-            <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
-          </Link>
-          <Navbar />
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ display: { xs: "block", md: "none" } }}>
+              <IconButton sx={{ color: "black" }} onClick={toggleMobile}>
+                <MenuRounded />
+              </IconButton>
+            </Box>
+
+            <Link href={"/"} passHref>
+              <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
+            </Link>
+          </Box>
+
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <Navbar />
+          </Box>
 
           <Box sx={{ display: "flex" }}>
             {iconList.map((icon, index) => (
@@ -82,6 +99,20 @@ function Header() {
           </Box>
         </Toolbar>
       </AppBar>
+
+      <Drawer
+        anchor="left"
+        open={mobileOpen}
+        onClose={toggleMobile}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          zIndex: theme.zIndex.drawer + 2,
+        }}
+      >
+        <NavbarMobile onClose={toggleMobile} />
+      </Drawer>
 
       <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

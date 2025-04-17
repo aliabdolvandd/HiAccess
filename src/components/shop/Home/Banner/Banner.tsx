@@ -1,6 +1,12 @@
 "use client";
-import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+
+import { Box, Button, Typography, IconButton } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import BtnBack from "@/svg/btnBack";
 import BtnNext from "@/svg/btnNext";
 
@@ -15,9 +21,9 @@ const banners = [
   {
     id: 2,
     image: "/banner2.png",
-    title1: "صدای  موسیقی ",
+    title1: "صدای موسیقی ",
     title2: "همراه با بهترین‌ها",
-    description: "بهترین تجربه ها رو با ما رقم بزنید",
+    description: "بهترین تجربه‌ها رو با ما رقم بزنید",
     buttonText: "همین حالا خرید کنید",
   },
   {
@@ -30,189 +36,160 @@ const banners = [
 ];
 
 const Banner = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % banners.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleNext = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % banners.length);
-  };
-
-  const handlePrev = () => {
-    setActiveIndex(
-      (prevIndex) => (prevIndex - 1 + banners.length) % banners.length
-    );
-  };
-
   return (
     <Box
       sx={{
-        position: "relative",
         width: "100%",
-        height: "100vh",
-        overflow: "hidden",
+        height: { xs: "80vh", md: "100vh" },
+        position: "relative",
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          bgcolor: "rgba(0, 0, 0, 0.3)",
-          zIndex: 1,
+      <Swiper
+        loop
+        autoplay={{ delay: 8000 }}
+        navigation={{
+          nextEl: ".next-btn",
+          prevEl: ".prev-btn",
         }}
-      />
+        pagination={{ clickable: true }}
+        modules={[Autoplay, Navigation, Pagination]}
+        style={{ width: "100%", height: "100%" }}
+      >
+        {banners.map((banner, index) => (
+          <SwiperSlide key={index}>
+            <Box
+              sx={{
+                backgroundImage: `url(${banner.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                width: "100%",
+                height: "100%",
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+              }}
+            >
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  bgcolor: "rgba(0, 0, 0, 0.3)",
+                  zIndex: 1,
+                }}
+              />
 
-      {/* banner images*/}
-      <Box
-        sx={{
-          backgroundImage: `url(${banners[activeIndex].image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
-          textAlign: "center",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: "48px",
-            lineHeight: "56px",
-            color: "white",
-            position: "absolute",
-            left: "10%",
-            top: "30%",
-            maxWidth: "40%",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {banners[activeIndex].title1}
-        </Typography>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: "48px",
-            lineHeight: "56px",
-            color: "white",
-            position: "absolute",
-            left: "20%",
-            top: "50%",
-            maxWidth: "40%",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {banners[activeIndex].title2}
-        </Typography>
-        {banners[activeIndex].description && (
-          <Typography
-            variant="h5"
-            gutterBottom
-            sx={{
-              fontSize: "16px",
-              lineHeight: "36px",
-              fontWeight: 400,
-              color: "primary.main",
-              position: "absolute",
-              right: "75%",
-              bottom: "25%",
-            }}
-          >
-            {banners[activeIndex].description}
-          </Typography>
-        )}
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            mt: 2,
-            width: "214px",
-            height: "60px",
-            fontSize: "16px",
-            fontWeight: "500",
-            lineHeight: "36px",
-            borderRadius: "8px",
-            position: "absolute",
-            right: "75%",
-            bottom: "10%",
-          }}
-        >
-          {banners[activeIndex].buttonText}
-        </Button>
-      </Box>
+              {/* Title 1 */}
+              <Typography
+                variant="h3"
+                sx={{
+                  position: "absolute",
+                  left: { xs: "5%", md: "10%" },
+                  top: { xs: "20%", md: "30%" },
+                  fontWeight: 700,
+                  fontSize: { xs: "26px", md: "48px" },
+                  lineHeight: "1.3",
+                  zIndex: 2,
+                  color: "white",
+                  maxWidth: { xs: "90%", md: "40%" },
+                  textAlign: "left",
+                }}
+              >
+                {banner.title1}
+              </Typography>
 
-      {/*change button*/}
-      <IconButton
-        onClick={handlePrev}
-        sx={{
-          position: "absolute",
-          left: 16,
-          top: "50%",
-          transform: "translateY(-50%)",
-          color: "white",
-          zIndex: 1000,
-        }}
-      >
-        <BtnNext />
-      </IconButton>
-      <IconButton
-        onClick={handleNext}
-        sx={{
-          position: "absolute",
-          right: 16,
-          top: "50%",
-          transform: "translateY(-50%)",
-          color: "white",
-          zIndex: 1000,
-        }}
-      >
-        <BtnBack />
-      </IconButton>
+              {/* Title 2 */}
+              <Typography
+                variant="h3"
+                sx={{
+                  position: "absolute",
+                  left: { xs: "10%", md: "20%" },
+                  top: { xs: "35%", md: "50%" },
+                  fontWeight: 700,
+                  fontSize: { xs: "26px", md: "48px" },
+                  lineHeight: "1.3",
+                  zIndex: 2,
+                  color: "white",
+                  maxWidth: { xs: "90%", md: "40%" },
+                  textAlign: "left",
+                }}
+              >
+                {banner.title2}
+              </Typography>
 
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: 16,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          gap: 1,
-          zIndex: 100,
-        }}
-      >
-        {banners.map((_, index) => (
-          <Paper
-            key={index}
-            sx={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              backgroundColor: index === activeIndex ? "primary.main" : "#ccc",
-              cursor: "pointer",
-            }}
-            onClick={() => setActiveIndex(index)}
-          />
+              {/* Description */}
+              {banner.description && (
+                <Typography
+                  variant="h6"
+                  sx={{
+                    position: "absolute",
+                    bottom: { xs: "25%", md: "25%" },
+                    right: { xs: "5%", md: "75%" },
+                    fontSize: { xs: "14px", md: "16px" },
+                    fontWeight: 400,
+                    color: "primary.main",
+                    zIndex: 2,
+                    textAlign: "right",
+                    maxWidth: { xs: "90%", md: "20%" },
+                  }}
+                >
+                  {banner.description}
+                </Typography>
+              )}
+
+              {/* Button */}
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  position: "absolute",
+                  bottom: { xs: "10%", md: "10%" },
+                  right: { xs: "5%", md: "75%" },
+                  width: { xs: 180, md: 214 },
+                  height: { xs: 50, md: 60 },
+                  fontSize: { xs: "14px", md: "16px" },
+                  fontWeight: 500,
+                  zIndex: 2,
+                }}
+              >
+                {banner.buttonText}
+              </Button>
+            </Box>
+          </SwiperSlide>
         ))}
-      </Box>
+
+        {/* Navigation Arrows */}
+        <IconButton
+          className="prev-btn"
+          sx={{
+            position: "absolute",
+            left: 16,
+            top: "50%",
+            zIndex: 10,
+            color: "white",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <BtnNext />
+        </IconButton>
+        <IconButton
+          className="next-btn"
+          sx={{
+            position: "absolute",
+            right: 16,
+            top: "50%",
+            zIndex: 10,
+            color: "white",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <BtnBack />
+        </IconButton>
+      </Swiper>
     </Box>
   );
 };

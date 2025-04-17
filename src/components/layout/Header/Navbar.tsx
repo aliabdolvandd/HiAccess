@@ -1,8 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Stack, Typography, Menu, MenuItem } from "@mui/material";
-import { ExpandMoreRounded, ExpandLessRounded } from "@mui/icons-material";
+import {
+  Box,
+  Stack,
+  Typography,
+  Menu,
+  MenuItem,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Collapse,
+} from "@mui/material";
+import {
+  ExpandMoreRounded,
+  ExpandLessRounded,
+  MenuRounded,
+} from "@mui/icons-material";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import theme from "@/theme";
@@ -56,6 +72,9 @@ const Navbar = () => {
     { label: string; slug: string }[]
   >([]);
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
   const handleClick = (
     event: React.MouseEvent<HTMLElement>,
     submenu: { label: string; slug: string }[]
@@ -69,95 +88,160 @@ const Navbar = () => {
     setCurrentSubmenu([]);
   };
 
-  return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <Stack direction="row" justifyContent="center">
-        {navItems.map((item, index) => (
-          <Box key={index}>
-            <Typography
-              component="span"
-              sx={{
-                color: "black",
-                fontSize: 14,
-                fontWeight: 400,
-                display: "flex",
-                alignItems: "center",
-                mx: 1,
-                cursor: "pointer",
-                transition: "color 0.3s",
-                "&:hover": { color: theme.palette.primary.main },
-              }}
-              onClick={(event) => handleClick(event, item.submenu)}
-            >
-              {item.label}
-              {anchor && currentSubmenu === item.submenu ? (
-                <ExpandLessRounded sx={{ transition: "transform 0.3s" }} />
-              ) : (
-                <ExpandMoreRounded sx={{ transition: "transform 0.3s" }} />
-              )}
-            </Typography>
-          </Box>
-        ))}
-      </Stack>
+  const toggleMobile = () => {
+    setMobileOpen((prev) => !prev);
+  };
 
-      {/* sub menu*/}
-      <Menu
-        anchorEl={anchor}
-        open={Boolean(anchor)}
-        onClose={handleClose}
+  return (
+    <>
+      {/* دسکتاپ */}
+      <Box
         sx={{
-          mt: 1,
-          "& .MuiPaper-root": {
-            width: "100%",
-            maxWidth: 600,
-            overflow: "hidden",
-            borderRadius: 2,
-            bgcolor: "Complementary2.main",
-          },
+          display: { xs: "none", md: "flex" },
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 2,
-              p: 2,
-              maxHeight: 300,
-              overflowY: "auto",
-            }}
-          >
-            {currentSubmenu.map((subItem, index) => (
-              <MenuItem
-                key={index}
-                onClick={handleClose}
+        <Stack direction="row" justifyContent="center">
+          {navItems.map((item, index) => (
+            <Box key={index}>
+              <Typography
+                component="span"
                 sx={{
-                  flex: "0 0 calc(50% - 8px)",
+                  color: "black",
                   fontSize: 14,
-                  "&:hover": {
-                    color: "primary.main",
-                  },
+                  fontWeight: 400,
+                  display: "flex",
+                  alignItems: "center",
+                  mx: 1,
+                  cursor: "pointer",
+                  transition: "color 0.3s",
+                  "&:hover": { color: theme.palette.primary.main },
                 }}
+                onClick={(event) => handleClick(event, item.submenu)}
               >
-                <Link
-                  href={`/category/${subItem.slug}`}
-                  style={{ textDecoration: "none", color: "black" }}
+                {item.label}
+                {anchor && currentSubmenu === item.submenu ? (
+                  <ExpandLessRounded />
+                ) : (
+                  <ExpandMoreRounded />
+                )}
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+
+        {/* sub menu (desktop) */}
+        <Menu
+          anchorEl={anchor}
+          open={Boolean(anchor)}
+          onClose={handleClose}
+          sx={{
+            mt: 1,
+            "& .MuiPaper-root": {
+              width: "100%",
+              maxWidth: 600,
+              overflow: "hidden",
+              borderRadius: 2,
+              bgcolor: "Complementary2.main",
+            },
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 2,
+                p: 2,
+                maxHeight: 300,
+                overflowY: "auto",
+              }}
+            >
+              {currentSubmenu.map((subItem, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={handleClose}
+                  sx={{
+                    flex: "0 0 calc(50% - 8px)",
+                    fontSize: 14,
+                    "&:hover": {
+                      color: "primary.main",
+                    },
+                  }}
                 >
-                  {subItem.label}
-                </Link>
-              </MenuItem>
-            ))}
+                  <Link
+                    href={`/category/${subItem.slug}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    {subItem.label}
+                  </Link>
+                </MenuItem>
+              ))}
+            </Box>
+          </motion.div>
+        </Menu>
+      </Box>
+
+      <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <IconButton onClick={toggleMobile}>
+          <MenuRounded />
+        </IconButton>
+
+        <Drawer anchor="left" open={mobileOpen} onClose={toggleMobile}>
+          <Box sx={{ width: 250, p: 2 }}>
+            <List>
+              {navItems.map((item, index) => (
+                <Box key={index}>
+                  <ListItem
+                    component="button"
+                    onClick={() => setExpandedIndex(index)}
+                  >
+                    <ListItemText primary={item.label} />
+                    {expandedIndex === index ? (
+                      <ExpandLessRounded />
+                    ) : (
+                      <ExpandMoreRounded />
+                    )}
+                  </ListItem>
+                  <Collapse
+                    in={expandedIndex === index}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <List component="div" disablePadding>
+                      {item.submenu.map((subItem, subIndex) => (
+                        <ListItem
+                          key={subIndex}
+                          sx={{ pl: 4 }}
+                          onClick={toggleMobile}
+                        >
+                          <Link
+                            href={`/category/${subItem.slug}`}
+                            style={{
+                              textDecoration: "none",
+                              color: "inherit",
+                              fontSize: 14,
+                            }}
+                          >
+                            {subItem.label}
+                          </Link>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
+                </Box>
+              ))}
+            </List>
           </Box>
-        </motion.div>
-      </Menu>
-    </Box>
+        </Drawer>
+      </Box>
+    </>
   );
 };
 
