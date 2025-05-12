@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import WarrantyIcon from "@/svg/warrantyIcon";
 import PaymentIcon from "@/svg/paymentIcon";
 import SupportIcon from "@/svg/supportIcon";
+import { motion } from "framer-motion";
 
 const options = [
   { icon: <SendIcon />, title: "ارسال رایگان" },
@@ -20,7 +21,7 @@ export default function WhyUsSection() {
         display: "flex",
         justifyContent: "center",
         bgcolor: "#fff",
-        py: 6,
+        py: { xs: 4, md: 6 },
       }}
     >
       <Box
@@ -28,7 +29,7 @@ export default function WhyUsSection() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: 4,
+          gap: { xs: 2, md: 4 },
           width: "90%",
           flexWrap: "wrap",
         }}
@@ -43,23 +44,43 @@ export default function WhyUsSection() {
               flexDirection: "column",
               gap: 2,
               bgcolor: "#f9f9f9",
-              borderRadius: 2,
+              borderRadius: 3,
               padding: 3,
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              width: "220px",
-              height: "150px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+              width: {
+                xs: "calc(50% - 8px)",
+                sm: "calc(33.33% - 16px)",
+                md: "220px",
+              },
+              height: { xs: "150px", md: "160px" },
               textAlign: "center",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "translateY(-5px)",
+                boxShadow: "0 6px 16px rgba(0, 0, 0, 0.12)",
+                bgcolor: "#fff",
+              },
             }}
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Box sx={{ fontSize: "32px", color: "primary.main" }}>
+            <Box
+              sx={{
+                fontSize: { xs: "28px", md: "32px" },
+                color: "primary.main",
+              }}
+            >
               {option.icon}
             </Box>
             <Typography
               sx={{
-                fontSize: "14px",
+                fontSize: { xs: "13px", md: "14px" },
                 fontWeight: 500,
                 wordWrap: "break-word",
                 overflow: "hidden",
+                color: "text.primary",
               }}
             >
               {option.title}

@@ -48,7 +48,7 @@ const Category = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        px: { xs: 2, md: 8 },
+        px: { xs: 1, md: 8 },
         py: 4,
       }}
     >

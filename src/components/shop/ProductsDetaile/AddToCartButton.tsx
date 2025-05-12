@@ -16,8 +16,13 @@ const AddToCartButton = ({ product, seller, color, quantity }: Props) => {
     <Button
       variant="contained"
       color="primary"
-      size="large"
-      sx={{ height: "50px", minWidth: "292px" }}
+      fullWidth
+      sx={{
+        height: { xs: 48, sm: 50 },
+        fontSize: { xs: "0.9rem", sm: "1rem" },
+        borderRadius: 2,
+        mt: 2,
+      }}
       onClick={() =>
         incrementItemCount({
           product,

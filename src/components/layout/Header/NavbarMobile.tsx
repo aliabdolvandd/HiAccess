@@ -1,24 +1,40 @@
-"use client";
-
 import {
   Box,
-  List,
+  IconButton,
   ListItem,
-  ListItemButton,
   ListItemText,
   Collapse,
-  Divider,
   Typography,
-  IconButton,
+  List,
 } from "@mui/material";
-import { ExpandLess, ExpandMore, CloseRounded } from "@mui/icons-material";
+import {
+  CloseRounded,
+  ExpandLess,
+  ExpandMore,
+  Smartphone,
+  Laptop,
+  Headphones,
+  Tv,
+} from "@mui/icons-material";
 import Link from "next/link";
+import Image from "next/image";
+
+import {
+  StyledContainer,
+  StyledHeader,
+  StyledDivider,
+  StyledList,
+  StyledListItemButton,
+  StyledSubListItemButton,
+  StyledIconWrapper,
+} from "./NavbarMobileStyle";
 import { useState } from "react";
 
 const navItems = [
   {
     label: "موبایل و تبلت",
     slug: "mobile-tablet",
+    icon: <Smartphone />,
     submenu: [
       { label: "گوشی هوشمند", slug: "smartphones" },
       { label: "تبلت", slug: "tablet" },
@@ -29,6 +45,7 @@ const navItems = [
   {
     label: "لپ تاپ",
     slug: "lp",
+    icon: <Laptop />,
     submenu: [
       { label: "لپ تاپ دانشجویی", slug: "student-laptops" },
       { label: "لپ تاپ گیمینگ", slug: "gaming-laptops" },
@@ -39,6 +56,7 @@ const navItems = [
   {
     label: "لوازم جانبی",
     slug: "accessories",
+    icon: <Headphones />,
     submenu: [
       { label: "هدفون و هندزفری", slug: "headphones-earphones" },
       { label: "ماوس و کیبورد", slug: "mouse-keyboard" },
@@ -49,6 +67,7 @@ const navItems = [
   {
     label: "صوتی و تصویری",
     slug: "audio-video",
+    icon: <Tv />,
     submenu: [
       { label: "تلویزیون", slug: "tv" },
       { label: "سینمای خانگی", slug: "home-theater" },
@@ -70,53 +89,57 @@ const NavbarMobile = ({ onClose }: NavbarMobileProps) => {
   };
 
   return (
-    <Box
-      sx={{
-        width: 280,
-        px: 2,
-        pt: 2,
-        bgcolor: "Complementary2.main",
-        height: "100%",
-      }}
-    >
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-        <Typography fontWeight={600}>منو</Typography>
-        <IconButton onClick={onClose}>
+    <StyledContainer>
+      <StyledHeader>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <Image src="/logo.png" width={100} height={30} alt="Logo" />
+          <Typography variant="h6" fontWeight={600}>
+            منو
+          </Typography>
+        </Box>
+        <IconButton onClick={onClose} sx={{ color: "white" }}>
           <CloseRounded />
         </IconButton>
-      </Box>
-      <Divider />
+      </StyledHeader>
+      <StyledDivider />
 
       <List component="nav">
         {navItems.map((item, index) => (
           <Box key={index}>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick(item.slug)}>
+            <ListItem>
+              <StyledListItemButton onClick={() => handleClick(item.slug)}>
+                {item.icon && (
+                  <StyledIconWrapper>{item.icon}</StyledIconWrapper>
+                )}
                 <ListItemText primary={item.label} />
                 {openItem === item.slug ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
+              </StyledListItemButton>
             </ListItem>
             <Collapse in={openItem === item.slug} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+              <StyledList as="div">
                 {item.submenu.map((sub, subIndex) => (
-                  <ListItem key={subIndex} sx={{ pl: 4 }}>
+                  <ListItem key={subIndex} sx={{ pr: 4 }}>
                     <Link
                       href={`/category/${sub.slug}`}
                       passHref
-                      style={{ textDecoration: "none", color: "inherit" }}
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                        width: "100%",
+                      }}
                     >
-                      <ListItemButton onClick={onClose}>
+                      <StyledSubListItemButton onClick={onClose}>
                         <ListItemText primary={sub.label} />
-                      </ListItemButton>
+                      </StyledSubListItemButton>
                     </Link>
                   </ListItem>
                 ))}
-              </List>
+              </StyledList>
             </Collapse>
           </Box>
         ))}
       </List>
-    </Box>
+    </StyledContainer>
   );
 };
 

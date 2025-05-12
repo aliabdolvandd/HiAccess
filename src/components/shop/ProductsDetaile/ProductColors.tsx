@@ -12,16 +12,28 @@ const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(
     colors[0].hexCode
   );
+
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
     onColorSelect(color);
   };
+
   return (
     <Box>
-      <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: "bold", mb: 1, color: "text.primary" }}
+      >
         انتخاب رنگ:
       </Typography>
-      <Box sx={{ display: "flex", gap: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 2,
+          flexWrap: "wrap",
+          justifyContent: "flex-start",
+        }}
+      >
         {colors.map((color, index) => (
           <Button
             key={index}
@@ -37,6 +49,16 @@ const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
                 selectedColor === color.hexCode ? "2px solid blue" : "none",
               transition: "all 0.3s ease",
               position: "relative",
+              boxShadow:
+                selectedColor === color.hexCode
+                  ? "0 0 6px rgba(0, 0, 255, 0.5)"
+                  : "none",
+              "&:hover": {
+                boxShadow:
+                  selectedColor === color.hexCode
+                    ? "0 0 10px rgba(0, 0, 255, 0.8)"
+                    : "0 0 8px rgba(0, 0, 0, 0.1)",
+              },
             }}
           >
             {selectedColor === color.hexCode && (

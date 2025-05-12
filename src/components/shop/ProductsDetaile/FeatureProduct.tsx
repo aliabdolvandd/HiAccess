@@ -1,65 +1,62 @@
 "use client";
 import { IPropertyValue } from "@/api/server-api/type";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 type FeatureProps = {
   Feature: IPropertyValue[];
 };
 
 const FeatureProduct = ({ Feature }: FeatureProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <Box sx={{}}>
+    <Box sx={{ mt: 4 }}>
       <Typography
         variant="h6"
         sx={{
           fontWeight: "bold",
-          mb: 2,
-          color: "black",
+          mb: 3,
+          color: "text.primary",
         }}
       >
         ویژگی‌ها
       </Typography>
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          },
           gap: 2,
-          justifyContent: "flex-start",
         }}
       >
         {Feature.map((item) => (
           <Box
             key={item.title}
             sx={{
-              minWidth: "150px",
-              padding: "12px",
-              borderRadius: "8px",
-              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+              p: 2,
+              borderRadius: 2,
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.06)",
               backgroundColor: "#fff",
               display: "flex",
-              gap: 2,
               flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
+              alignItems: isMobile ? "flex-start" : "center",
+              textAlign: isMobile ? "right" : "center",
+              height: "100%",
             }}
           >
             <Typography
-              variant="body2"
-              sx={{
-                fontWeight: "bold",
-                color: "neutral.main",
-              }}
+              variant="subtitle2"
+              fontWeight="bold"
+              color="primary.main"
             >
               {item.title}
             </Typography>
-            <Typography
-              variant="caption"
-              sx={{
-                color: "dark",
-                mt: 1,
-              }}
-            >
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
               {item.value}
             </Typography>
           </Box>

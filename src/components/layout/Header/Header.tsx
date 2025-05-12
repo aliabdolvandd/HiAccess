@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { AppBar, Box, IconButton, Toolbar, Drawer } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Drawer,
+  useTheme,
+} from "@mui/material";
 import MenuRounded from "@mui/icons-material/MenuRounded";
 import Image from "next/image";
 import Link from "next/link";
-import theme from "@/theme";
 import Navbar from "./Navbar";
 
 import profileIcon from "@/svg/profileIcon";
@@ -24,6 +30,7 @@ function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,31 +50,63 @@ function Header() {
       <AppBar
         component="nav"
         sx={{
-          bgcolor: isScrolled
-            ? "Complementary2.main"
-            : "rgba(255, 255, 255, 0.2)",
+          bgcolor: isScrolled ? "Complementary2.main" : "rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(8px)",
-          boxShadow: "none",
-          pt: 1,
-          height: 98,
+          boxShadow: isScrolled ? "0 2px 10px rgba(0,0,0,0.1)" : "none",
+          transition: "all 0.3s ease",
+          pt: { xs: 0.5, md: 1 },
+          height: { xs: 60, md: 98 },
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           zIndex: theme.zIndex.drawer + 1,
-          "&:hover": { bgcolor: "Complementary2.main" },
         }}
       >
-        <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: { xs: 1, md: 2 },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: { xs: 0.5, md: 1 },
+            }}
+          >
             <Box sx={{ display: { xs: "block", md: "none" } }}>
-              <IconButton sx={{ color: "black" }} onClick={toggleMobile}>
+              <IconButton
+                sx={{
+                  color: "white",
+                  "&:hover": {
+                    color: "Complementary2.main",
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                  },
+                }}
+                onClick={toggleMobile}
+              >
                 <MenuRounded />
               </IconButton>
             </Box>
 
             <Link href={"/"} passHref>
-              <Image src={"/logo.png"} width={130} height={40} alt="Logo" />
+              <Box
+                sx={{
+                  width: { xs: 100, md: 130 },
+                  height: 40,
+                  position: "relative",
+                }}
+              >
+                <Image
+                  src={"/logo.png"}
+                  layout="fill"
+                  objectFit="contain"
+                  alt="Logo"
+                />
+              </Box>
             </Link>
           </Box>
 
@@ -75,12 +114,21 @@ function Header() {
             <Navbar />
           </Box>
 
-          <Box sx={{ display: "flex" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: { xs: 0.5, md: 1 },
+            }}
+          >
             {iconList.map((icon, index) => (
               <React.Fragment key={index}>
                 {icon.type === "search" && icon.Icon ? (
                   <IconButton
-                    sx={{ color: "black" }}
+                    sx={{
+                      color: "white",
+                      "&:hover": { color: "Complementary2.main" },
+                    }}
                     onClick={() => setSearchOpen(true)}
                   >
                     <icon.Icon />
@@ -89,7 +137,12 @@ function Header() {
                   icon.Popover
                 ) : icon.href && icon.Icon ? (
                   <Link href={icon.href} passHref>
-                    <IconButton sx={{ color: "black" }}>
+                    <IconButton
+                      sx={{
+                        color: "white",
+                        "&:hover": { color: "Complementary2.main" },
+                      }}
+                    >
                       <icon.Icon />
                     </IconButton>
                   </Link>
@@ -101,14 +154,30 @@ function Header() {
       </AppBar>
 
       <Drawer
-        anchor="left"
         open={mobileOpen}
         onClose={toggleMobile}
-        ModalProps={{
-          keepMounted: true,
-        }}
+        ModalProps={{ keepMounted: true }}
         sx={{
           zIndex: theme.zIndex.drawer + 2,
+          "& .MuiDrawer-paper": {
+            left: 0,
+            right: "auto",
+            width: 280,
+            boxSizing: "border-box",
+            position: "fixed",
+            top: 0,
+            bottom: 0,
+            overflowX: "hidden",
+            transform: "none !important",
+          },
+          "& .MuiDrawer-root": {
+            // direction: "rtl",
+            left: 0,
+            right: "auto",
+          },
+          "& .MuiModal-backdrop": {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
         }}
       >
         <NavbarMobile onClose={toggleMobile} />

@@ -38,20 +38,26 @@ const ProductList = ({ products, title, href }: ProductListProps) => {
   };
 
   return (
-    <Box sx={{ pt: 3, px: "15px" }}>
+    <Box sx={{ pt: 3, px: { xs: 2, sm: 3, md: 4 } }}>
       <SectionTitle title={title} href={href} />
       <Box
         ref={sliderRef}
         sx={{
           display: "flex",
-          alignItems: "center",
-          gap: 8,
+          alignItems: "stretch",
+          gap: { xs: 2, sm: 3, md: 4 },
           overflowX: "auto",
           whiteSpace: "nowrap",
-          cursor: isDragging ? "grabbing" : "grab",
           userSelect: "none",
+          cursor: isDragging ? "grabbing" : "grab",
           scrollBehavior: "smooth",
-          "&::-webkit-scrollbar": { display: "none" },
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          mt: 2,
+          pb: 1,
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -64,9 +70,18 @@ const ProductList = ({ products, title, href }: ProductListProps) => {
               key={product.code}
               sx={{
                 flex: "0 0 auto",
-                maxWidth: "300px",
-                minWidth: "250px",
-                padding: "10px",
+                minWidth: {
+                  xs: "200px",
+                  sm: "220px",
+                  md: "250px",
+                  lg: "270px",
+                },
+                maxWidth: {
+                  xs: "220px",
+                  sm: "250px",
+                  md: "270px",
+                  lg: "300px",
+                },
               }}
             >
               <ProductCard product={product} />

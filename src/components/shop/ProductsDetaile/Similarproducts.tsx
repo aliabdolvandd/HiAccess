@@ -19,9 +19,7 @@ export default function SimilarProducts({ code }: Props) {
   }
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", mt: 2, width: "100%" }}
-    >
+    <Box sx={{ width: "100%", mt: 4 }}>
       <Typography
         variant="h6"
         sx={{
@@ -31,59 +29,79 @@ export default function SimilarProducts({ code }: Props) {
           pb: 1,
         }}
       >
-        فروشندگان این کالا
+        محصولات مشابه
       </Typography>
-      {data.data.map((product) => (
-        <Stack
-          key={product.id}
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{
-            borderBottom: "1px solid #ddd",
-            py: 2,
-          }}
-        >
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-              {product.seller.name}
-            </Typography>
-            <Typography variant="body2" sx={{ color: "green" }}>
-              عملکرد عالی
-            </Typography>
-          </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={14}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Shield sx={{ fontSize: 18 }} />
-              <Typography variant="body2">گارانتی 6 ماهه شرکت ورنا</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 6,
+          // justifyContent: "space-evenly",
+        }}
+      >
+        {data.data.map((product) => (
+          <Box
+            key={product.id}
+            sx={{
+              width: { xs: "100%", sm: "48%", md: "30%" }, // ریسپانسیو
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+              borderRadius: "8px",
+              backgroundColor: "#fff",
+              padding: 2,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                {product.seller.name}
+              </Typography>
+              <Typography variant="body2" sx={{ color: "green" }}>
+                عملکرد عالی
+              </Typography>
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={0.5}>
-              <LocalShippingOutlined sx={{ fontSize: 18 }} />
-              <Typography variant="body2">ارسال از 1 روز کاری دیگر</Typography>
-            </Stack>
-          </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", color: "#002366" }}
-            >
-              {FormatPrice(product.lastPrice)}
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "primary.main",
-                borderRadius: 2,
-                px: 3,
-              }}
-            >
-              افزودن به سبد
-            </Button>
-          </Stack>
-        </Stack>
-      ))}
+            <Stack direction="row" alignItems="center" spacing={14}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Shield sx={{ fontSize: 18 }} />
+                <Typography variant="body2">
+                  گارانتی 6 ماهه شرکت ورنا
+                </Typography>
+              </Stack>
+              <Stack direction="row" alignItems="center" spacing={0.5}>
+                <LocalShippingOutlined sx={{ fontSize: 18 }} />
+                <Typography variant="body2">
+                  ارسال از 1 روز کاری دیگر
+                </Typography>
+              </Stack>
+            </Stack>
+
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: "bold", color: "#002366" }}
+              >
+                {FormatPrice(product.lastPrice)}
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "primary.main",
+                  borderRadius: 2,
+                  px: 3,
+                  width: "100%",
+                  fontSize: "0.875rem",
+                  padding: "12px",
+                }}
+              >
+                افزودن به سبد خرید
+              </Button>
+            </Stack>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 }

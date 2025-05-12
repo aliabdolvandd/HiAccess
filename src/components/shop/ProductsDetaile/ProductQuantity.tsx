@@ -19,16 +19,41 @@ const ProductQuantity = ({ quantity, setQuantity }: ProductQuantityProps) => {
         alignItems: "center",
         justifyContent: "space-between",
         px: 1,
+        transition: "all 0.3s ease",
+        "&:hover": {
+          boxShadow: "0px 6px 16px rgba(0, 0, 0, 0.15)",
+        },
       }}
     >
       <IconButton
         onClick={() => setQuantity(Math.max(1, quantity - 1))}
         size="small"
+        sx={{
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.1)",
+            backgroundColor: "#f0f0f0",
+          },
+        }}
       >
         <RemoveIcon />
       </IconButton>
-      <Typography sx={{ fontWeight: "600" }}>{quantity}</Typography>
-      <IconButton onClick={() => setQuantity(quantity + 1)} size="small">
+
+      <Typography sx={{ fontWeight: "600", fontSize: "1rem" }}>
+        {quantity}
+      </Typography>
+
+      <IconButton
+        onClick={() => setQuantity(quantity + 1)}
+        size="small"
+        sx={{
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.1)",
+            backgroundColor: "#f0f0f0",
+          },
+        }}
+      >
         <AddIcon />
       </IconButton>
     </Box>

@@ -6,12 +6,13 @@ import {
   Divider,
   Rating,
   Container,
-  Chip,
   Breadcrumbs,
+  Tooltip,
 } from "@mui/material";
 
 import { useState } from "react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import FeatureProduct from "./FeatureProduct";
 import Comments from "./CommentSection";
 import { IShopProducts } from "@/api/server-api/type";
@@ -41,7 +42,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
         sx={{ mb: 3 }}
       >
         <Link href="/" style={{ textDecoration: "none" }}>
-          <Typography sx={{ color: "#000" }}> خانه</Typography>
+          <Typography sx={{ color: "#000" }}>خانه</Typography>
         </Link>
         <Link
           href={`/category/${product.category.slug}`}
@@ -62,7 +63,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ flex: "0 1 40%" }}>
+        <Box sx={{ flex: { xs: "0 1 100%", sm: "0 1 40%" } }}>
           <ProductImages images={product.images} title={product.titleFa} />
 
           {product.category?.returnReasonAlert && (
@@ -76,7 +77,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
 
         <Box
           sx={{
-            flex: "1 1 50%",
+            flex: { xs: "1 1 100%", sm: "1 1 50%" },
             display: "flex",
             flexDirection: "column",
             gap: 2,
@@ -90,23 +91,6 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             }}
           >
             <Rating value={4.5} readOnly />
-            <Chip
-              sx={{
-                backgroundColor: "#f0f0f0",
-                fontWeight: "bold",
-                paddingX: 1.5,
-                paddingY: 0.5,
-                borderRadius: "8px",
-              }}
-              label={
-                <Typography
-                  variant="body2"
-                  sx={{ color: "#007bff", fontWeight: 600 }}
-                >
-                  {product.bestSeller?.seller.name}
-                </Typography>
-              }
-            />
             <IconButton>
               <FavoriteBorder />
             </IconButton>
@@ -135,6 +119,40 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             {product.bestSeller?.lastPrice.toLocaleString("fa-IR") ?? "نامشخص"}{" "}
             تومان
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              gap: 1,
+            }}
+          >
+            <Tooltip title="نام فروشنده محصول">
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <StorefrontIcon fontSize="small" sx={{ color: "#777" }} />
+                <Typography
+                  variant="subtitle2"
+                  sx={{ color: "gray", fontWeight: 500 }}
+                >
+                  فروشنده:
+                </Typography>
+              </Box>
+            </Tooltip>
+            <Box
+              sx={{
+                backgroundColor: "#f9f9f9",
+                color: "#333",
+                px: 1.5,
+                py: 0.5,
+                borderRadius: "6px",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                border: "1px solid #ddd",
+              }}
+            >
+              {product.bestSeller?.seller.name}
+            </Box>
+          </Box>
 
           <ProductColors
             colors={product.colors}
@@ -183,9 +201,9 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             </Box>
           )}
         </Box>
-        <SimilarProducts code={product.code} />
       </Box>
 
+      <SimilarProducts code={product.code} />
       <Comments value={{ product: product.code }} />
     </Container>
   );

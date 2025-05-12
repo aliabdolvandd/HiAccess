@@ -5,8 +5,6 @@ import ProductList from "@/components/shop/ProductList";
 import { Box, Typography } from "@mui/material";
 
 export default function LatestSection() {
-  console.log(process.env.NEXT_PUBLIC_BASE_URL);
-
   const { data: products, isLoading, isError } = useShopProductsQuery();
   if (isLoading) {
     return <Typography> در حال دریافت اطلاعات </Typography>;

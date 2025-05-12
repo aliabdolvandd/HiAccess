@@ -40,7 +40,7 @@ const Banner = () => {
     <Box
       sx={{
         width: "100%",
-        height: { xs: "80vh", md: "100vh" },
+        height: { xs: "50vh", sm: "60vh", md: "100vh" },
         position: "relative",
       }}
     >
@@ -78,82 +78,89 @@ const Banner = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  bgcolor: "rgba(0, 0, 0, 0.3)",
+                  background:
+                    "linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3))",
                   zIndex: 1,
                 }}
               />
 
-              {/* Title 1 */}
               <Typography
                 variant="h3"
                 sx={{
                   position: "absolute",
-                  left: { xs: "5%", md: "10%" },
-                  top: { xs: "20%", md: "30%" },
+                  left: { xs: "5%", sm: "8%", md: "10%" },
+                  top: { xs: "15%", sm: "20%", md: "25%" },
                   fontWeight: 700,
-                  fontSize: { xs: "26px", md: "48px" },
+                  fontSize: { xs: "20px", sm: "32px", md: "48px" },
                   lineHeight: "1.3",
                   zIndex: 2,
                   color: "white",
-                  maxWidth: { xs: "90%", md: "40%" },
+                  maxWidth: { xs: "80%", sm: "60%", md: "40%" },
                   textAlign: "left",
+                  animation: "fadeIn 1s ease-in-out",
                 }}
               >
                 {banner.title1}
               </Typography>
 
-              {/* Title 2 */}
               <Typography
                 variant="h3"
                 sx={{
                   position: "absolute",
-                  left: { xs: "10%", md: "20%" },
-                  top: { xs: "35%", md: "50%" },
-                  fontWeight: 700,
-                  fontSize: { xs: "26px", md: "48px" },
+                  left: { xs: "5%", sm: "8%", md: "10%" },
+                  top: { xs: "30%", sm: "35%", md: "40%" },
+                  fontSize: { xs: "20px", sm: "32px", md: "48px" },
                   lineHeight: "1.3",
                   zIndex: 2,
                   color: "white",
-                  maxWidth: { xs: "90%", md: "40%" },
+                  maxWidth: { xs: "80%", sm: "60%", md: "40%" },
                   textAlign: "left",
+                  animation: "fadeIn 1.2s ease-in-out",
                 }}
               >
                 {banner.title2}
               </Typography>
 
-              {/* Description */}
               {banner.description && (
                 <Typography
                   variant="h6"
                   sx={{
                     position: "absolute",
-                    bottom: { xs: "25%", md: "25%" },
-                    right: { xs: "5%", md: "75%" },
-                    fontSize: { xs: "14px", md: "16px" },
+                    bottom: { xs: "20%", sm: "20%", md: "25%" },
+                    left: { xs: "5%", sm: "8%", md: "10%" },
+                    fontSize: { xs: "12px", sm: "14px", md: "16px" },
                     fontWeight: 400,
                     color: "primary.main",
                     zIndex: 2,
-                    textAlign: "right",
-                    maxWidth: { xs: "90%", md: "20%" },
+                    textAlign: "left",
+                    maxWidth: { xs: "80%", sm: "60%", md: "30%" },
+                    animation: "fadeIn 1.4s ease-in-out",
                   }}
                 >
                   {banner.description}
                 </Typography>
               )}
 
-              {/* Button */}
               <Button
                 variant="contained"
                 color="primary"
                 sx={{
                   position: "absolute",
-                  bottom: { xs: "10%", md: "10%" },
-                  right: { xs: "5%", md: "75%" },
-                  width: { xs: 180, md: 214 },
-                  height: { xs: 50, md: 60 },
-                  fontSize: { xs: "14px", md: "16px" },
+                  bottom: { xs: "5%", sm: "8%", md: "10%" },
+                  left: { xs: "5%", sm: "8%", md: "10%" },
+                  width: { xs: 160, sm: 180, md: 214 },
+                  height: { xs: 40, sm: 50, md: 60 },
+                  fontSize: { xs: "12px", sm: "14px", md: "16px" },
                   fontWeight: 500,
                   zIndex: 2,
+                  borderRadius: "25px",
+                  boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    transition: "transform 0.3s ease",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+                  },
+                  animation: "fadeIn 1.6s ease-in-out",
                 }}
               >
                 {banner.buttonText}
@@ -162,16 +169,19 @@ const Banner = () => {
           </SwiperSlide>
         ))}
 
-        {/* Navigation Arrows */}
         <IconButton
           className="prev-btn"
           sx={{
             position: "absolute",
-            left: 16,
+            left: { xs: 8, sm: 16 },
             top: "50%",
             zIndex: 10,
             color: "white",
             transform: "translateY(-50%)",
+            // backgroundColor: "rgba(0,0,0,0.3)",
+            "&:hover": {
+              backgroundColor: "rgba(0,0,0,0.5)",
+            },
           }}
         >
           <BtnNext />
@@ -180,11 +190,15 @@ const Banner = () => {
           className="next-btn"
           sx={{
             position: "absolute",
-            right: 16,
+            right: { xs: 8, sm: 16 },
             top: "50%",
             zIndex: 10,
             color: "white",
             transform: "translateY(-50%)",
+            // backgroundColor: "rgba(0,0,0,0.3)",
+            "&:hover": {
+              backgroundColor: "rgba(0,0,0,0.5)",
+            },
           }}
         >
           <BtnBack />

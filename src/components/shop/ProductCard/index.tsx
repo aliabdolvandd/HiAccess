@@ -1,10 +1,12 @@
 "use client";
+
 import { IShopProducts } from "@/api/server-api/type";
 import WishIcon from "@/svg/wishIcon";
 import { Box, Card, CardMedia, Chip, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import UseTruncate from "../TruncateText";
 import Link from "next/link";
+
 interface ProductProps {
   product: IShopProducts;
 }
@@ -15,18 +17,31 @@ const ProductCard = ({ product }: ProductProps) => {
   const lastPrice = product.bestSeller?.lastPrice ?? 0;
   const discountPercentage = product.bestSeller?.discount ?? 0;
   const finalPrice = lastPrice - (lastPrice * discountPercentage) / 100;
+
   return (
     <MotionCard
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      whileHover={{ scale: 1.05, boxShadow: "5px 5px 20px rgba(0,0,0,0.2)" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "5px 5px 20px rgba(0,0,0,0.2)",
+      }}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "370px",
-        width: "290px",
+        height: {
+          xs: 340,
+          sm: 360,
+          md: 380,
+        },
+        width: {
+          xs: 200,
+          sm: 240,
+          md: 280,
+          lg: 300,
+        },
         margin: "auto",
         boxShadow: 4,
         position: "relative",
@@ -36,9 +51,9 @@ const ProductCard = ({ product }: ProductProps) => {
         overflow: "hidden",
       }}
     >
-      {product.bestSeller && product.bestSeller.discount > 0 && (
+      {product.bestSeller && discountPercentage > 0 && (
         <Chip
-          label={`% ${discountPercentage} تخفیف`}
+          label={`٪ ${discountPercentage} تخفیف`}
           size="medium"
           sx={{
             fontSize: "12px",
@@ -77,26 +92,36 @@ const ProductCard = ({ product }: ProductProps) => {
           ))}
         </Box>
       )}
+
       <Link href={`/products/${product.code}`}>
         {product.images?.main && (
           <CardMedia
             component="img"
-            height={"240px"}
+            height="200"
             image={product.images.main}
             alt={product.titleEn || "Product Image"}
-            sx={{ objectFit: "contain", padding: "10px", borderRadius: "8px" }}
+            sx={{
+              objectFit: "contain",
+              padding: "10px",
+              borderRadius: "8px",
+            }}
           />
         )}
       </Link>
+
       {product.titleFa && (
         <Typography
           variant="subtitle1"
           component="span"
           sx={{
-            fontSize: "1rem",
+            fontSize: {
+              xs: "0.9rem",
+              sm: "1rem",
+            },
             fontWeight: "bold",
             textAlign: "center",
             marginBottom: "4px",
+            mt: 1,
           }}
         >
           {UseTruncate(product.titleFa, 30)}
@@ -109,16 +134,17 @@ const ProductCard = ({ product }: ProductProps) => {
           flexDirection: "column",
           alignItems: "flex-end",
           gap: "4px",
+          mt: 1,
         }}
       >
-        {(product.bestSeller?.discount ?? 0) > 0 && (
+        {discountPercentage > 0 && (
           <Typography
             variant="body2"
             sx={{
               textDecoration: "line-through",
               textDecorationColor: "red",
               color: "gray",
-              fontSize: "0.9rem",
+              fontSize: "0.85rem",
             }}
           >
             {lastPrice.toLocaleString("fa-IR")} تومان
@@ -128,7 +154,11 @@ const ProductCard = ({ product }: ProductProps) => {
         <Typography
           variant="body1"
           sx={{
-            fontSize: "1.2rem",
+            fontSize: {
+              xs: "1rem",
+              sm: "1.1rem",
+              md: "1.2rem",
+            },
             fontWeight: "bold",
           }}
         >
