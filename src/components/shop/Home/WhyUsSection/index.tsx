@@ -17,10 +17,11 @@ export default function WhyUsSection() {
   return (
     <Box
       sx={{
+        background: "Complementary",
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        bgcolor: "#fff",
+        // bgcolor: "#fff",
         py: { xs: 4, md: 6 },
       }}
     >

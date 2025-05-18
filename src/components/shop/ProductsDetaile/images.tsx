@@ -11,7 +11,6 @@ const ProductImages = ({ images, title }: ProductImagesProps) => {
   const [mainImage, setMainImage] = useState(images.main);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <Box
       sx={{

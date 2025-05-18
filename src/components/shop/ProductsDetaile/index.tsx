@@ -8,6 +8,7 @@ import {
   Container,
   Breadcrumbs,
   Tooltip,
+  Chip,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -16,8 +17,6 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import FeatureProduct from "./FeatureProduct";
 import Comments from "./CommentSection";
 import { IShopProducts } from "@/api/server-api/type";
-
-import AddToCartButton from "./AddToCartButton";
 import ProductQuantity from "./ProductQuantity";
 import ProductColors from "./ProductColors";
 import ProductImages from "./images";
@@ -25,18 +24,42 @@ import LoadMore from "@/components/buttons/loadButton";
 import SimilarProducts from "./Similarproducts";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
+import { useCartStore } from "@/store/cart-provider";
+import { Grid } from "@mui/system";
+
 interface ProductDetailProps {
   product: IShopProducts;
 }
 
 const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const [selectColor, setSelectColor] = useState<string | null>(null);
+  const [selectColor, setSelectColor] = useState<string>("");
+  const cart = useCartStore((state) => state);
 
+  const handleAddToCart = () => {
+    if (!product) return;
+    cart.incrementItemCount({
+      product,
+      productSeller: product.bestSeller!,
+      color: selectColor,
+      quantity: 1,
+    });
+  };
+  const handleRemoveFromCart = () => {
+    if (!product) return;
+    cart.decrementItemCount(product?.bestSeller!.id, product?.id, selectColor);
+  };
+  const selectedItem = cart.items.find((item) => {
+    return (
+      item.product.id === product?.id &&
+      item.color === selectColor &&
+      item.productSeller.id === product.bestSeller?.id
+    );
+  });
+  const currentQuantity = selectedItem?.quantity || 0;
   if (!product) return <Typography>محصولی یافت نشد.</Typography>;
 
   return (
-    <Container maxWidth="xl" sx={{ pt: 14 }}>
+    <Box sx={{ pt: 14 }}>
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         sx={{ mb: 3 }}
@@ -54,7 +77,6 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
         </Link>
         <Typography color="gray">{product.titleFa}</Typography>
       </Breadcrumbs>
-
       <Box
         sx={{
           display: "flex",
@@ -63,7 +85,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ flex: { xs: "0 1 100%", sm: "0 1 40%" } }}>
+        <Box sx={{ flex: "0 1 40%" }}>
           <ProductImages images={product.images} title={product.titleFa} />
 
           {product.category?.returnReasonAlert && (
@@ -128,7 +150,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
             }}
           >
             <Tooltip title="نام فروشنده محصول">
-              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <StorefrontIcon fontSize="small" sx={{ color: "#777" }} />
                 <Typography
                   variant="subtitle2"
@@ -164,19 +186,30 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end",
-              gap: 2,
             }}
           >
-            <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
+            <Typography
+              variant="subtitle1"
+              marginTop={2}
+              sx={{
+                alignSelf: "flex-start",
+                color:
+                  product.bestSeller!.count === 0
+                    ? "error.main"
+                    : "text.secondary",
+                fontWeight: 500,
+                px: 1,
+              }}
+            >
+              موجودی: {product.bestSeller!.count.toLocaleString("fa-IR")} عدد
+            </Typography>
 
-            {product.bestSeller && (
-              <AddToCartButton
-                product={product}
-                seller={product.bestSeller}
-                color={selectColor ?? ""}
-                quantity={quantity}
-              />
-            )}
+            <ProductQuantity
+              quantity={currentQuantity}
+              onIncrement={handleAddToCart}
+              onDecrement={handleRemoveFromCart}
+              maxQuantity={product.bestSeller!.count}
+            />
           </Box>
 
           <Divider />
@@ -205,7 +238,7 @@ const ProductDetail = ({ product }: Partial<ProductDetailProps>) => {
 
       <SimilarProducts code={product.code} />
       <Comments value={{ product: product.code }} />
-    </Container>
+    </Box>
   );
 };
 

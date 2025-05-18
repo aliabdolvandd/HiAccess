@@ -4,10 +4,20 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 interface ProductQuantityProps {
   quantity: number;
-  setQuantity: (value: number) => void;
+  maxQuantity: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
 }
 
-const ProductQuantity = ({ quantity, setQuantity }: ProductQuantityProps) => {
+const ProductQuantity = ({
+  quantity,
+  maxQuantity,
+  onIncrement,
+  onDecrement,
+}: ProductQuantityProps) => {
+  const isMaxQuantity = quantity >= maxQuantity;
+  const isMinQuantity = quantity <= 0;
+
   return (
     <Box
       sx={{
@@ -26,26 +36,9 @@ const ProductQuantity = ({ quantity, setQuantity }: ProductQuantityProps) => {
       }}
     >
       <IconButton
-        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+        onClick={onIncrement}
         size="small"
-        sx={{
-          transition: "all 0.3s ease",
-          "&:hover": {
-            transform: "scale(1.1)",
-            backgroundColor: "#f0f0f0",
-          },
-        }}
-      >
-        <RemoveIcon />
-      </IconButton>
-
-      <Typography sx={{ fontWeight: "600", fontSize: "1rem" }}>
-        {quantity}
-      </Typography>
-
-      <IconButton
-        onClick={() => setQuantity(quantity + 1)}
-        size="small"
+        disabled={isMaxQuantity}
         sx={{
           transition: "all 0.3s ease",
           "&:hover": {
@@ -55,6 +48,24 @@ const ProductQuantity = ({ quantity, setQuantity }: ProductQuantityProps) => {
         }}
       >
         <AddIcon />
+      </IconButton>
+      <Typography sx={{ fontWeight: "600", fontSize: "1rem" }}>
+        {quantity}
+      </Typography>
+
+      <IconButton
+        onClick={onDecrement}
+        size="small"
+        disabled={isMinQuantity}
+        sx={{
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "scale(1.1)",
+            backgroundColor: "#f0f0f0",
+          },
+        }}
+      >
+        <RemoveIcon />
       </IconButton>
     </Box>
   );

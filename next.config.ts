@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "divarrr.liara.run",
+        hostname: "divarrrr.liara.run",
       },
     ],
   },

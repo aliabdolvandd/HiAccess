@@ -48,23 +48,47 @@ const Category = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        px: { xs: 1, md: 8 },
+        px: { xs: 2, md: 4 },
         py: 4,
       }}
     >
-      <Typography
+      <Box
         sx={{
-          fontSize: { xs: "24px", md: "36px" },
-          fontWeight: "700",
+          bgcolor: "primary.main",
+          borderRadius: "10px",
+          px: { xs: 2, sm: 3, md: 4 },
+          py: 1,
           mb: 4,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          rowGap: 1,
         }}
       >
-        دسته‌بندی
-      </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 700,
+            fontSize: {
+              xs: "1rem",
+              sm: "1.5rem",
+              md: "1.8rem",
+            },
+            color: "white",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            flexShrink: 1,
+            minWidth: 0,
+          }}
+        >
+          دسته بندی ها
+        </Typography>
+      </Box>
 
       <Grid2 container spacing={3} justifyContent="center">
         {products.map((product) => (
           <Grid2
+            size={{ xs: 6, sm: 4, md: 3, lg: 2 }}
             key={product.id}
             onMouseEnter={() => setHovered(product.id)}
             onMouseLeave={() => setHovered(null)}

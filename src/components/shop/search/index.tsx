@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemText,
   DialogTitle,
+  Skeleton,
 } from "@mui/material";
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import { Delete } from "@mui/icons-material";
@@ -40,7 +41,24 @@ const SearchDialog = ({ open, onClose }: SearchDialogProps) => {
     }
   }, [debouncedQuery, addHistory, history]);
   if (isError) return <Typography>خطا در دریافت اطلاعات</Typography>;
-  if (isLoading) return <Typography>در حال بارگذاری...</Typography>;
+  if (isLoading) {
+    return (
+      <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+        <DialogTitle>جستجو</DialogTitle>
+        <DialogContent>
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height={56}
+            sx={{ mb: 2 }}
+          />
+          {[...Array(4)].map((_, idx) => (
+            <Skeleton key={idx} height={40} sx={{ mb: 1 }} />
+          ))}
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   const filteredProducts =
     products?.results?.filter(
@@ -120,6 +138,11 @@ const SearchDialog = ({ open, onClose }: SearchDialogProps) => {
               </ListItem>
             ))}
           </List>
+        )}
+        {debouncedQuery && filteredProducts.length === 0 && (
+          <Typography sx={{ mt: 2 }} color="text.secondary">
+            نتیجه‌ای یافت نشد.
+          </Typography>
         )}
       </DialogContent>
     </Dialog>

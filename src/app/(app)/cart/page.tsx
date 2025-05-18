@@ -53,7 +53,7 @@ const CartPage = () => {
           </Typography>
 
           <Typography sx={{ paddingTop: "10px" }}>
-            برای مشاهده محصولات بیشتر به صفحه
+            برای مشاهده محصولات بیشتر به صفحه{" "}
             <Link
               href="/products"
               style={{
@@ -61,9 +61,8 @@ const CartPage = () => {
                 textDecoration: "none",
               }}
             >
-              {" "}
-              محصولات{" "}
-            </Link>
+              محصولات
+            </Link>{" "}
             بروید
           </Typography>
         </Box>
@@ -98,6 +97,7 @@ const CartPage = () => {
                     ></Box>
                     <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
                       <IconButton
+                        disabled={item.quantity >= item.productSeller.count}
                         onClick={() => incrementItem(item)}
                         color="primary"
                       >

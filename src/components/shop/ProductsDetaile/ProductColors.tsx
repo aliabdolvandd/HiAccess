@@ -1,7 +1,7 @@
 import { IColor } from "@/api/server-api/type";
 import { Check } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductColorsProps {
   colors: IColor[];
@@ -9,10 +9,12 @@ interface ProductColorsProps {
 }
 
 const ProductColors = ({ colors, onColorSelect }: ProductColorsProps) => {
-  const [selectedColor, setSelectedColor] = useState<string | null>(
-    colors[0].hexCode
-  );
-
+  const [selectedColor, setSelectedColor] = useState<string>(colors[0].hexCode);
+  useEffect(() => {
+    if (colors.length > 0) {
+      onColorSelect(colors[0].hexCode);
+    }
+  }, [colors, onColorSelect]);
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
     onColorSelect(color);

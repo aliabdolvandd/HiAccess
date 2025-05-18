@@ -2,11 +2,9 @@ import { styled } from "@mui/material/styles";
 import { Box, Divider, List, ListItemButton } from "@mui/material";
 
 export const StyledContainer = styled(Box)(({ theme }) => ({
-  direction: "rtl",
-
   width: 280,
   padding: theme.spacing(2),
-  background: "linear-gradient(135deg, #2c3e50 0%, #1a252f 100%)",
+  background: theme.palette.primary.main,
   height: "100%",
   color: "white",
   boxShadow: "0 0 15px rgba(0,0,0,0.3)",

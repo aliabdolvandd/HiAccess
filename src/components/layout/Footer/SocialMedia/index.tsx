@@ -9,13 +9,19 @@ const socialLinks: ISocialMedia[] = [
 ];
 const SocialMediaList = () => {
   return (
-    <Box>
+    <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
       {socialLinks.map((link, index) => (
         <IconButton
           key={index}
           href={link.href}
           target="_blank"
-          sx={{ color: "#fff", px: 1 }}
+          sx={{
+            color: "#fff",
+            transition: "transform 0.2s ease, color 0.2s ease",
+            "&:hover": {
+              transform: "scale(1.1)",
+            },
+          }}
         >
           {link.icon}
         </IconButton>

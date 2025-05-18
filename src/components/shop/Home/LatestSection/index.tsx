@@ -2,12 +2,19 @@
 
 import { useShopProductsQuery } from "@/api/shop-api/shop-products";
 import ProductList from "@/components/shop/ProductList";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 
 export default function LatestSection() {
   const { data: products, isLoading, isError } = useShopProductsQuery();
   if (isLoading) {
-    return <Typography> در حال دریافت اطلاعات </Typography>;
+    return (
+      <Skeleton
+        variant="rectangular"
+        width="100wv"
+        height={50}
+        animation="wave"
+      ></Skeleton>
+    );
   }
   if (isError || !products || !products.results) {
     return <Typography>خطا در دریافت اطلاعات</Typography>;

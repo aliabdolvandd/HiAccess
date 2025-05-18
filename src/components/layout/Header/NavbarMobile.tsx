@@ -93,9 +93,6 @@ const NavbarMobile = ({ onClose }: NavbarMobileProps) => {
       <StyledHeader>
         <Box sx={{ display: "flex", alignItems: "center", gap: 5 }}>
           <Image src="/logo.png" width={100} height={30} alt="Logo" />
-          <Typography variant="h6" fontWeight={600}>
-            منو
-          </Typography>
         </Box>
         <IconButton onClick={onClose} sx={{ color: "white" }}>
           <CloseRounded />

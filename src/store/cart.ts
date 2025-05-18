@@ -61,14 +61,14 @@ function increment(
   state: CartState,
   orderItem: OrderItemWithQuantity
 ): CartState {
-  const isExist = state.items.some(
+  const existingItem = state.items.find(
     (item) =>
       item.productSeller.id === orderItem.productSeller.id &&
       item.product.id === orderItem.product.id &&
       item.color === orderItem.color
   );
 
-  if (isExist) {
+  if (existingItem) {
     return {
       ...state,
       items: state.items.map((item) =>
@@ -83,7 +83,7 @@ function increment(
 
   return {
     ...state,
-    items: [...state.items, { ...orderItem, quantity: orderItem.quantity }],
+    items: [...state.items, { ...orderItem, quantity: 1 }],
   };
 }
 function decrement(
