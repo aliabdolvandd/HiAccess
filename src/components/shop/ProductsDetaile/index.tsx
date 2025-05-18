@@ -5,10 +5,8 @@ import {
   IconButton,
   Divider,
   Rating,
-  Container,
   Breadcrumbs,
   Tooltip,
-  Chip,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -25,7 +23,6 @@ import SimilarProducts from "./Similarproducts";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart-provider";
-import { Grid } from "@mui/system";
 
 interface ProductDetailProps {
   product: IShopProducts;
