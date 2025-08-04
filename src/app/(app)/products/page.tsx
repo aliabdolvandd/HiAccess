@@ -88,21 +88,37 @@ export default function AllProductsPage() {
   }
 
   return (
-    <Box display="flex" gap={2} pt={15}>
+    <Box
+      display="flex"
+      gap={2}
+      pt={15}
+      flexDirection={{ xs: "column", md: "row" }}
+    >
       <ProductFilterSidebar onFilterChange={handleFilterChange} />
+
       <Box flexGrow={1}>
         <ProductSort onSortChange={handleSortChange} />
-        <Box display="flex" flexWrap="wrap">
-          {filteredData.length > 0 ? (
-            filteredData.map((product) => (
-              <Box key={product.id} sx={{ padding: "8px 16px" }}>
-                <ProductCard product={product} />
-              </Box>
-            ))
-          ) : (
-            <Typography>محصولی موجود نیست</Typography>
-          )}
-        </Box>
+
+        {filteredData.length > 0 ? (
+          <Box
+            display="grid"
+            gridTemplateColumns={{
+              xs: "repeat(2, 1fr)",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+              lg: "repeat(4, 1fr)",
+            }}
+            gap={2}
+          >
+            {filteredData.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Box>
+        ) : (
+          <Typography textAlign="center" mt={4}>
+            محصولی موجود نیست
+          </Typography>
+        )}
       </Box>
     </Box>
   );

@@ -34,7 +34,7 @@ export type SellerRegisterFormState = FormState<SellerRegisterType>;
 
 export const LoginFormSchema = z.object({
   email: z.string().email({ message: "لطفا یک ایمیل معتبر وارد کنید." }).trim(),
-  password: z.string(),
+  password: z.string({ message: "رمز عبور خود را وارد نمایید" }).trim(),
   role: z.coerce.number(),
 });
 

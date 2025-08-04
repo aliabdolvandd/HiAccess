@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button } from "@mui/material";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface ProductSortProps {
@@ -16,28 +16,24 @@ const ProductSort = ({ onSortChange }: ProductSortProps) => {
   }, [sort, onSortChange]);
 
   return (
-    <Box display="flex" gap={2} justifyContent="start" mb={2} flexWrap="wrap">
-      <Button
-        variant={sort === "latest" ? "contained" : "outlined"}
-        onClick={() => setSort("latest")}
-        sx={{ minWidth: 120 }}
+    <Box
+      display="flex"
+      gap={2}
+      justifyContent={{ xs: "center", sm: "start" }}
+      mb={2}
+      flexWrap="wrap"
+    >
+      <ToggleButtonGroup
+        value={sort}
+        exclusive
+        onChange={(_, val) => val && setSort(val)}
+        fullWidth
+        color="primary"
       >
-        جدیدترین
-      </Button>
-      <Button
-        variant={sort === "cheapest" ? "contained" : "outlined"}
-        onClick={() => setSort("cheapest")}
-        sx={{ minWidth: 120 }}
-      >
-        ارزان‌ترین
-      </Button>
-      <Button
-        variant={sort === "expensive" ? "contained" : "outlined"}
-        onClick={() => setSort("expensive")}
-        sx={{ minWidth: 120 }}
-      >
-        گران‌ترین
-      </Button>
+        <ToggleButton value="latest">جدیدترین</ToggleButton>
+        <ToggleButton value="cheapest">ارزان‌ترین</ToggleButton>
+        <ToggleButton value="expensive">گران‌ترین</ToggleButton>
+      </ToggleButtonGroup>
     </Box>
   );
 };

@@ -13,14 +13,14 @@ import BtnNext from "@/svg/btnNext";
 const banners = [
   {
     id: 1,
-    image: "/banner-1.png",
+    image: "/ban1.jpg",
     title1: "بروزترین ها را ",
     title2: "از ما بخواهید",
     buttonText: "همین حالا خرید کنید",
   },
   {
     id: 2,
-    image: "/banner2.png",
+    image: "/ban2.jpg",
     title1: "صدای موسیقی ",
     title2: "همراه با بهترین‌ها",
     description: "بهترین تجربه‌ها رو با ما رقم بزنید",
@@ -28,7 +28,7 @@ const banners = [
   },
   {
     id: 3,
-    image: "/banner-3.png",
+    image: "/ban32.jpg",
     title1: "جدیدترین مدل‌ها",
     title2: "برای تمام نیازها",
     buttonText: "همین حالا خرید کنید",

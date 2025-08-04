@@ -34,16 +34,16 @@ const ProductFilterSidebar = ({
   return (
     <Box
       sx={{
-        width: "210px",
-        // minWidth: "200px",
+        width: { xs: "100%", sm: "210px" },
         flexShrink: 0,
         padding: 2,
         borderRadius: 2,
         boxShadow: 2,
         bgcolor: "background.paper",
         height: "fit-content",
-        position: "sticky",
-        top: 100,
+        position: { sm: "sticky", xs: "static" },
+        top: { sm: 100, xs: "auto" },
+        mb: { xs: 2, sm: 0 },
       }}
     >
       <Typography variant="h6" fontWeight="bold" mb={2}>
@@ -57,6 +57,7 @@ const ProductFilterSidebar = ({
               name="available"
               checked={filters.available}
               onChange={handleCheckboxChange}
+              color="primary"
             />
           }
           label="فقط محصولات موجود"

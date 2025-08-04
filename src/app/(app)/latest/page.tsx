@@ -29,7 +29,6 @@ export default function LatestPage() {
         new Date(b.bestSeller!.createdAt).getTime() -
         new Date(a.bestSeller!.createdAt).getTime()
     );
-  console.log(allLatest, "ppppppppppppppp");
   return (
     <Box display="flex" flexWrap="wrap" gap={4} pt={15}>
       {allLatest &&
